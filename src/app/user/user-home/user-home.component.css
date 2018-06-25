@@ -1,0 +1,21 @@
+#user-home-comp #user-home-cont .profile-image-cont .profile-image img {
+  width: 100%;
+  display: block;
+  margin: auto;
+  border-radius: 50%;
+}
+#user-home-comp #user-home-cont .user-info {
+  text-align: center;
+  margin-bottom: 25px;
+}
+#user-home-comp #user-home-cont .user-info .username {
+  font-size: 24px;
+}
+#user-home-comp #user-home-cont .user-info .real-name {
+  font-size: 20px;
+}
+#user-home-comp #user-home-cont .qr-code-cont .qr-code img {
+  width: 100%;
+  display: block;
+  margin: auto;
+}

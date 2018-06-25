@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login/login.component';
 import { AdminOpenBillsComponent } from './admin/admin-open-bills/admin-open-bills.component';
 import { AdminPastBillsComponent } from './admin/admin-past-bills/admin-past-bills.component';
+import { AdminScanQRComponent } from './admin/admin-scan-qr/admin-scan-qr.component';
 import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AdminUserManagementComponent } from './admin/admin-user-management/admin-user-management.component';
 import { AdminProfileComponent } from './admin/admin-profile/admin-profile.component';
@@ -16,6 +17,7 @@ export const routing:Routes = [
   {path: 'admin', redirectTo: 'admin-open-bills', pathMatch: 'full'},
   {path: 'admin-open-bills', component: AdminOpenBillsComponent},
   {path: 'admin-past-bills', component: AdminPastBillsComponent},
+  {path: 'admin-scan-qr', component: AdminScanQRComponent},
   {path: 'admin-menu', component: AdminMenuComponent},
   {path: 'admin-user-management', component: AdminUserManagementComponent},
   {path: 'admin-profile', component: AdminProfileComponent},

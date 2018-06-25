@@ -1,24 +1,30 @@
 <div class="container">
-  <div class="navbar navbar-default running-tab" role="navigation">
+  <div id="admin-comp" class="">
+    <div id="admin-cont">
+      <div class="navbar navbar-default" role="navigation">
 
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">RunningTab</span>
-    </div>
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="navbar-brand">RunningTab</span>
+        </div>
 
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav nav">
-        <li><a routerLink="/admin-open-bills" routerLinkActive="active">Open Bills</a></li>
-        <li><a routerLink="/admin-past-bills" routerLinkActive="active">Past Bills</a></li>
-        <li><a routerLink="/admin-menu" routerLinkActive="active">Menu</a></li>
-        <li><a routerLink="/admin-user-management" routerLinkActive="active">User Management</a></li>
-        <li><a routerLink="/admin-profile" routerLinkActive="active">Profile</a></li>
-      </ul>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav nav">
+            <li><a routerLink="/admin-open-bills" routerLinkActive="active">Open Bills</a></li>
+            <li><a routerLink="/admin-past-bills" routerLinkActive="active">Past Bills</a></li>
+            <li><a routerLink="/admin-scan-qr" routerLinkActive="active">Scan QR</a></li>
+            <li><a routerLink="/admin-menu" routerLinkActive="active">Menu</a></li>
+            <li><a routerLink="/admin-user-management" routerLinkActive="active">User Management</a></li>
+            <li><a routerLink="/admin-profile" routerLinkActive="active">Profile</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 <router-outlet></router-outlet>
+
