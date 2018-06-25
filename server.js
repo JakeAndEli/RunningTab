@@ -1,19 +1,20 @@
 const express = require("express");
 const path = require('path');
 const bodyParser = require("body-parser");
-// Application configuration
 const app = express();
-// Route configuration
 const api = require('./server/routes/api.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Set our api routes
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// API location
 app.use('/api', api);
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'src/index.html'));
+// Send all other requests to the Angular app
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
 app.listen(3000, function(){

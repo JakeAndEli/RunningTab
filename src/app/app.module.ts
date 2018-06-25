@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { RouterModule} from '@angular/router';
 import { LoginModule } from './login/login.module';
 import { AdminModule } from './admin/admin.module';
 import { UserModule } from './user/user.module';
@@ -13,7 +14,7 @@ import { routing } from './app.routes';
   ],
   imports: [
     BrowserModule,
-    routing,
+    RouterModule.forRoot(routing),
     LoginModule,
     AdminModule,
     UserModule

@@ -1,0 +1,33 @@
+#login-comp {
+  width: 100%;
+  height: 100%;
+}
+#login-comp #login-cont {
+  position: relative;
+  top: 50%;
+  transform: translateY(-60%);
+}
+#login-comp #login-cont .title {
+  float: none;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+#login-comp #login-cont .tab {
+  text-align: center;
+}
+#login-comp #login-cont .sign-in,
+#login-comp #login-cont .sign-up {
+  padding: 10px 50px;
+}
+#login-comp #login-cont .btn {
+  background-color: #1cb94e;
+  outline: none;
+  color: white;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  border-color: #1cb94a;
+}
