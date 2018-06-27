@@ -1,0 +1,89 @@
+#admin-past-bills-comp {
+  #admin-past-bills-cont {
+    .tab-cont {
+      background: white;
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 25px;
+
+      .tab-header {
+        margin-bottom: 15px;
+        position: relative;
+
+        .table-number {
+          font-size: 26px;
+        }
+        .server-name {
+          font-size: 20px;
+        }
+        .time-tab-opened, .time-tab-closed {
+          font-size: 16px;
+        }
+        .arrow {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          img {
+            height: 60px;
+            cursor: pointer;
+          }
+        }
+      }
+      .items {
+        display: none;
+        .item-cont {
+          display: block;
+
+          .item-name {
+            display: inline-block;
+          }
+          .item-price {
+            float: right;
+            display: inline-block;
+          }
+        }
+      }
+      .sub-total-cont {
+        display: none;
+        border-top: black 1px solid;
+        margin-top: 2px;
+        padding-top: 2px;
+
+        .sub-total-label {
+          display: inline-block;
+        }
+        .sub-total-cost {
+          display: inline-block;
+          float: right;
+        }
+      }
+      .tip-cont {
+        display: none;
+
+        .tip-label {
+          display: inline-block;
+        }
+        .tip-paid {
+          display: inline-block;
+          float: right;
+        }
+      }
+      .total-cont {
+        display: none;
+        margin-bottom: 15px;
+        border-top: black 1px solid;
+        margin-top: 2px;
+        padding-top: 2px;
+
+        .total-label {
+          display: inline-block;
+        }
+        .total-paid {
+          float: right;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,98 @@
+#admin-menu-comp #admin-menu-cont #menu-cont {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-header {
+  font-size: 28px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-name {
+  font-size: 22px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .item-cont {
+  margin-bottom: 5px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .item-cont .item-name {
+  display: inline-block;
+  font-size: 18px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .item-cont .item-right-side {
+  display: inline-block;
+  float: right;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .item-cont .item-right-side .item-price {
+  display: inline-block;
+  font-size: 18px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .item-cont .item-right-side .remove-item {
+  display: inline-block;
+  float: right;
+  padding: 3px 15px;
+  background: red;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 25px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont #add-item {
+  padding: 10px 30px;
+  background: green;
+  color: white;
+  display: inline-block;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .add-item-dialogue {
+  margin-bottom: 10px;
+  padding: 10px 10px 60px 10px;
+  background: lightgrey;
+  border-radius: 10px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .add-item-dialogue .add-item-name-cont,
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .add-item-dialogue .add-item-price-cont {
+  padding: 0;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .add-item-dialogue .add-item-buttons {
+  float: right;
+  margin-top: 10px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .add-item-dialogue .add-item-buttons .cancel-item {
+  display: inline-block;
+  padding: 10px 20px;
+  background: grey;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .add-item-dialogue .add-item-buttons .save-item {
+  display: inline-block;
+  float: right;
+  padding: 10px 20px;
+  background: grey;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont .menu-footer {
+  padding-top: 15px;
+  border-top: black 1px solid;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont .menu-footer .import-menu {
+  display: inline-block;
+  padding: 10px 30px;
+  background: dodgerblue;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+}
+#admin-menu-comp #admin-menu-cont #menu-cont .menu-footer .remove-all-items {
+  display: inline-block;
+  float: right;
+  padding: 10px 30px;
+  background: red;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+}

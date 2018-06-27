@@ -1,0 +1,110 @@
+#admin-menu-comp {
+  #admin-menu-cont {
+    #menu-cont {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+
+      #menu-header {
+        font-size: 28px;
+      }
+      #menu-content {
+        .category-cont {
+          .category-name {
+            font-size: 22px;
+          }
+          .item-cont {
+            margin-bottom: 5px;
+            .item-name {
+              display: inline-block;
+              font-size: 18px;
+            }
+            .item-right-side {
+              display: inline-block;
+              float: right;
+
+              .item-price {
+                display: inline-block;
+                font-size: 18px;
+              }
+              .remove-item {
+                display: inline-block;
+                float: right;
+                padding: 3px 15px;
+                background: red;
+                color: white;
+                border-radius: 10px;
+                cursor: pointer;
+                margin-left: 25px;
+              }
+            }
+          }
+          #add-item {
+            padding: 10px 30px;
+            background: green;
+            color: white;
+            display: inline-block;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-bottom: 15px;
+          }
+          .add-item-dialogue {
+            margin-bottom: 10px;
+            padding: 10px 10px 60px 10px;
+            background: lightgrey;
+            border-radius: 10px;
+
+            .add-item-name-cont, .add-item-price-cont {
+              padding: 0;
+            }
+            .add-item-buttons {
+              float: right;
+              margin-top: 10px;
+
+              .cancel-item {
+                display: inline-block;
+                padding: 10px 20px;
+                background: grey;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+              }
+              .save-item {
+                display: inline-block;
+                float: right;
+                padding: 10px 20px;
+                background: grey;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: 20px;
+              }
+            }
+          }
+        }
+      }
+      .menu-footer {
+        padding-top: 15px;
+        border-top: black 1px solid;
+
+        .import-menu {
+          display: inline-block;
+          padding: 10px 30px;
+          background: dodgerblue;
+          color: white;
+          border-radius: 15px;
+          cursor: pointer;
+        }
+        .remove-all-items {
+          display: inline-block;
+          float: right;
+          padding: 10px 30px;
+          background: red;
+          color: white;
+          border-radius: 15px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

@@ -10,6 +10,7 @@ export class AdminOpenBillsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

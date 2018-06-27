@@ -1,0 +1,58 @@
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont {
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 25px;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-header {
+  margin-bottom: 15px;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-header .table-number {
+  font-size: 26px;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-header .server-name {
+  font-size: 20px;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-header .time-tab-opened {
+  font-size: 16px;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .items {
+  margin-bottom: 15px;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .items .item-cont {
+  display: block;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .items .item-cont .item-name {
+  display: inline-block;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .items .item-cont .item-price {
+  float: right;
+  display: inline-block;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .total-cont {
+  margin-bottom: 15px;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .total-cont .total-label {
+  display: inline-block;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .total-cont .total-cost {
+  float: right;
+  display: inline-block;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-footer .add-item {
+  padding: 10px 30px;
+  background: green;
+  color: white;
+  display: inline-block;
+  border-radius: 15px;
+  cursor: pointer;
+}
+#admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-footer .close-tab {
+  padding: 10px 30px;
+  background: red;
+  color: white;
+  display: inline-block;
+  border-radius: 15px;
+  cursor: pointer;
+  float: right;
+}
