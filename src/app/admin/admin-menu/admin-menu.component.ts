@@ -77,11 +77,12 @@ export class AdminMenuComponent implements OnInit {
   }
 
   addItem(clickedElement) : void {
+    var categoryItems = $(clickedElement).parent().parent().parent();
     var dialogueElem = $(clickedElement).parent().parent();
     var newItemName = $(dialogueElem).find(".add-item-name").val();
     var newItemPrice = $(dialogueElem).find(".add-item-price").val();
 
-    var newAddItemCont = $(".item-cont").first().clone(true).insertAfter($(".item-cont").last());
+    var newAddItemCont = $(".item-cont").first().clone(true).insertAfter($(categoryItems).find(".item-cont").last());
     $(newAddItemCont).find(".item-name").text(newItemName);
     $(newAddItemCont).find(".item-price").text(newItemPrice);
     $(newAddItemCont).removeClass("hide");
