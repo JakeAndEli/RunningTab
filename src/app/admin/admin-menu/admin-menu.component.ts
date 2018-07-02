@@ -11,30 +11,97 @@ export class AdminMenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    var thisClass = this;
+
     $(document).ready(function(){
-      $("#add-item").click(function(){
-        var newAddItemDialogue = $(".add-item-dialogue").first().clone(true).insertBefore("#add-item");
-        $(newAddItemDialogue).removeClass("hide");
+      $("#add-category").click(function(){
+        thisClass.showCategoryForm();
+      });
+      $(".cancel-category").click(function(){
+        thisClass.hideCategoryForm(this);
+      });
+      $(".save-category").click(function(){
+        thisClass.addCategory(this);
+      });
+      $(".add-item").click(function(){
+        thisClass.showItemForm(this);
       });
       $(".cancel-item").click(function(){
-        var dialogueItem = $(this).parent().parent();
-        $(dialogueItem).css('max-height',$(dialogueItem).height()).slideUp(function(){
-          $(dialogueItem).remove();
-        });
+        thisClass.hideItemForm(this);
       });
       $(".save-item").click(function(){
-        var dialogueItem = $(this).parent().parent();
-        var newItemName = $(dialogueItem).find(".add-item-name").val();
-        var newItemPrice = $(dialogueItem).find(".add-item-price").val();
-
-        var newAddItemCont = $(".item-cont").first().clone(true).insertAfter($(".item-cont").last());
-        $(newAddItemCont).find(".item-name").text(newItemName);
-        $(newAddItemCont).find(".item-price").text(newItemPrice);
-        $(newAddItemCont).removeClass("hide");
-
-        $(dialogueItem).remove();
+        thisClass.addItem(this);
+      });
+      $(".remove-item").click(function(){
+        thisClass.removeItem(this);
+      });
+      $(".category-arrow").click(function(){
+        thisClass.expandItems(this);
       });
     });
+  }
+
+  showCategoryForm() : void {
+    var newAddCategoryDialogue = $(".add-category-dialogue").first().clone(true).insertBefore("#add-category");
+    $(newAddCategoryDialogue).removeClass("hide");
+  }
+
+  hideCategoryForm(clickedElement) : void {
+    var dialogueElem = $(clickedElement).parent().parent();
+    $(dialogueElem).css('max-height',$(dialogueElem).height()).slideUp(function(){
+      $(dialogueElem).remove();
+    });
+  }
+
+  addCategory(clickedElement) : void {
+    var dialogueElem = $(clickedElement).parent().parent();
+    var newItemName = $(dialogueElem).find(".add-category-name").val();
+
+    var newAddCategoryCont = $(".category-cont").first().clone(true).insertAfter($(".category-cont").last());
+    $(newAddCategoryCont).find(".category-name").text(newItemName);
+    $(newAddCategoryCont).removeClass("hide");
+
+    $(dialogueElem).remove();
+  }
+
+  showItemForm(clickedElement) : void {
+    var newAddItemDialogue = $(".add-item-dialogue").first().clone(true).insertBefore($(clickedElement));
+    $(newAddItemDialogue).removeClass("hide");
+  }
+
+  hideItemForm(clickedElement) : void {
+    var dialogueElem = $(clickedElement).parent().parent();
+    $(dialogueElem).css('max-height',$(dialogueElem).height()).slideUp(function(){
+      $(dialogueElem).remove();
+    });
+  }
+
+  addItem(clickedElement) : void {
+    var categoryItems = $(clickedElement).parent().parent().parent();
+    var dialogueElem = $(clickedElement).parent().parent();
+    var newItemName = $(dialogueElem).find(".add-item-name").val();
+    var newItemPrice = $(dialogueElem).find(".add-item-price").val();
+
+    var newAddItemCont = $(".item-cont").first().clone(true).insertAfter($(categoryItems).find(".item-cont").last());
+    $(newAddItemCont).find(".item-name").text(newItemName);
+    $(newAddItemCont).find(".item-price").text(newItemPrice);
+    $(newAddItemCont).removeClass("hide");
+
+    $(dialogueElem).remove();
+  }
+
+  removeItem(clickedElement) : void {
+    $(clickedElement).parent().parent().remove();
+  }
+
+  expandItems(clickedElement) : void {
+    var categoryCont = $(clickedElement).parent().parent();
+    var categoryItems = $(categoryCont).find(".category-items");
+
+    console.log($(categoryCont));
+
+    $(categoryItems).slideToggle("400");
+    $(categoryCont).find(".arrow-icon").toggleClass('flip');
   }
 
 }

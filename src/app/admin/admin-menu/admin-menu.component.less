@@ -7,78 +7,142 @@
 
       #menu-header {
         font-size: 28px;
+        border-bottom: 1px solid black;
+        padding-bottom: 5px;
       }
       #menu-content {
+        .categories-label {
+          font-size: 22px;
+          padding: 10px 0;
+        }
         .category-cont {
-          .category-name {
-            font-size: 22px;
-          }
-          .item-cont {
-            margin-bottom: 5px;
-            .item-name {
+          margin-bottom: 15px;
+          .category-header {
+            cursor: pointer;
+            .category-name {
+              font-size: 22px;
               display: inline-block;
-              font-size: 18px;
             }
-            .item-right-side {
+            .category-arrow {
               display: inline-block;
               float: right;
-
-              .item-price {
+              img {
+                height: 30px;
+              }
+            }
+          }
+          .category-items {
+            display: none;
+            margin-left: 30px;
+            .item-cont {
+              padding: 10px 0;
+              .item-name {
                 display: inline-block;
                 font-size: 18px;
               }
-              .remove-item {
+              .item-right-side {
                 display: inline-block;
                 float: right;
-                padding: 3px 15px;
-                background: red;
-                color: white;
-                border-radius: 10px;
-                cursor: pointer;
-                margin-left: 25px;
+
+                .item-price {
+                  display: inline-block;
+                  font-size: 18px;
+                }
+                .remove-item {
+                  display: inline-block;
+                  float: right;
+                  padding: 3px 15px;
+                  background: red;
+                  color: white;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  margin-left: 25px;
+                }
+              }
+            }
+            .add-item {
+              padding: 10px 30px;
+              background: green;
+              color: white;
+              display: inline-block;
+              border-radius: 10px;
+              cursor: pointer;
+              margin: 15px 0;
+            }
+            .add-item-dialogue {
+              margin: 15px 0 10px 0;
+              padding: 10px 10px 60px 10px;
+              background: lightgrey;
+              border-radius: 10px;
+
+              .add-item-name-cont, .add-item-price-cont {
+                padding: 0;
+              }
+              .add-item-buttons {
+                float: right;
+                margin-top: 10px;
+
+                .cancel-item {
+                  display: inline-block;
+                  padding: 10px 20px;
+                  background: grey;
+                  color: white;
+                  border-radius: 5px;
+                  cursor: pointer;
+                }
+                .save-item {
+                  display: inline-block;
+                  float: right;
+                  padding: 10px 20px;
+                  background: grey;
+                  color: white;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  margin-left: 20px;
+                }
               }
             }
           }
-          #add-item {
-            padding: 10px 30px;
-            background: green;
-            color: white;
-            display: inline-block;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-bottom: 15px;
-          }
-          .add-item-dialogue {
-            margin-bottom: 10px;
-            padding: 10px 10px 60px 10px;
-            background: lightgrey;
-            border-radius: 10px;
+        }
+        #add-category {
+          padding: 10px 30px;
+          background: green;
+          color: white;
+          display: inline-block;
+          border-radius: 10px;
+          cursor: pointer;
+          margin-bottom: 15px;
+        }
+        .add-category-dialogue {
+          margin-bottom: 10px;
+          padding: 10px 10px 60px 10px;
+          background: lightgrey;
+          border-radius: 10px;
 
-            .add-item-name-cont, .add-item-price-cont {
-              padding: 0;
+          .add-category-name-cont {
+            padding: 0;
+          }
+          .add-category-buttons {
+            float: right;
+            margin-top: 10px;
+
+            .cancel-category {
+              display: inline-block;
+              padding: 10px 20px;
+              background: grey;
+              color: white;
+              border-radius: 5px;
+              cursor: pointer;
             }
-            .add-item-buttons {
+            .save-category {
+              display: inline-block;
               float: right;
-              margin-top: 10px;
-
-              .cancel-item {
-                display: inline-block;
-                padding: 10px 20px;
-                background: grey;
-                color: white;
-                border-radius: 5px;
-                cursor: pointer;
-              }
-              .save-item {
-                display: inline-block;
-                float: right;
-                padding: 10px 20px;
-                background: grey;
-                color: white;
-                border-radius: 5px;
-                cursor: pointer;
-                margin-left: 20px;
-              }
+              padding: 10px 20px;
+              background: grey;
+              color: white;
+              border-radius: 5px;
+              cursor: pointer;
+              margin-left: 20px;
             }
           }
         }
@@ -92,7 +156,7 @@
           padding: 10px 30px;
           background: dodgerblue;
           color: white;
-          border-radius: 15px;
+          border-radius: 10px;
           cursor: pointer;
         }
         .remove-all-items {
@@ -101,7 +165,7 @@
           padding: 10px 30px;
           background: red;
           color: white;
-          border-radius: 15px;
+          border-radius: 10px;
           cursor: pointer;
         }
       }
