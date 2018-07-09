@@ -1,27 +1,65 @@
 const express = require('express');
 const router = express.Router();
-var User = require('../models/user.js');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user.js');
+const config = require('../config/database-config');
 
 router.get('/', function (req, res) {
   res.send('api works');
 });
 
-router.get('/users',function(req,res) {
+router.post('/register',function(req,res) {
+  var user = new User();
 
+  //user.fullName = req.body.fullName;
+  user.username = req.body.username;
+  User.setPassword(user, req.body.password);
 
-  var user = new User({
-    fullName: "eli"
+  user.save(function(err) {
+    if(err) {
+      throw err;
+    }
+    const token = jwt.sign(user.toJSON(), config.secret, {});
+    return res.json({
+      success: true,
+      token: 'JWT ' + token,
+      user: {
+        id: user._id,
+        name: user.name,
+        username: user.username
+      }
+    });
   });
+});
 
-  user.save(function(err,data){
-    console.log(data);
+router.post('/authenticate', function(req,res){
+  var username = req.body.username;
+  var password = req.body.password;
+
+  User.getUserByUsername(username, (err, user) => {
+    if(err) {
+      throw err;
+    }
+    if(!user){
+      return res.json({success: false, msg: 'User not found'});
+    }
+
+    if(User.validPassword(user, password)) {
+      const token = jwt.sign(user.toJSON(), config.secret, {});
+      return res.json({
+        success: true,
+        token: 'JWT ' + token,
+        user: {
+          id: user._id,
+          name: user.name,
+          username: user.username
+        }
+      });
+    } else {
+      return res.json({success: false, msg: 'Wrong password'});
+    }
+
   });
-
-  User.find({}).exec(function(err, users){
-    res.send(users);
-
-  })
-
 });
 
 // Catch all other routes and return no page found

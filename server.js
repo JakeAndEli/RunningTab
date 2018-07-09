@@ -3,9 +3,16 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const app = express();
 const api = require('./server/routes/api.js');
+const passport = require('passport');
 
+// Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+require('./server/config/passport');
 
 app.use(express.static(path.join(__dirname, 'dist')));
 

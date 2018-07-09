@@ -35,8 +35,11 @@ export class AdminMenuComponent implements OnInit {
       $(".remove-item").click(function(){
         thisClass.removeItem(this);
       });
-      $(".category-arrow").click(function(){
+      $(".category-header").click(function(){
         thisClass.expandItems(this);
+      });
+      $(".remove-all").click(function(){
+        thisClass.removeAll(this);
       });
     });
   }
@@ -60,6 +63,7 @@ export class AdminMenuComponent implements OnInit {
     var newAddCategoryCont = $(".category-cont").first().clone(true).insertAfter($(".category-cont").last());
     $(newAddCategoryCont).find(".category-name").text(newItemName);
     $(newAddCategoryCont).removeClass("hide");
+    $(newAddCategoryCont).addClass("clone");
 
     $(dialogueElem).remove();
   }
@@ -86,6 +90,7 @@ export class AdminMenuComponent implements OnInit {
     $(newAddItemCont).find(".item-name").text(newItemName);
     $(newAddItemCont).find(".item-price").text(newItemPrice);
     $(newAddItemCont).removeClass("hide");
+    $(newAddItemCont).addClass("clone");
 
     $(dialogueElem).remove();
   }
@@ -95,13 +100,18 @@ export class AdminMenuComponent implements OnInit {
   }
 
   expandItems(clickedElement) : void {
-    var categoryCont = $(clickedElement).parent().parent();
+    var categoryCont = $(clickedElement).parent();
     var categoryItems = $(categoryCont).find(".category-items");
-
-    console.log($(categoryCont));
 
     $(categoryItems).slideToggle("400");
     $(categoryCont).find(".arrow-icon").toggleClass('flip');
+  }
+
+  removeAll(clickedElement) : void {
+    var menuContent = $(clickedElement).parent().parent();
+    var categoryCont = $(menuContent).find(".category-cont");
+
+    $(categoryCont).remove(".clone");
   }
 
 }

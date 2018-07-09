@@ -17,8 +17,12 @@
         }
         .category-cont {
           margin-bottom: 15px;
+          background: #77A6F7;
+          border-radius: 10px;
           .category-header {
             cursor: pointer;
+            padding: 10px 0;
+            text-indent: 5px;
             .category-name {
               font-size: 22px;
               display: inline-block;
@@ -26,6 +30,7 @@
             .category-arrow {
               display: inline-block;
               float: right;
+              margin-right: 10px;
               img {
                 height: 30px;
               }
@@ -33,7 +38,8 @@
           }
           .category-items {
             display: none;
-            margin-left: 30px;
+            padding: 0 30px;
+            border-radius: 10px;
             .item-cont {
               padding: 10px 0;
               .item-name {
@@ -52,8 +58,7 @@
                   display: inline-block;
                   float: right;
                   padding: 3px 15px;
-                  background: red;
-                  color: white;
+                  background: #FFCCBC;
                   border-radius: 5px;
                   cursor: pointer;
                   margin-left: 25px;
@@ -62,18 +67,19 @@
             }
             .add-item {
               padding: 10px 30px;
-              background: green;
+              background: #00887A;
               color: white;
               display: inline-block;
               border-radius: 10px;
               cursor: pointer;
-              margin: 15px 0;
+              margin: 15px 0 10px 0;
             }
             .add-item-dialogue {
               margin: 15px 0 10px 0;
               padding: 10px 10px 60px 10px;
-              background: lightgrey;
+              background: #f2f2f2;
               border-radius: 10px;
+              border: 1px solid #333333;
 
               .add-item-name-cont, .add-item-price-cont {
                 padding: 0;
@@ -106,18 +112,20 @@
         }
         #add-category {
           padding: 10px 30px;
-          background: green;
+          background: #00887A;
           color: white;
           display: inline-block;
           border-radius: 10px;
           cursor: pointer;
           margin-bottom: 15px;
+          border: 1px solid #333333;
         }
         .add-category-dialogue {
           margin-bottom: 10px;
           padding: 10px 10px 60px 10px;
-          background: lightgrey;
+          background: #f2f2f2;
           border-radius: 10px;
+          border: 1px solid #333333;
 
           .add-category-name-cont {
             padding: 0;
@@ -154,19 +162,19 @@
         .import-menu {
           display: inline-block;
           padding: 10px 30px;
-          background: dodgerblue;
-          color: white;
+          background: #D3E3FC;
           border-radius: 10px;
           cursor: pointer;
+          border: 1px solid #333333;
         }
-        .remove-all-items {
+        .remove-all {
           display: inline-block;
           float: right;
           padding: 10px 30px;
-          background: red;
-          color: white;
+          background: #FFCCBC;
           border-radius: 10px;
           cursor: pointer;
+          border: 1px solid #333333;
         }
       }
     }
