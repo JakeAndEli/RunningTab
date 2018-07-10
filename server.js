@@ -3,11 +3,23 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const app = express();
 const api = require('./server/routes/api.js');
+const passport = require('passport');
 
+// Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+require('./server/config/passport')(passport);
+
+// Dist Folder Location
 app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('/user-home', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.json({msg: "Sent user home back"});
+});
 
 // API location
 app.use('/api', api);
@@ -20,8 +32,6 @@ app.get('*', function(req, res) {
 app.listen(3000, function(){
   console.log("Server is listening on port 3000.");
 });
-
-
 
 // Database Configuration
 var dbConfig = require("./server/config/database-config.js");

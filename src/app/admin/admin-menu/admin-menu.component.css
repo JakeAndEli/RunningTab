@@ -14,9 +14,13 @@
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont {
   margin-bottom: 15px;
+  background: #77a6f7;
+  border-radius: 10px;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-header {
   cursor: pointer;
+  padding: 10px 0;
+  text-indent: 5px;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-header .category-name {
   font-size: 22px;
@@ -25,13 +29,15 @@
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-header .category-arrow {
   display: inline-block;
   float: right;
+  margin-right: 10px;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-header .category-arrow img {
   height: 30px;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items {
   display: none;
-  margin-left: 30px;
+  padding: 0 30px;
+  border-radius: 10px;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items .item-cont {
   padding: 10px 0;
@@ -52,26 +58,26 @@
   display: inline-block;
   float: right;
   padding: 3px 15px;
-  background: red;
-  color: white;
+  background: #ffccbc;
   border-radius: 5px;
   cursor: pointer;
   margin-left: 25px;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items .add-item {
   padding: 10px 30px;
-  background: green;
+  background: #00887a;
   color: white;
   display: inline-block;
   border-radius: 10px;
   cursor: pointer;
-  margin: 15px 0;
+  margin: 15px 0 10px 0;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items .add-item-dialogue {
   margin: 15px 0 10px 0;
   padding: 10px 10px 60px 10px;
-  background: lightgrey;
+  background: #f2f2f2;
   border-radius: 10px;
+  border: 1px solid #333333;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items .add-item-dialogue .add-item-name-cont,
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items .add-item-dialogue .add-item-price-cont {
@@ -101,18 +107,20 @@
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content #add-category {
   padding: 10px 30px;
-  background: green;
+  background: #00887a;
   color: white;
   display: inline-block;
   border-radius: 10px;
   cursor: pointer;
   margin-bottom: 15px;
+  border: 1px solid #333333;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .add-category-dialogue {
   margin-bottom: 10px;
   padding: 10px 10px 60px 10px;
-  background: lightgrey;
+  background: #f2f2f2;
   border-radius: 10px;
+  border: 1px solid #333333;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .add-category-dialogue .add-category-name-cont {
   padding: 0;
@@ -146,17 +154,17 @@
 #admin-menu-comp #admin-menu-cont #menu-cont .menu-footer .import-menu {
   display: inline-block;
   padding: 10px 30px;
-  background: dodgerblue;
-  color: white;
+  background: #d3e3fc;
   border-radius: 10px;
   cursor: pointer;
+  border: 1px solid #333333;
 }
-#admin-menu-comp #admin-menu-cont #menu-cont .menu-footer .remove-all-items {
+#admin-menu-comp #admin-menu-cont #menu-cont .menu-footer .remove-all {
   display: inline-block;
   float: right;
   padding: 10px 30px;
-  background: red;
-  color: white;
+  background: #ffccbc;
   border-radius: 10px;
   cursor: pointer;
+  border: 1px solid #333333;
 }
