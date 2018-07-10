@@ -1,18 +1,70 @@
 const express = require('express');
 const router = express.Router();
-var User = require('../models/user.js');
-var Venue = require('../models/venue.js');
-var Item = require('../models/item.js');
-var Bill = require('../models/bill.js');
-var Menu = require('../models/menu.js');
-var MenuCateogry = require('../models/menuCategory.js');
-const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
+const Venue = require('../models/venue.js');
+const Item = require('../models/item.js');
+const Bill = require('../models/bill.js');
+const Menu = require('../models/menu.js');
+const MenuCateogry = require('../models/menuCategory.js');
+const jwt = require('jsonwebtoken');
 const config = require('../config/database-config');
 const passport = require('passport');
 
 router.get('/', function (req, res) {
   res.send('api works');
+});
+
+router.post('/register',function(req,res) {
+  var user = new User();
+
+  //user.fullName = req.body.fullName;
+  user.username = req.body.username;
+  User.setPassword(user, req.body.password);
+
+  user.save(function(err) {
+    if(err) {
+      throw err;
+    }
+    const token = jwt.sign(user.toJSON(), config.secret, {});
+    return res.json({
+      success: true,
+      token: 'JWT ' + token,
+      user: {
+        id: user._id,
+        name: user.name,
+        username: user.username
+      }
+    });
+  });
+});
+
+router.post('/authenticate', function(req,res){
+  var username = req.body.username;
+  var password = req.body.password;
+
+  User.getUserByUsername(username, (err, user) => {
+    if(err) {
+      throw err;
+    }
+    if(!user){
+      return res.json({success: false, msg: 'User not found'});
+    }
+
+    if(User.validPassword(user, password)) {
+      const token = jwt.sign(user.toJSON(), config.secret, {});
+      return res.json({
+        success: true,
+        token: 'JWT ' + token,
+        user: {
+          id: user._id,
+          name: user.name,
+          username: user.username
+        }
+      });
+    } else {
+      return res.json({success: false, msg: 'Wrong password'});
+    }
+  });
 });
 
 //Create new User
@@ -58,7 +110,6 @@ router.get('/getVenues', function (reg, res) {
 
 //Item
 router.post('/item/:name/:price', function (reg, res) {
-
   var name = req.params.name;
   var itemPrice = req.params.price;
   var item = new Item({
@@ -69,30 +120,6 @@ router.post('/item/:name/:price', function (reg, res) {
   item.save(function (err, data) {
     if (err) console.log(err);
     console.log(data);
-  });
-});
-
-router.post('/register',function(req,res) {
-  var user = new User();
-
-  //user.fullName = req.body.fullName;
-  user.username = req.body.username;
-  User.setPassword(user, req.body.password);
-
-  user.save(function(err) {
-    if(err) {
-      throw err;
-    }
-    const token = jwt.sign(user.toJSON(), config.secret, {});
-    return res.json({
-      success: true,
-      token: 'JWT ' + token,
-      user: {
-        id: user._id,
-        name: user.name,
-        username: user.username
-      }
-    });
   });
 });
 
@@ -119,38 +146,7 @@ router.get('menu/venue/venueId', function (reg, res) {
   })
 });
 
-router.post('/authenticate', function(req,res){
-  var username = req.body.username;
-  var password = req.body.password;
-
-  User.getUserByUsername(username, (err, user) => {
-    if(err) {
-      throw err;
-    }
-    if(!user){
-      return res.json({success: false, msg: 'User not found'});
-    }
-
-    if(User.validPassword(user, password)) {
-      const token = jwt.sign(user.toJSON(), config.secret, {});
-      return res.json({
-        success: true,
-        token: 'JWT ' + token,
-        user: {
-          id: user._id,
-          name: user.name,
-          username: user.username
-        }
-      });
-    } else {
-      return res.json({success: false, msg: 'Wrong password'});
-    }
-  });
-});
-
-
 //MenuCategory
-
 router.get('/addMenuCategory', function (req, res) {
   var menuCategory = new MenuCateogry({
     name: "Steaks",
