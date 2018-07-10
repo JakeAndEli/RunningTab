@@ -11,8 +11,11 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  public username : String;
-  public password : String;
+  public loginUsername : String;
+  public loginPassword : String;
+  public signupUsername : String;
+  public signupPassword : String;
+  public signupConfirmPassword : String;
 
   constructor(private router: Router,
               private authService : AuthenticationService){}
@@ -43,32 +46,43 @@ export class LoginComponent implements OnInit {
 
   }
 
-  validateLogin(username: string, password: string) : void {
+  validateLogin() : void {
 
-    this.authService.login(username, password).subscribe(
-      (response: any) => {
-        if(response.success && response.token) {
+    const user = {
+      username: this.loginUsername,
+      password: this.loginPassword
+    };
+
+    this.authService.login(user).subscribe(
+      (data: any) => {
+        if(data.success) {
+          this.authService.storeUserData(data.token, data.user);
           this.router.navigate(['user']);
-          console.log(response);
         } else {
-          alert("Error: " + response.msg);
+          alert("Error: " + data.msg);
+          this.router.navigate(['login']);
         }
       }
     )
   }
 
-  validateSignUp(username: string, password: string, confirmPassword: string) : void {
+  validateSignUp() : void {
+
+    const user = {
+      username: this.signupUsername,
+      password: this.signupPassword
+    };
 
     // Check to make sure password and confirm password are same and other password validation
 
-    this.authService.signUp(username, password).subscribe(
-      (response: any) => {
-        if(response.success && response.token) {
-          localStorage.setItem('currentUser', JSON.stringify(response.user));
+    this.authService.signUp(user).subscribe(
+      (data: any) => {
+        if(data.success) {
+          this.authService.storeUserData(data.token, data.user);
           this.router.navigate(['user']);
-          console.log(response);
         } else {
-          alert("Error: " + response.msg);
+          alert("Error: " + data.msg);
+          this.router.navigate(['login']);
         }
       }
     )

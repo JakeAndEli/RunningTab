@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 const config = require('../config/database-config');
+const passport = require('passport');
 
 router.get('/', function (req, res) {
   res.send('api works');

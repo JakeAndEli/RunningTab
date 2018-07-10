@@ -21,14 +21,14 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
-                      <input #loginUsername type="text" name="username" class="username form-control" placeholder="Username" value="">
+                      <input [(ngModel)]="loginUsername" type="text" name="username" class="username form-control" placeholder="Username" value="">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
-                      <input #loginPassword type="password" name="password" class="password form-control" placeholder="Password">
+                      <input [(ngModel)]="loginPassword" type="password" name="password" class="password form-control" placeholder="Password">
                     </div>
                   </div>
                 </div>
@@ -36,7 +36,7 @@
                   <div class="row">
                     <div class="col-sm-4 col-sm-offset-4">
                       <a>
-                        <input type="submit" name="login-submit" class="login-submit form-control btn" value="Login" (click)="validateLogin(loginUsername.value, loginPassword.value)">
+                        <input type="submit" name="login-submit" class="login-submit form-control btn" value="Login" (click)="validateLogin()">
                       </a>
                     </div>
                   </div>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
-                      <input #signupUsername type="text" name="username" class="username form-control" placeholder="Username" value="">
+                      <input [(ngModel)]="signupUsername" type="text" name="username" class="username form-control" placeholder="Username" value="">
                     </div>
                   </div>
                 </div>
@@ -60,14 +60,14 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
-                      <input #signupPassword type="password" name="password" class="password form-control" placeholder="Password">
+                      <input [(ngModel)]="signupPassword" type="password" name="password" class="password form-control" placeholder="Password">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
-                      <input #signupConfirmPassword type="password" name="confirm-password" class="confirm-password form-control" placeholder="Confirm Password">
+                      <input [(ngModel)]="signupConfirmPassword" type="password" name="confirm-password" class="confirm-password form-control" placeholder="Confirm Password">
                     </div>
                   </div>
                 </div>
@@ -75,7 +75,7 @@
                   <div class="row">
                     <div class="col-sm-4 col-sm-offset-4">
                       <a>
-                        <input type="submit" name="register-submit" class="register-submit form-control btn" value="Sign Up" (click)="validateSignUp(signupUsername.value, signupPassword.value, signupConfirmPassword.value)">
+                        <input type="submit" name="register-submit" class="register-submit form-control btn" value="Sign Up" (click)="validateSignUp()">
                       </a>
                     </div>
                   </div>
