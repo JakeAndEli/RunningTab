@@ -12,6 +12,7 @@ export class UserHomeComponent implements OnInit {
   constructor(private authService : AuthenticationService) { }
 
   ngOnInit() {
+    // Authenticate
     this.authService.getUserHome().subscribe(
       (data: any) => {
         console.log("returned to user home comp: " + data);

@@ -5,7 +5,9 @@ var userSchema = mongoose.Schema({
   fullName: String,
   username: String,
   hash: String,
-  salt: String
+  salt: String,
+  admin: Boolean,
+  venue: { type: mongoose.Schema.Types.ObjectId, ref: 'Venue' }
 });
 
 const User = module.exports = mongoose.model('User', userSchema);

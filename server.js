@@ -21,6 +21,10 @@ app.get('/user-home', passport.authenticate('jwt', {session: false}), function(r
   res.json({msg: "Sent user home back"});
 });
 
+app.get('/admin-open-bills', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.json({msg: "Sent admin home back"});
+});
+
 // API location
 app.use('/api', api);
 

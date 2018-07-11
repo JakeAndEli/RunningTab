@@ -1,0 +1,48 @@
+<div id="sign-up-comp">
+  <div id="sign-up-cont">
+    <div class="title">RunningTab</div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-cont">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                      <input [(ngModel)]="venueName" type="text" name="" class="form-control" placeholder="Venue Name">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                      <input [(ngModel)]="venueTownCity" type="text" name="" class="form-control" placeholder="Venue Town/City">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                      <input [(ngModel)]="venueState" type="text" name="" class="form-control" placeholder="Venue State">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group sign-up-cont">
+                  <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                      <a>
+                        <input type="submit" name="" class="form-control btn" value="Sign Up" (click)="validateAdminSignUp()">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

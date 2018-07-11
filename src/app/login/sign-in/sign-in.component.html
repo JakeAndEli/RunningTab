@@ -1,0 +1,52 @@
+<div id="sign-in-comp">
+  <div id="sign-in-cont">
+    <div class="title">RunningTab</div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-4 col-xs-offset-2 tab">
+              <a routerLink="/signin" routerLinkActive="active" id="login-form-link">Sign In</a>
+            </div>
+            <div class="col-xs-4 tab">
+              <a routerLink="/signup" routerLinkActive="active" id="sign-up-form-link">Sign Up</a>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div id="login-form" role="form" style="display: block;">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                      <input [(ngModel)]="username" type="text" name="username" class="username form-control" placeholder="Username" value="">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                      <input [(ngModel)]="password" type="password" name="password" class="password form-control" placeholder="Password">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                      <a>
+                        <input type="submit" name="sign-in-submit" class="sign-in-submit form-control btn" value="Sign In" (click)="validateSignIn()">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

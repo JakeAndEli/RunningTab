@@ -1,0 +1,33 @@
+#sign-up-comp {
+  width: 100%;
+  height: 100%;
+}
+#sign-up-comp #sign-up-cont {
+  position: relative;
+  top: 50%;
+  transform: translateY(-60%);
+}
+#sign-up-comp #sign-up-cont .title {
+  font-size: 28px;
+  float: none;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+#sign-up-comp #sign-up-cont .form-cont {
+  margin-top: 5px;
+}
+#sign-up-comp #sign-up-cont .form-cont .sign-up-cont {
+  margin-top: 30px;
+}
+#sign-up-comp #sign-up-cont .form-cont .sign-up-cont .btn {
+  background-color: #1cb94e;
+  outline: none;
+  color: white;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  border-color: #1cb94a;
+}

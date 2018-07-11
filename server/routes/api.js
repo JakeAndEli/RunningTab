@@ -15,11 +15,28 @@ router.get('/', function (req, res) {
 });
 
 router.post('/register',function(req,res) {
-  var user = new User();
+  var isAdmin = req.body.isAdmin;
 
+  var user = new User();
   //user.fullName = req.body.fullName;
   user.username = req.body.username;
   User.setPassword(user, req.body.password);
+  user.admin = isAdmin;
+
+  if(isAdmin) {
+    var venue = new Venue();
+    venue.venueName = req.body.venueName;
+    venue.venueTownCity = req.body.venueTownCity;
+    venue.venueState = req.body.venueState;
+    venue.save(function(err) {
+      if(err) {
+        throw err;
+      } else {
+        console.log("Created Venue.")
+      }
+    });
+    user.venue = venue.id;
+  }
 
   user.save(function(err) {
     if(err) {
@@ -31,8 +48,9 @@ router.post('/register',function(req,res) {
       token: 'JWT ' + token,
       user: {
         id: user._id,
-        name: user.name,
-        username: user.username
+        name: user.fullName,
+        username: user.username,
+        admin: user.admin
       }
     });
   });

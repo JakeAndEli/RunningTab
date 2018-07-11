@@ -1,0 +1,97 @@
+#sign-up-comp {
+  width: 100%;
+  height: 100%;
+}
+#sign-up-comp #sign-up-cont {
+  position: relative;
+  top: 50%;
+  transform: translateY(-60%);
+  /* Hide the browser's default radio button */
+
+  /* Create a custom radio button */
+
+  /* On mouse-over, add a grey background color */
+
+  /* When the radio button is checked, add a blue background */
+
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+
+  /* Show the indicator (dot/circle) when checked */
+
+  /* Style the indicator (dot/circle) */
+
+}
+#sign-up-comp #sign-up-cont .title {
+  font-size: 28px;
+  float: none;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+#sign-up-comp #sign-up-cont .radio-buttons {
+  padding: 20px 0 30px 0;
+}
+#sign-up-comp #sign-up-cont .radio-buttons .radio-button-label {
+  text-align: center;
+}
+#sign-up-comp #sign-up-cont .radio-buttons .checkmark {
+  left: calc(50% - 55px) !important;
+}
+#sign-up-comp #sign-up-cont .btn {
+  background-color: #1cb94e;
+  outline: none;
+  color: white;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  border-color: #1cb94a;
+}
+#sign-up-comp #sign-up-cont .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#sign-up-comp #sign-up-cont .container input {
+  position: absolute;
+  opacity: 0;
+}
+#sign-up-comp #sign-up-cont .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eeeeee;
+  border-radius: 50%;
+}
+#sign-up-comp #sign-up-cont .container:hover input ~ .checkmark {
+  background-color: #cccccc;
+}
+#sign-up-comp #sign-up-cont .container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+#sign-up-comp #sign-up-cont .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+#sign-up-comp #sign-up-cont .container input:checked ~ .checkmark:after {
+  display: block;
+}
+#sign-up-comp #sign-up-cont .container .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}

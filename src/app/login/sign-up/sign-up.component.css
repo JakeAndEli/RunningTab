@@ -1,28 +1,31 @@
-#login-comp {
+#sign-up-comp {
   width: 100%;
   height: 100%;
 }
-#login-comp #login-cont {
+#sign-up-comp #sign-up-cont {
   position: relative;
   top: 50%;
   transform: translateY(-60%);
 }
-#login-comp #login-cont .title {
+#sign-up-comp #sign-up-cont .title {
+  font-size: 28px;
   float: none;
   display: block;
   margin: auto;
   text-align: center;
 }
-#login-comp #login-cont .tab {
+#sign-up-comp #sign-up-cont .tab {
   text-align: center;
   font-size: 20px;
   cursor: pointer;
 }
-#login-comp #login-cont .sign-in,
-#login-comp #login-cont .sign-up {
+#sign-up-comp #sign-up-cont .tab a {
+  text-decoration: none;
+}
+#sign-up-comp #sign-up-cont .sign-up {
   padding: 10px 50px;
 }
-#login-comp #login-cont .btn {
+#sign-up-comp #sign-up-cont .btn {
   background-color: #1cb94e;
   outline: none;
   color: white;
@@ -33,14 +36,14 @@
   text-transform: uppercase;
   border-color: #1cb94a;
 }
-#login-comp #login-cont .active {
+#sign-up-comp #sign-up-cont .active {
   color: #029f5b;
   font-size: 24px;
   font-weight: bold;
   text-decoration: none;
   transition: all 0.1s linear;
 }
-#login-comp #login-cont hr {
+#sign-up-comp #sign-up-cont hr {
   margin-top: 10px;
   margin-bottom: 0;
   clear: both;

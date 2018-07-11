@@ -10,7 +10,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  login(user) {
+  signIn(user) {
     return this.http.post('/api/authenticate', user);
   }
 
@@ -26,7 +26,15 @@ export class AuthenticationService {
     return this.http.get('/user-home', {headers: headers});
   }
 
-  storeUserData(token, user) {
+  getAdminHome() {
+    this.loadToken();
+    let headers = new HttpHeaders({
+      'Authorization': this.authToken
+    });
+    return this.http.get('/admin-open-bills', {headers: headers});
+  }
+
+  storeAccountData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
