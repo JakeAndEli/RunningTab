@@ -28,6 +28,18 @@ router.post('/register',function(req,res) {
     venue.venueName = req.body.venueName;
     venue.venueTownCity = req.body.venueTownCity;
     venue.venueState = req.body.venueState;
+
+    var menu = new Menu();
+    menu.save(function(err) {
+      if(err) {
+        throw err;
+      } else {
+        console.log("Created Menu.")
+      }
+    });
+
+    venue.menuId = menu.id;
+
     venue.save(function(err) {
       if(err) {
         throw err;
@@ -50,7 +62,8 @@ router.post('/register',function(req,res) {
         id: user._id,
         name: user.fullName,
         username: user.username,
-        admin: user.admin
+        admin: user.admin,
+        venueMenu: venue.menuId
       }
     });
   });

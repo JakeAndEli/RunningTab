@@ -2,9 +2,9 @@ var mongoose = require("mongoose");
 
 var billSchema = mongoose.Schema({
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  venueId: {type: mongoose.Schema.Types.ObjectId, ref: 'venue' },
+  venueId: {type: mongoose.Schema.Types.ObjectId, ref: 'Venue' },
   items: [
-    {type: mongoose.Schema.Types.ObjectId, ref: 'item'}
+    {type: mongoose.Schema.Types.ObjectId, ref: 'Item'}
   ]
 
 });

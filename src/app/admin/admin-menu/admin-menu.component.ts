@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-admin-menu',
@@ -8,7 +9,7 @@ import * as $ from 'jquery';
 })
 export class AdminMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private menuService : MenuService) {}
 
   ngOnInit() {
     var thisClass = this;
@@ -58,14 +59,28 @@ export class AdminMenuComponent implements OnInit {
 
   addCategory(clickedElement) : void {
     var dialogueElem = $(clickedElement).parent().parent();
-    var newItemName = $(dialogueElem).find(".add-category-name").val();
+    var newCategoryName = $(dialogueElem).find(".add-category-name").val();
+    var userObj = JSON.parse(localStorage.getItem('user'));
 
-    var newAddCategoryCont = $(".category-cont").first().clone(true).insertAfter($(".category-cont").last());
-    $(newAddCategoryCont).find(".category-name").text(newItemName);
-    $(newAddCategoryCont).removeClass("hide");
-    $(newAddCategoryCont).addClass("clone");
+    var categoryJSON = {
+      name: newCategoryName,
+      menu: userObj.venueMenu
+    };
 
-    $(dialogueElem).remove();
+    this.menuService.addCategory(categoryJSON).subscribe(
+      (data: any) => {
+        if(data.success) {
+          var newAddCategoryCont = $(".category-cont").first().clone(true).insertAfter($(".category-cont").last());
+          $(newAddCategoryCont).find(".category-name").text(newCategoryName);
+          $(newAddCategoryCont).removeClass("hide");
+          $(newAddCategoryCont).addClass("clone");
+
+          $(dialogueElem).remove();
+        } else {
+          alert("Error: " + data.msg);
+        }
+      }
+    );
   }
 
   showItemForm(clickedElement) : void {
