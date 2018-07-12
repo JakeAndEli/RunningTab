@@ -67,7 +67,7 @@ export class AdminMenuComponent implements OnInit {
       menu: userObj.venueMenu
     };
 
-    this.menuService.addCategory(categoryJSON).subscribe(
+    /*this.menuService.addCategory(categoryJSON).subscribe(
       (data: any) => {
         if(data.success) {
           var newAddCategoryCont = $(".category-cont").first().clone(true).insertAfter($(".category-cont").last());
@@ -81,6 +81,7 @@ export class AdminMenuComponent implements OnInit {
         }
       }
     );
+    */
   }
 
   showItemForm(clickedElement) : void {

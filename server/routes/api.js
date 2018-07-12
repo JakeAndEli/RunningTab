@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
   res.send('api works');
 });
 
-router.post('/register',function(req,res) {
+router.post('/register', function (req, res) {
   var isAdmin = req.body.isAdmin;
 
   var user = new User();
@@ -23,15 +23,15 @@ router.post('/register',function(req,res) {
   User.setPassword(user, req.body.password);
   user.admin = isAdmin;
 
-  if(isAdmin) {
+  if (isAdmin) {
     var venue = new Venue();
     venue.venueName = req.body.venueName;
     venue.venueTownCity = req.body.venueTownCity;
     venue.venueState = req.body.venueState;
 
     var menu = new Menu();
-    menu.save(function(err) {
-      if(err) {
+    menu.save(function (err) {
+      if (err) {
         throw err;
       } else {
         console.log("Created Menu.")
@@ -40,8 +40,8 @@ router.post('/register',function(req,res) {
 
     venue.menuId = menu.id;
 
-    venue.save(function(err) {
-      if(err) {
+    venue.save(function (err) {
+      if (err) {
         throw err;
       } else {
         console.log("Created Venue.")
@@ -50,8 +50,8 @@ router.post('/register',function(req,res) {
     user.venue = venue.id;
   }
 
-  user.save(function(err) {
-    if(err) {
+  user.save(function (err) {
+    if (err) {
       throw err;
     }
     const token = jwt.sign(user.toJSON(), config.secret, {});
@@ -69,19 +69,19 @@ router.post('/register',function(req,res) {
   });
 });
 
-router.post('/authenticate', function(req,res){
+router.post('/authenticate', function (req, res) {
   var username = req.body.username;
   var password = req.body.password;
 
   User.getUserByUsername(username, (err, user) => {
-    if(err) {
+    if (err) {
       throw err;
     }
-    if(!user){
+    if (!user) {
       return res.json({success: false, msg: 'User not found'});
     }
 
-    if(User.validPassword(user, password)) {
+    if (User.validPassword(user, password)) {
       const token = jwt.sign(user.toJSON(), config.secret, {});
       return res.json({
         success: true,
@@ -114,7 +114,7 @@ router.post('/user/:fullName', function (req, res) {
 });
 
 //Create new venue
-router.post('/venue/:venueName', function (reg, res) {
+router.post('/venue/:venueName', function (req, res) {
 
   var name = req.params.venueName;
   var venue = new Venue({
@@ -131,7 +131,7 @@ router.post('/venue/:venueName', function (reg, res) {
 });
 
 //get all venues
-router.get('/getVenues', function (reg, res) {
+router.get('/getVenues', function (req, res) {
 
   Venue.find({}).exec(function (err, venues) {
     res.send(venues);
@@ -140,7 +140,7 @@ router.get('/getVenues', function (reg, res) {
 });
 
 //Item
-router.post('/item/:name/:price', function (reg, res) {
+router.post('/item/:name/:price', function (req, res) {
   var name = req.params.name;
   var itemPrice = req.params.price;
   var item = new Item({
@@ -154,92 +154,126 @@ router.post('/item/:name/:price', function (reg, res) {
   });
 });
 
-//Menu
-router.get('/addMenu', function (req, res) {
-  var menu = new Menu({
-    MenuCategoryId: ["5b3fc795fa541e4026171a6c"]
+//Add menu category to menu
+router.post('/menu/:menuId/:categoryId', function (req,res) {
+  var menuId = req.params.menuId;
+  var categoryId = req.params.categoryId;
 
-  });
+  var menuCategory = {
+    menuId : menuId,
+    category : categoryId
+  };
+  Menu.addMenuCategory(menuCategory);
 
-  menu.save(function (err, data) {
-    if (err) console.log(err);
-    console.log(data);
-  });
-});
+})
 
-router.get('menu/venue/venueId', function (reg, res) {
-  var venueID = req.params.venueId;
-  Menu.find({
-    venueId : venueId
-  }).exec(function (err, menu) {
-    if (err) throw err;
-    res.json({"menue": menu})
-  })
-});
+//get full menu from venueId
+router.get('/fullMenu/:venueId', function (req,res) {
+  var venueId = req.params.venueId;
+  Venue.getFullMenuByVenueId(venueId, (err, venue) => {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.json({venue: venue});
+    }
 
-//MenuCategory
-router.get('/addMenuCategory', function (req, res) {
-  var menuCategory = new MenuCateogry({
-    name: "Steaks",
-    items: ["5b3fba6e96255e3e001ef6b8", "5b3fc6bda9f0a03f809fea07", "5b3fc6d4e45ff63f8d3c11c3"]
-
-  });
-
-  menuCategory.save(function (err, data) {
-    if (err) console.log(err);
-    console.log(data);
   });
 });
 
 
-//Bill
+//Get menu from venueId
+router.get('/menu/venue/:venueId', function (req, res) {
+  var venueId = req.params.venueId;
+  Menu.getMenuByVenueId(venueId, (err, menu) => {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.json({menu: menu});
+    }
+
+  });
+
+});
+
+
 
 //Start a new bill
 router.post('/bill/user/:userId/venue/:venueId', function (req, res) {
   var userId = req.params.userId;
   var venueId = req.params.venueId;
-  var bill = new Bill({
-    userId:userId,
-    venueId:venueId,
-    MenuCategoryId: [""]
+  var bill = {
+    userId: userId,
+    venueId: venueId
+  };
+  Bill.createBill(bill);
 
-  });
-
-  bill.save(function (err, data) {
-    if (err) console.log(err);
-    console.log(data);
-  });
 });
 
-//Add to an existing bill
+//Add an item to an existing bill
+router.post('/addToBill/:bill/:item', function (req, res) {
+  var id = req.params.bill;
+  var item = req.params.item;
+  var bill = {
+    _id: id,
+    item: item
+  };
+
+  Bill.addItemToBill(bill);
+});
+
+
+//Remove an item to an existing bill
+router.post('/removeItemFromBill/:bill/:item', function (req, res) {
+  var id = req.params.bill;
+  var item = req.params.item;
+  var bill = {
+    _id: id,
+    item: item
+  };
+
+  Bill.removeItemFromBill(bill);
+});
 
 //Close a bill
+router.post('/closeBill/:bill', function (req, res) {
+  var id = req.params.bill;
+  var bill = {
+    _id: id
+  };
+  Bill.closeBill(bill);
+
+});
+
 
 //get all bills for passed venue
 router.get('/bills/venue/:venueId', function (req, res) {
   var venueId = req.params.venueId;
 
-  Bill.find({
-    venueId: venueId
-  }).exec(function (err, bills) {
-    if (err) throw err;
-    res.json({"bills": bills})
-
-  })
-
+  Bill.getBillsByVenueId(venueId, (err, bill) => {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.json({bill: bill});
+    }
+  });
 });
 
 //get all bills for passed user
-router.get('/bills/venue/:userId', function (req, res) {
+router.get('/bills/user/:userId', function (req, res) {
   var userId = req.params.userId;
 
-  Bill.find({
-    userId: userId
-  }).exec(function (err, bills) {
-    if (err) throw err;
-    res.json({"bills": bills})
+  Bill.getBillsByUserId(userId, (err, bill) => {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.json({bill: bill});
+    }
 
-  })
+  });
 
 });
 

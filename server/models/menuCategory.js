@@ -3,12 +3,16 @@ var mongoose = require("mongoose");
 var menuCategorySchema = mongoose.Schema({
   name: String,
   items: [
-    {type: mongoose.Schema.Types.ObjectId, ref: 'item'}
+    {type: mongoose.Schema.Types.ObjectId, ref: 'Item'}
   ]
 
 });
 
-var MenuCategory = mongoose.model("MenuCategory",menuCategorySchema);
+const MenuCategory = module.exports = mongoose.model("MenuCategory",menuCategorySchema);
 
-module.exports = MenuCategory;
+
+
+
+
+
 
