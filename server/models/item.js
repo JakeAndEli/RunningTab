@@ -2,17 +2,20 @@ var mongoose = require("mongoose");
 
 var itemSchema = mongoose.Schema({
   name: String,
-  price : {type: Number, get: getPrice, set: setPrice }
+  price : Number
 });
 
-function getPrice(num){
-  return (num/100).toFixed(2);
-}
+const Item = module.exports = mongoose.model('Item', itemSchema);
 
-function setPrice(num){
-  return num*100;
-}
-
-var Item = mongoose.model("Item",itemSchema);
-
-module.exports = Item;
+module.exports.create = function(item, callback){
+  var newItem = new Item();
+  newItem.name = item.name;
+  newItem.price = item.price;
+  newItem.save(function(err) {
+    if (err) {
+      throw err;
+    } else {
+      console.log("Created Item.")
+    }
+  });
+};

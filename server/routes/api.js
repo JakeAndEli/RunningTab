@@ -5,7 +5,7 @@ const Venue = require('../models/venue.js');
 const Item = require('../models/item.js');
 const Bill = require('../models/bill.js');
 const Menu = require('../models/menu.js');
-const MenuCateogry = require('../models/menuCategory.js');
+const MenuCategory = require('../models/menuCategory.js');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database-config');
 const passport = require('passport');
@@ -63,7 +63,7 @@ router.post('/register', function (req, res) {
         name: user.fullName,
         username: user.username,
         admin: user.admin,
-        venueMenu: venue.menuId
+        venueId: user.venue
       }
     });
   });
@@ -88,8 +88,10 @@ router.post('/authenticate', function (req, res) {
         token: 'JWT ' + token,
         user: {
           id: user._id,
-          name: user.name,
-          username: user.username
+          name: user.fullName,
+          username: user.username,
+          admin: user.admin,
+          venueId: user.venue
         }
       });
     } else {
@@ -98,7 +100,7 @@ router.post('/authenticate', function (req, res) {
   });
 });
 
-//Create new User
+// Create new User
 router.post('/user/:fullName', function (req, res) {
 
   var fullName = req.params.fullName;
@@ -113,9 +115,8 @@ router.post('/user/:fullName', function (req, res) {
 
 });
 
-//Create new venue
+// Create new Venue
 router.post('/venue/:venueName', function (req, res) {
-
   var name = req.params.venueName;
   var venue = new Venue({
     name: name
@@ -127,47 +128,32 @@ router.post('/venue/:venueName', function (req, res) {
     }
     console.log(data);
   });
-
 });
 
-//get all venues
+// Get all Venues
 router.get('/getVenues', function (req, res) {
-
-  Venue.find({}).exec(function (err, venues) {
+  Venue.find().exec(function (err, venues) {
     res.send(venues);
-  })
-
+  });
 });
 
-//Item
-router.post('/item/:name/:price', function (req, res) {
+// Create and add Menu Category to Menu
+router.post('/venue/:venueId/menuCategory/:name', function(req, res) {
   var name = req.params.name;
-  var itemPrice = req.params.price;
-  var item = new Item({
+  var venueId = req.params.venueId;
+  var data = {
     name: name,
-    price: itemPrice
-  });
-
-  item.save(function (err, data) {
-    if (err) console.log(err);
-    console.log(data);
+    venueId: venueId
+  };
+  MenuCategory.create(data, (err) => {
+    if (err) throw err;
+    else {
+     res.json({success: true});
+    }
   });
 });
 
-//Add menu category to menu
-router.post('/menu/:menuId/:categoryId', function (req,res) {
-  var menuId = req.params.menuId;
-  var categoryId = req.params.categoryId;
-
-  var menuCategory = {
-    menuId : menuId,
-    category : categoryId
-  };
-  Menu.addMenuCategory(menuCategory);
-
-})
-
-//get full menu from venueId
+// Get full Menu from venueId
 router.get('/fullMenu/:venueId', function (req,res) {
   var venueId = req.params.venueId;
   Venue.getFullMenuByVenueId(venueId, (err, venue) => {
@@ -177,29 +163,10 @@ router.get('/fullMenu/:venueId', function (req,res) {
     else {
       res.json({venue: venue});
     }
-
   });
 });
 
-
-//Get menu from venueId
-router.get('/menu/venue/:venueId', function (req, res) {
-  var venueId = req.params.venueId;
-  Menu.getMenuByVenueId(venueId, (err, menu) => {
-    if (err) {
-      throw err;
-    }
-    else {
-      res.json({menu: menu});
-    }
-
-  });
-
-});
-
-
-
-//Start a new bill
+// Create Bill
 router.post('/bill/user/:userId/venue/:venueId', function (req, res) {
   var userId = req.params.userId;
   var venueId = req.params.venueId;
@@ -207,48 +174,40 @@ router.post('/bill/user/:userId/venue/:venueId', function (req, res) {
     userId: userId,
     venueId: venueId
   };
-  Bill.createBill(bill);
-
+  Bill.create(bill);
 });
 
-//Add an item to an existing bill
+// Add an item to a bill
 router.post('/addToBill/:bill/:item', function (req, res) {
   var id = req.params.bill;
   var item = req.params.item;
   var bill = {
-    _id: id,
+    id: id,
     item: item
   };
-
   Bill.addItemToBill(bill);
 });
 
 
-//Remove an item to an existing bill
-router.post('/removeItemFromBill/:bill/:item', function (req, res) {
+// Remove an item from bill
+router.post('/removeItemFromBill/:bill/item/:item', function (req, res) {
   var id = req.params.bill;
   var item = req.params.item;
   var bill = {
-    _id: id,
+    id: id,
     item: item
   };
-
   Bill.removeItemFromBill(bill);
 });
 
-//Close a bill
+// Close a bill
 router.post('/closeBill/:bill', function (req, res) {
   var id = req.params.bill;
-  var bill = {
-    _id: id
-  };
-  Bill.closeBill(bill);
-
+  Bill.closeBill(id);
 });
 
-
-//get all bills for passed venue
-router.get('/bills/venue/:venueId', function (req, res) {
+// Get all Bills for venueId
+router.get('/bills/:venueId', function (req, res) {
   var venueId = req.params.venueId;
 
   Bill.getBillsByVenueId(venueId, (err, bill) => {
@@ -261,7 +220,7 @@ router.get('/bills/venue/:venueId', function (req, res) {
   });
 });
 
-//get all bills for passed user
+// Get all Bills for userId
 router.get('/bills/user/:userId', function (req, res) {
   var userId = req.params.userId;
 
@@ -272,11 +231,44 @@ router.get('/bills/user/:userId', function (req, res) {
     else {
       res.json({bill: bill});
     }
-
   });
-
 });
 
+// Create Item
+router.post('/item/:name/price/:price', function (req, res) {
+  var name = req.params.name;
+  var price = req.params.price;
+  var item = {
+    name: name,
+    price: price
+  };
+  Item.create(item, (err, item) => {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.json({item: item});
+    }
+  });
+});
+
+// Create Item and add it to MenuCategory
+router.post('/item/:itemId/menuCategory/:menuCategoryId', function (req, res) {
+  var itemId = req.params.itemId;
+  var menuCategoryId = req.params.menuCategoryId;
+  var data = {
+    itemId: itemId,
+    menuCategoryId: menuCategoryId
+  };
+  MenuCategory.addItem(data, (err, menuCategory) => {
+    if (err) {
+      throw err;
+    }
+    else {
+      res.json({menuCategory: menuCategory});
+    }
+  });
+});
 
 // Catch all other routes and return no page found
 router.get('*', function (req, res) {

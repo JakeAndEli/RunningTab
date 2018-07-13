@@ -9,9 +9,18 @@ import { MenuService } from '../../services/menu.service';
 })
 export class AdminMenuComponent implements OnInit {
 
+  private menuCategories;
+
   constructor(private menuService : MenuService) {}
 
   ngOnInit() {
+
+    this.menuService.getFullMenu().subscribe(
+      (data: any) => {
+        this.menuCategories = data.venue[0].menuId.menuCategoryId;
+      }
+    );
+
     var thisClass = this;
 
     $(document).ready(function(){
@@ -64,10 +73,10 @@ export class AdminMenuComponent implements OnInit {
 
     var categoryJSON = {
       name: newCategoryName,
-      menu: userObj.venueMenu
+      venueId: userObj.venueId
     };
 
-    /*this.menuService.addCategory(categoryJSON).subscribe(
+    this.menuService.addCategory(categoryJSON).subscribe(
       (data: any) => {
         if(data.success) {
           var newAddCategoryCont = $(".category-cont").first().clone(true).insertAfter($(".category-cont").last());
@@ -81,7 +90,7 @@ export class AdminMenuComponent implements OnInit {
         }
       }
     );
-    */
+
   }
 
   showItemForm(clickedElement) : void {

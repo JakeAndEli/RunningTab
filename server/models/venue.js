@@ -26,5 +26,8 @@ module.exports.getFullMenuByVenueId = function (venueId, callback) {
       }
     }
   }).exec(callback);
+};
 
+module.exports.getMenuIdFromVenueId = function (venueId, callback) {
+  return Venue.findById(venueId);
 };
