@@ -15,11 +15,11 @@ export class MenuService {
   }
 
   addCategory(newCategory) : Observable<any> {
-    return this.http.post('/api/venue/' + newCategory.venueId + '/menuCategory/' + newCategory.name, null)
+    return this.http.post('/api/menuCategory/', newCategory)
   }
 
   addItem(newItem) {
-    //return this.http.post('/api/venue/' + newCategory.venueId + '/menuCategory/' + newCategory.name, null)
+    return this.http.post('/api/item', newItem)
   }
 
 }

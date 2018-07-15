@@ -13,9 +13,11 @@ module.exports.addMenuCategory = function (data, callback){
   Menu.findByIdAndUpdate(data.menuId,
     {$push: {menuCategoryId: data.menuCategoryId}},
     {safe: true, upsert: false},
-    function (err, data) {
-      if (err) console.log(err);
-      callback();
+    function (err) {
+      if (err) throw err;
+      else {
+        callback(data);
+      }
     }
   );
 };

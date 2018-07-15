@@ -7,7 +7,6 @@ var menuCategorySchema = mongoose.Schema({
   items: [
     {type: mongoose.Schema.Types.ObjectId, ref: 'Item'}
   ]
-
 });
 
 const MenuCategory = module.exports = mongoose.model("MenuCategory",menuCategorySchema);
@@ -20,11 +19,14 @@ module.exports.create = function(data, callback){
     if (err) throw err;
     var menuIdQuery = Venue.getMenuIdFromVenueId(localData.venueId);
     menuIdQuery.exec(function(err, menu) {
-      var data = {
-        menuId: menu.menuId,
-        menuCategoryId: menuCategory.id
-      };
-      Menu.addMenuCategory(data, callback);
+      if (err) throw err;
+      else {
+        var data = {
+          menuId: menu.menuId,
+          menuCategoryId: menuCategory.id
+        };
+        Menu.addMenuCategory(data, callback);
+      }
     });
   });
 };
@@ -33,9 +35,9 @@ module.exports.addItem = function(data, callback){
   MenuCategory.findByIdAndUpdate(data.menuCategoryId,
     {$push: {items: data.itemId}},
     {safe: true, upsert: false},
-    function (err, data) {
+    function (err) {
       if (err) console.log(err);
-      //console.log(data);
+      callback(data);
     }
   );
 };

@@ -53,6 +53,7 @@ export class AdminScanQRComponent implements OnInit {
     // Start new tab
     this.adminService.startNewTab(this.qrResultString).subscribe(
       (data: any) => {
+        // Potential validation for if the userId exists in the db
         this.lookingForUser = false;
       }
     );

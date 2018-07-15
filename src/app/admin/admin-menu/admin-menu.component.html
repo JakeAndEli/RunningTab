@@ -9,7 +9,7 @@
             <div id="menu-content">
               <div class="categories-label">Categories:</div>
               <div *ngFor="let menuCategory of menuCategories">
-                <div class="category-cont">
+                <div class="category-cont" attr.data-menucategoryid="{{menuCategory._id}}">
                   <div class="category-header">
                     <div class="category-name">{{menuCategory.name}}</div>
                     <div class="category-arrow">
@@ -18,7 +18,7 @@
                   </div>
                   <div class="category-items">
                     <div *ngFor="let item of menuCategory['items']">
-                      <div class="item-cont">
+                      <div class="item-cont" attr.data-itemid="{{item._id}}">
                         <div class="item-name">{{item.name}}</div>
                         <div class="item-right-side">
                           <div class="item-price">{{item.price}}</div>

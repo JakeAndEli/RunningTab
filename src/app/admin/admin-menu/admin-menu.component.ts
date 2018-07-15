@@ -71,22 +71,20 @@ export class AdminMenuComponent implements OnInit {
     var newCategoryName = $(dialogueElem).find(".add-category-name").val();
     var userObj = JSON.parse(localStorage.getItem('user'));
 
-    var categoryJSON = {
+    var categoryObj = {
       name: newCategoryName,
       venueId: userObj.venueId
     };
 
-    this.menuService.addCategory(categoryJSON).subscribe(
+    this.menuService.addCategory(categoryObj).subscribe(
       (data: any) => {
         if(data.success) {
           var newAddCategoryCont = $(".category-cont").first().clone(true).insertAfter($(".category-cont").last());
+          $(newAddCategoryCont).attr("data-menucategoryid", data.menuCategoryId);
           $(newAddCategoryCont).find(".category-name").text(newCategoryName);
           $(newAddCategoryCont).removeClass("hide");
           $(newAddCategoryCont).addClass("clone");
-
           $(dialogueElem).remove();
-        } else {
-          alert("Error: " + data.msg);
         }
       }
     );
@@ -110,14 +108,29 @@ export class AdminMenuComponent implements OnInit {
     var dialogueElem = $(clickedElement).parent().parent();
     var newItemName = $(dialogueElem).find(".add-item-name").val();
     var newItemPrice = $(dialogueElem).find(".add-item-price").val();
+    var menuCategory = $(categoryItems).parent();
+    var menuCategoryId = $(menuCategory).data("menucategoryid");
 
-    var newAddItemCont = $(".item-cont").first().clone(true).insertAfter($(categoryItems).find(".item-cont").last());
-    $(newAddItemCont).find(".item-name").text(newItemName);
-    $(newAddItemCont).find(".item-price").text(newItemPrice);
-    $(newAddItemCont).removeClass("hide");
-    $(newAddItemCont).addClass("clone");
+    var itemObj = {
+      name: newItemName,
+      price: newItemPrice,
+      menuCategoryId: menuCategoryId
+    };
 
-    $(dialogueElem).remove();
+    this.menuService.addItem(itemObj).subscribe(
+      (data: any) => {
+        console.log(data);
+        if(data.success) {
+          var newAddItemCont = $(".item-cont").first().clone(true).insertAfter($(categoryItems).find(".item-cont").last());
+          $(newAddItemCont).attr("data-itemid", data.itemId);
+          $(newAddItemCont).find(".item-name").text(newItemName);
+          $(newAddItemCont).find(".item-price").text(newItemPrice);
+          $(newAddItemCont).removeClass("hide");
+          $(newAddItemCont).addClass("clone");
+          $(dialogueElem).remove();
+        }
+      }
+    );
   }
 
   removeItem(clickedElement) : void {

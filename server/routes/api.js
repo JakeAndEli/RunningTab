@@ -146,29 +146,45 @@ router.get('/getVenues', function (req, res) {
   });
 });
 
-// Create and add Menu Category to Menu
-router.post('/venue/:venueId/menuCategory/:name', function(req, res) {
-  var name = req.params.name;
-  var venueId = req.params.venueId;
+// Create Menu Category and add it to Menu
+router.post('/menuCategory', function(req, res) {
+  var name = req.body.name;
+  var venueId = req.body.venueId;
   var data = {
     name: name,
     venueId: venueId
   };
-  MenuCategory.create(data, (err) => {
-    if (err) throw err;
-    else {
-     res.json({success: true});
-    }
+  MenuCategory.create(data, (menuCategory) => {
+     res.json({
+       success: true,
+       menuCategoryId: menuCategory.menuCategoryId
+     });
   });
 });
 
-// Get full Menu from venueId
+// Create Item and add it to MenuCategory
+router.post('/item', function (req, res) {
+  var name = req.body.name;
+  var price = req.body.price;
+  var menuCategoryId = req.body.menuCategoryId;
+  var data = {
+    itemName: name,
+    itemPrice: price,
+    menuCategoryId: menuCategoryId
+  };
+  Item.create(data, (item) => {
+    res.json({
+      success: true,
+      itemId: item.itemId
+    });
+  });
+});
+
+// Get Full Menu from venueId
 router.get('/fullMenu/:venueId', function (req,res) {
   var venueId = req.params.venueId;
   Venue.getFullMenuByVenueId(venueId, (err, venue) => {
-    if (err) {
-      throw err;
-    }
+    if (err) throw err;
     else {
       res.json({venue: venue});
     }
@@ -199,7 +215,6 @@ router.post('/addToTab/:tab/:item', function (req, res) {
   Tab.addItemToTab(tab);
 });
 
-
 // Remove an item from tab
 router.post('/removeItemFromTab/:tab/item/:item', function (req, res) {
   var id = req.params.tab;
@@ -211,7 +226,7 @@ router.post('/removeItemFromTab/:tab/item/:item', function (req, res) {
   Tab.removeItemFromTab(tab);
 });
 
-// Close a tab
+// Close a Tab
 router.post('/closeTab/:tab', function (req, res) {
   var id = req.params.tab;
   Tab.closeTab(id);
@@ -221,12 +236,10 @@ router.post('/closeTab/:tab', function (req, res) {
 router.get('/tabs/:venueId', function (req, res) {
   var venueId = req.params.venueId;
 
-  Tab.getTabsByVenueId(venueId, (err, tab) => {
-    if (err) {
-      throw err;
-    }
+  Tab.getTabsByVenueId(venueId, (err, tabs) => {
+    if (err) throw err;
     else {
-      res.json({tab: tab});
+      res.json({tabs: tabs});
     }
   });
 });
@@ -235,48 +248,10 @@ router.get('/tabs/:venueId', function (req, res) {
 router.get('/tabs/user/:userId', function (req, res) {
   var userId = req.params.userId;
 
-  Tab.getTabsByUserId(userId, (err, tab) => {
-    if (err) {
-      throw err;
-    }
+  Tab.getTabsByUserId(userId, (err, tabs) => {
+    if (err) throw err;
     else {
-      res.json({tab: tab});
-    }
-  });
-});
-
-// Create Item
-router.post('/item/:name/price/:price', function (req, res) {
-  var name = req.params.name;
-  var price = req.params.price;
-  var item = {
-    name: name,
-    price: price
-  };
-  Item.create(item, (err, item) => {
-    if (err) {
-      throw err;
-    }
-    else {
-      res.json({item: item});
-    }
-  });
-});
-
-// Create Item and add it to MenuCategory
-router.post('/item/:itemId/menuCategory/:menuCategoryId', function (req, res) {
-  var itemId = req.params.itemId;
-  var menuCategoryId = req.params.menuCategoryId;
-  var data = {
-    itemId: itemId,
-    menuCategoryId: menuCategoryId
-  };
-  MenuCategory.addItem(data, (err, menuCategory) => {
-    if (err) {
-      throw err;
-    }
-    else {
-      res.json({menuCategory: menuCategory});
+      res.json({tabs: tabs});
     }
   });
 });
