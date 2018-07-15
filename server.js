@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const app = express();
 const api = require('./server/routes/api.js');
 const passport = require('passport');
+const https = require('https');
+const fs = require('fs');
 
 // Body Parser Middleware
 app.use(bodyParser.json());
@@ -33,8 +35,14 @@ app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-app.listen(3000, function(){
-  console.log("Server is listening on port 3000.");
+var sslOptions = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem'),
+  passphrase: 'RunningTab'
+};
+
+https.createServer(sslOptions, app).listen(8443, function(){
+  console.log("Server is listening on port 8443.");
 });
 
 // Database Configuration

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+var QRCode = require('qrcode');
 const User = require('../models/user.js');
 const Venue = require('../models/venue.js');
 const Item = require('../models/item.js');
-const Bill = require('../models/bill.js');
+const Tab = require('../models/tab.js');
 const Menu = require('../models/menu.js');
 const MenuCategory = require('../models/menuCategory.js');
 const jwt = require('jsonwebtoken');
@@ -50,22 +51,29 @@ router.post('/register', function (req, res) {
     user.venue = venue.id;
   }
 
-  user.save(function (err) {
-    if (err) {
-      throw err;
+  QRCode.toDataURL(user.id, function (err, url) {
+    if (err) throw err;
+    else {
+      user.qrCode = url;
+      user.save(function (err) {
+        if (err) {
+          throw err;
+        }
+        const token = jwt.sign(user.toJSON(), config.secret, {});
+        return res.json({
+          success: true,
+          token: 'JWT ' + token,
+          user: {
+            id: user._id,
+            name: user.fullName,
+            username: user.username,
+            admin: user.admin,
+            venueId: user.venue,
+            qrCode: user.qrCode
+          }
+        });
+      });
     }
-    const token = jwt.sign(user.toJSON(), config.secret, {});
-    return res.json({
-      success: true,
-      token: 'JWT ' + token,
-      user: {
-        id: user._id,
-        name: user.fullName,
-        username: user.username,
-        admin: user.admin,
-        venueId: user.venue
-      }
-    });
   });
 });
 
@@ -91,7 +99,8 @@ router.post('/authenticate', function (req, res) {
           name: user.fullName,
           username: user.username,
           admin: user.admin,
-          venueId: user.venue
+          venueId: user.venue,
+          qrCode: user.qrCode
         }
       });
     } else {
@@ -166,70 +175,72 @@ router.get('/fullMenu/:venueId', function (req,res) {
   });
 });
 
-// Create Bill
-router.post('/bill/user/:userId/venue/:venueId', function (req, res) {
-  var userId = req.params.userId;
-  var venueId = req.params.venueId;
-  var bill = {
-    userId: userId,
-    venueId: venueId
+// Create Tab
+router.post('/tab', function(req, res) {
+  var venueId = req.body.venueId;
+  var userId = req.body.userId;
+  var data = {
+    venueId: venueId,
+    userId: userId
   };
-  Bill.create(bill);
+  Tab.create(data, (tab) => {
+      res.json({tab: tab})
+  });
 });
 
-// Add an item to a bill
-router.post('/addToBill/:bill/:item', function (req, res) {
-  var id = req.params.bill;
+// Add an item to a tab
+router.post('/addToTab/:tab/:item', function (req, res) {
+  var id = req.params.tab;
   var item = req.params.item;
-  var bill = {
+  var tab = {
     id: id,
     item: item
   };
-  Bill.addItemToBill(bill);
+  Tab.addItemToTab(tab);
 });
 
 
-// Remove an item from bill
-router.post('/removeItemFromBill/:bill/item/:item', function (req, res) {
-  var id = req.params.bill;
+// Remove an item from tab
+router.post('/removeItemFromTab/:tab/item/:item', function (req, res) {
+  var id = req.params.tab;
   var item = req.params.item;
-  var bill = {
+  var tab = {
     id: id,
     item: item
   };
-  Bill.removeItemFromBill(bill);
+  Tab.removeItemFromTab(tab);
 });
 
-// Close a bill
-router.post('/closeBill/:bill', function (req, res) {
-  var id = req.params.bill;
-  Bill.closeBill(id);
+// Close a tab
+router.post('/closeTab/:tab', function (req, res) {
+  var id = req.params.tab;
+  Tab.closeTab(id);
 });
 
-// Get all Bills for venueId
-router.get('/bills/:venueId', function (req, res) {
+// Get all Tabs for venueId
+router.get('/tabs/:venueId', function (req, res) {
   var venueId = req.params.venueId;
 
-  Bill.getBillsByVenueId(venueId, (err, bill) => {
+  Tab.getTabsByVenueId(venueId, (err, tab) => {
     if (err) {
       throw err;
     }
     else {
-      res.json({bill: bill});
+      res.json({tab: tab});
     }
   });
 });
 
-// Get all Bills for userId
-router.get('/bills/user/:userId', function (req, res) {
+// Get all Tabs for userId
+router.get('/tabs/user/:userId', function (req, res) {
   var userId = req.params.userId;
 
-  Bill.getBillsByUserId(userId, (err, bill) => {
+  Tab.getTabsByUserId(userId, (err, tab) => {
     if (err) {
       throw err;
     }
     else {
-      res.json({bill: bill});
+      res.json({tab: tab});
     }
   });
 });

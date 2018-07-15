@@ -9,13 +9,20 @@ import { AuthenticationService } from '../../services/authenticate.service';
 })
 export class UserHomeComponent implements OnInit {
 
+  private username : String;
+  private fullName : String;
+  private qrCode : String;
+
   constructor(private authService : AuthenticationService) { }
 
   ngOnInit() {
     // Authenticate
     this.authService.getUserHome().subscribe(
       (data: any) => {
-        console.log("returned to user home comp: " + data);
+        var user = JSON.parse(localStorage.getItem("user"));
+        this.username = user.username;
+        this.fullName = user.username;
+        this.qrCode = user.qrCode;
       }
     )
   }
