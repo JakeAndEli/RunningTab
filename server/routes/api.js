@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-var QRCode = require('qrcode');
+const QRCode = require('qrcode');
 const User = require('../models/user.js');
 const Venue = require('../models/venue.js');
 const Item = require('../models/item.js');
@@ -109,21 +109,6 @@ router.post('/authenticate', function (req, res) {
   });
 });
 
-// Create new User
-router.post('/user/:fullName', function (req, res) {
-
-  var fullName = req.params.fullName;
-  var user = new User({
-    fullName: fullName
-  });
-
-  user.save(function (err, data) {
-    if (err) console.log(err);
-    console.log(data);
-  });
-
-});
-
 router.post('/changepass/:userId/:password', function (req, res) {
   var userId = req.params.userId;
   var password = req.params.password;
@@ -131,9 +116,7 @@ router.post('/changepass/:userId/:password', function (req, res) {
     _id: userId,
     newPassword: password
   };
-
   User.updatePassword(user);
-
 });
 
 // Get all Venues
@@ -177,6 +160,7 @@ router.post('/item', function (req, res) {
   });
 });
 
+// Remove Item from both Menu Category and Item collection
 router.post('/removeItem', function(req, res) {
   var itemId = req.body.itemId;
   var menuCategoryId = req.body.menuCategoryId;
@@ -190,7 +174,6 @@ router.post('/removeItem', function(req, res) {
     });
   });
 });
-
 
 // Get Full Menu from venueId
 router.get('/fullMenu/:venueId', function (req,res) {
