@@ -34,10 +34,23 @@ module.exports.create = function(data, callback){
 module.exports.addItem = function(data, callback){
   MenuCategory.findByIdAndUpdate(data.menuCategoryId,
     {$push: {items: data.itemId}},
-    {safe: true, upsert: false},
+    {safe: true},
     function (err) {
       if (err) console.log(err);
       callback(data);
+    }
+  );
+};
+
+module.exports.deleteItem = function(data, callback){
+  MenuCategory.findByIdAndUpdate(data.menuCategoryId,
+    {$pull: {items: data.itemId}},
+    {safe: true},
+    function (err) {
+      if (err) console.log(err);
+      else {
+        callback();
+      }
     }
   );
 };

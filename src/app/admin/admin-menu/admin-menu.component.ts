@@ -79,7 +79,7 @@ export class AdminMenuComponent implements OnInit {
     this.menuService.addCategory(categoryObj).subscribe(
       (data: any) => {
         if(data.success) {
-          var newAddCategoryCont = $(".category-cont").first().clone(true).insertAfter($(".category-cont").last());
+          var newAddCategoryCont = $(".category-cont.hide").first().clone(true).insertAfter($(".category-cont").last());
           $(newAddCategoryCont).attr("data-menucategoryid", data.menuCategoryId);
           $(newAddCategoryCont).find(".category-name").text(newCategoryName);
           $(newAddCategoryCont).removeClass("hide");
@@ -121,7 +121,7 @@ export class AdminMenuComponent implements OnInit {
       (data: any) => {
         console.log(data);
         if(data.success) {
-          var newAddItemCont = $(".item-cont").first().clone(true).insertAfter($(categoryItems).find(".item-cont").last());
+          var newAddItemCont = $(".item-cont.hide").first().clone(true).insertAfter($(categoryItems).find(".item-cont").last());
           $(newAddItemCont).attr("data-itemid", data.itemId);
           $(newAddItemCont).find(".item-name").text(newItemName);
           $(newAddItemCont).find(".item-price").text(newItemPrice);
@@ -134,7 +134,18 @@ export class AdminMenuComponent implements OnInit {
   }
 
   removeItem(clickedElement) : void {
-    $(clickedElement).parent().parent().remove();
+    var itemId = $(clickedElement).closest(".item-cont").attr("data-itemid");
+    var menuCategoryId = $(clickedElement).closest(".category-cont").attr("data-menucategoryid");
+    var data = {
+      itemId: itemId,
+      menuCategoryId: menuCategoryId
+    };
+
+    this.menuService.removeItem(data).subscribe(
+      (data: any) => {
+        $(clickedElement).closest(".item-cont").remove();
+      }
+    );
   }
 
   expandItems(clickedElement) : void {

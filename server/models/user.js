@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
   admin: Boolean,
   venue: { type: mongoose.Schema.Types.ObjectId, ref: 'Venue' },
   qrCode: String,
-  profilePic: String
+  profilePic: { data: Buffer, contentType: String }
 });
 
 const User = module.exports = mongoose.model('User', userSchema);

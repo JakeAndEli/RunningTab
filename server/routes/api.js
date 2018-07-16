@@ -180,6 +180,20 @@ router.post('/item', function (req, res) {
   });
 });
 
+router.post('/removeItem', function(req, res) {
+  var itemId = req.body.itemId;
+  var menuCategoryId = req.body.menuCategoryId;
+  var data = {
+    itemId: itemId,
+    menuCategoryId: menuCategoryId
+  };
+  MenuCategory.deleteItem(data, () => {
+    Item.delete(itemId, () => {
+      res.json({success: true});
+    });
+  });
+});
+
 // Get Full Menu from venueId
 router.get('/fullMenu/:venueId', function (req,res) {
   var venueId = req.params.venueId;

@@ -22,4 +22,8 @@ export class MenuService {
     return this.http.post('/api/item', newItem)
   }
 
+  removeItem(data) {
+    return this.http.post('api/removeItem', data);
+  }
+
 }
