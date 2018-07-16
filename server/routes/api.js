@@ -98,46 +98,33 @@ router.post('/authenticate', function (req, res) {
   });
 });
 
-//Create new User
-router.post('/user/:fullName', function (req, res) {
 
-  var fullName = req.params.fullName;
-  var user = new User({
-    fullName: fullName
-  });
+router.get('/user/:userId', function (req, res) {
+  var userId = req.params.userId;
 
-  user.save(function (err, data) {
-    if (err) console.log(err);
-    console.log(data);
-  });
-
-});
-
-//Create new venue
-router.post('/venue/:venueName', function (req, res) {
-
-  var name = req.params.venueName;
-  var venue = new Venue({
-    name: name
-  });
-  console.log(venue);
-  venue.save(function (err, data) {
+  User.getUserById(userId, (err, bill) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
-    console.log(data);
+    else {
+      res.json({bill: bill});
+    }
   });
 
 });
 
-//get all venues
-router.get('/getVenues', function (req, res) {
+router.post('/changepass/:userId/:password', function (req, res) {
+  var userId = req.params.userId;
+  var password = req.params.password;
+  var user = {
+    _id: userId,
+    newPassword: password
+  };
 
-  Venue.find({}).exec(function (err, venues) {
-    res.send(venues);
-  })
+  User.updatePassword(user);
 
 });
+
 
 //Item
 router.post('/item/:name/:price', function (req, res) {
@@ -155,20 +142,20 @@ router.post('/item/:name/:price', function (req, res) {
 });
 
 //Add menu category to menu
-router.post('/menu/:menuId/:categoryId', function (req,res) {
+router.post('/menu/:menuId/:categoryId', function (req, res) {
   var menuId = req.params.menuId;
   var categoryId = req.params.categoryId;
 
   var menuCategory = {
-    menuId : menuId,
-    category : categoryId
+    menuId: menuId,
+    category: categoryId
   };
   Menu.addMenuCategory(menuCategory);
 
 })
 
 //get full menu from venueId
-router.get('/fullMenu/:venueId', function (req,res) {
+router.get('/fullMenu/:venueId', function (req, res) {
   var venueId = req.params.venueId;
   Venue.getFullMenuByVenueId(venueId, (err, venue) => {
     if (err) {
@@ -196,7 +183,6 @@ router.get('/menu/venue/:venueId', function (req, res) {
   });
 
 });
-
 
 
 //Start a new bill
