@@ -9,15 +9,18 @@ import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { MenuService } from '../services/menu.service';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { AdminService } from '../services/admin.service';
 
 import { routing } from '../app.routes';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routing)
+    RouterModule.forRoot(routing),
+    ZXingScannerModule.forRoot()
   ],
   declarations: [AdminComponent, AdminOpenBillsComponent, AdminPastBillsComponent, AdminScanQRComponent, AdminMenuComponent, AdminUserManagementComponent, AdminProfileComponent, AdminScanQRComponent],
-  providers: [MenuService]
+  providers: [MenuService, AdminService]
 })
 export class AdminModule { }

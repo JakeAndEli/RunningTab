@@ -30,7 +30,12 @@ export class SignInComponent implements OnInit {
       (data: any) => {
         if(data.success) {
           this.authService.storeAccountData(data.token, data.user);
-          this.router.navigate(['user']);
+          var isAdmin = data.user.admin;
+          if(isAdmin) {
+            this.router.navigate(['admin']);
+          } else {
+            this.router.navigate(['user']);
+          }
         } else {
           alert("Error: " + data.msg);
           this.router.navigate(['signin']);

@@ -7,12 +7,23 @@ export class MenuService {
 
   constructor(private http: HttpClient) { }
 
-  addCategory(newCategory) {
-    this.http.post('/api/category', newCategory)
+  getFullMenu() : Observable<any> {
+    var userString = localStorage.getItem("user");
+    var userJSON = JSON.parse(userString);
+    var venueId = userJSON.venueId;
+    return this.http.get('/api/fullMenu/' + venueId)
   }
 
-  addItem() {
+  addCategory(newCategory) : Observable<any> {
+    return this.http.post('/api/menuCategory/', newCategory)
+  }
 
+  addItem(newItem) {
+    return this.http.post('/api/item', newItem)
+  }
+
+  removeItem(data) {
+    return this.http.post('api/removeItem', data);
   }
 
 }

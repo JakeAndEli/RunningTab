@@ -15,7 +15,7 @@ export class AdminOpenBillsComponent implements OnInit {
     // Authenticate
     this.authService.getAdminHome().subscribe(
       (data: any) => {
-        console.log("returned to admin home comp: " + data);
+        //console.log("returned to admin home comp: " + data);
       }
     )
   }

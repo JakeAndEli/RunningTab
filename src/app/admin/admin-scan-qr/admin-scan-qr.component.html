@@ -1,4 +1,34 @@
 <app-admin></app-admin>
-<p>
-  admin-scan-qr works!
-</p>
+
+<div id="admin-scan-qr-comp">
+  <div id="admin-scan-qr-cont">
+    <div class="container">
+      <div class="scanner-shell" [hidden]="!hasDevices">
+        <zxing-scanner id="scanner" #scanner start="true" [scannerEnabled]="scannerEnabled" [device]="currentDevice" (scanSuccess)="handleQrCodeResult($event)"></zxing-scanner>
+        <div *ngIf="!qrResultString">Waiting for scan...</div>
+        <p *ngIf="qrResultString">Created a new tab for user:</p>
+        <p>{{ qrResultString }}</p>
+      </div>
+
+      <div class="after-scan">
+        <div class="looking-for-user" *ngIf="lookingForUser === true">Looking for user...</div>
+        <div class="continue-scanning-cont" *ngIf="lookingForUser === false && scannerEnabled === false">
+          <input type="submit" value="Continue Scanning" class="btn form-control" [hidden]="scannerEnabled" [hidden]="lookingForUser" (click)="enableScanningAgain()">
+        </div>
+      </div>
+
+      <div class="no-back-camera" [hidden]="hasDevices">
+        <p>There is no back camera on this device!</p>
+      </div>
+
+      <div class="permission-undefined" *ngIf="hasPermission === undefined">
+        <p>Waiting for permissions.</p>
+        <p> If your device does not have a back-facing camera, no permissions will be asked.</p>
+      </div>
+
+      <div class="permission-false" *ngIf="hasPermission === false">
+        <p>You denied the camera permission, we can't scan anything without it.</p>
+      </div>
+    </div>
+  </div>
+</div>

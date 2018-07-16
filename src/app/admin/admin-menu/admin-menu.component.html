@@ -8,6 +8,49 @@
             <div id="menu-header">My Menu</div>
             <div id="menu-content">
               <div class="categories-label">Categories:</div>
+
+                <div *ngFor="let menuCategory of menuCategories" class="category-cont" attr.data-menucategoryid="{{menuCategory._id}}">
+                  <div class="category-header">
+                    <div class="category-name">{{menuCategory.name}}</div>
+                    <div class="category-arrow">
+                      <img class="arrow-icon" src="assets/images/arrow-down.png" />
+                    </div>
+                  </div>
+                  <div class="category-items">
+                    <div *ngFor="let item of menuCategory['items']">
+                      <div class="item-cont" attr.data-itemid="{{item._id}}">
+                        <div class="item-name">{{item.name}}</div>
+                        <div class="item-right-side">
+                          <div class="item-price">{{item.price}}</div>
+                          <div class="remove-item">Remove</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item-cont hide">
+                      <div class="item-name"></div>
+                      <div class="item-right-side">
+                        <div class="item-price"></div>
+                        <div class="remove-item">Remove</div>
+                      </div>
+                    </div>
+                    <div class="add-item-dialogue hide">
+                      <div class="row">
+                        <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10 add-item-name-cont">
+                          <input type="text" name="item-name" class="add-item-name form-control" placeholder="Name" value="">
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 add-item-price-cont">
+                          <input type="text" name="item-price" class="add-item-price form-control" placeholder="Price" value="">
+                        </div>
+                      </div>
+                      <div class="add-item-buttons">
+                        <div class="cancel-item">Cancel</div>
+                        <div class="save-item">Save</div>
+                      </div>
+                    </div>
+                    <div class="add-item">Add Item</div>
+                  </div>
+                </div>
+
               <div class="category-cont hide">
                 <div class="category-header">
                   <div class="category-name"></div>
