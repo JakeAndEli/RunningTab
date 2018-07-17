@@ -32,14 +32,14 @@ module.exports.create = function (tab, callback) {
 module.exports.getTabsByUserId = function (userId, callback) {
   Tab.find({
     userId: userId
-  }).populate('venueId').exec(callback);
+  }).populate('items', 'venueId').exec(callback);
 };
 
-//Get venue tabs
+// Get venue tabs
 module.exports.getTabsByVenueId = function (venueId, callback){
   Tab.find({
     venueId : venueId
-  }).populate().exec(callback);
+  }).populate('items').exec(callback);
 };
 
 //Add item to item array on tab

@@ -1,68 +1,102 @@
-#admin-open-bills-comp {
-  #admin-open-bills-cont {
-    .tab-cont {
-      background: white;
-      border-radius: 15px;
-      padding: 10px;
-      margin-bottom: 25px;
+.container {
+  #admin-open-bills-comp {
+    #admin-open-bills-cont {
+      .tab-cont {
+        background: white;
+        border-radius: 15px;
+        padding: 10px;
+        margin-bottom: 25px;
 
-      .tab-header {
-        margin-bottom: 15px;
+        .tab-header {
+          margin-bottom: 15px;
 
-        .table-number {
-          font-size: 26px;
+          .table-number {
+            font-size: 26px;
+          }
+          .server-name {
+            font-size: 20px;
+          }
+          .time-tab-opened {
+            font-size: 16px;
+          }
         }
-        .server-name {
-          font-size: 20px;
-        }
-        .time-tab-opened {
-          font-size: 16px;
-        }
-      }
-      .items {
-        margin-bottom: 15px;
+        .items {
+          margin-bottom: 15px;
 
-        .item-cont {
-          display: block;
+          .item-cont {
+            display: block;
 
-          .item-name {
+            .item-name {
+              display: inline-block;
+            }
+            .item-price {
+              float: right;
+              display: inline-block;
+            }
+          }
+        }
+        .total-cont {
+          margin-bottom: 15px;
+
+          .total-label {
             display: inline-block;
           }
-          .item-price {
+          .total-cost {
             float: right;
             display: inline-block;
           }
         }
+        .tab-footer {
+          .add-item {
+            padding: 10px 30px;
+            background: green;
+            color: white;
+            display: inline-block;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+          .close-tab {
+            padding: 10px 30px;
+            background: red;
+            color: white;
+            display: inline-block;
+            border-radius: 15px;
+            cursor: pointer;
+            float: right
+          }
+        }
       }
-      .total-cont {
-        margin-bottom: 15px;
+    }
+  }
+  #add-item-pop-up {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 100%;
 
-        .total-label {
-          display: inline-block;
-        }
-        .total-cost {
-          float: right;
-          display: inline-block;
-        }
+    #category-holder {
+      .category-cont {
+        height: 75px;
+        background: dodgerblue;
+        color: white;
+        text-align: center;
+        line-height: 75px;
+        cursor: pointer;
       }
-      .tab-footer {
-        .add-item {
-          padding: 10px 30px;
-          background: green;
-          color: white;
-          display: inline-block;
-          border-radius: 15px;
-          cursor: pointer;
-        }
-        .close-tab {
-          padding: 10px 30px;
-          background: red;
-          color: white;
-          display: inline-block;
-          border-radius: 15px;
-          cursor: pointer;
-          float: right
-        }
+    }
+    #item-holder {
+      .add-item-cont {
+        height: 75px;
+        background: dodgerblue;
+        color: white;
+        text-align: center;
+        line-height: 75px;
+        cursor: pointer;
+      }
+    }
+    #exit-add-item {
+      img {
+
       }
     }
   }

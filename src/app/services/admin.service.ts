@@ -7,6 +7,10 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
+  getTabs(venueId) {
+    return this.http.get('/api/tabs/' + venueId);
+  }
+
   startNewTab(userId) {
     var venueId = JSON.parse(localStorage.getItem("user")).venueId;
     var data = {
@@ -15,5 +19,7 @@ export class AdminService {
     };
     return this.http.post('/api/tab/', data)
   }
+
+
 
 }

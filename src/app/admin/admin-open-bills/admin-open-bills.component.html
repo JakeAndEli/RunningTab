@@ -4,37 +4,51 @@
     <div id="admin-open-bills-cont">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 no-float">
-          <div class="tab-cont">
+          <div *ngFor="let tab of tabs" attr.data-tabid="{{tab._id}}" class="tab-cont">
             <div class="tab-header">
-              <div class="table-number">Table 12</div>
-              <div class="server-name">Server: Jackie</div>
-              <div class="time-tab-opened">Started at 6:33pm</div>
+              <div class="table-number"></div>
+              <div class="server-name"></div>
+              <div class="time-tab-opened">{{tab.openedAt}}</div>
             </div>
             <div class="items">
-              <div class="item-cont">
-                <div class="item-name">Bud Light</div>
-                <div class="item-price">$2.00</div>
-              </div>
-              <div class="item-cont">
-                <div class="item-name">Corona</div>
-                <div class="item-price">$3.00</div>
-              </div>
-              <div class="item-cont">
-                <div class="item-name">Rolling Rock Pitcher</div>
-                <div class="item-price">$9.00</div>
+              <div *ngFor="let item of tab['items']" attr.data-menucategoryid="{{category._id}}" class="item-cont">
+                <div class="item-name">{{item.name}}</div>
+                <div class="item-price">{{item.price}}</div>
               </div>
             </div>
             <div class="total-cont">
               <div class="total-label">Total:</div>
-              <div class="total-cost">$14.00</div>
+              <div class="total-cost">$69.00</div>
             </div>
             <div class="tab-footer">
-              <div class="add-item">Add Item</div>
-              <div class="close-tab">Close Tab</div>
+              <a class="add-item" (click)="addItem()">Add Item</a>
+              <a class="close-tab" (click)="closeTab()">Close Tab</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div id="add-item-pop-up" class="hide">
+    <div id="category-holder" class="container">
+      <div class="row">
+        <a *ngFor="let category of categories" class="category-cont col-lg-2" attr.data-menucategoryid="{{category._id}}">
+          {{category.name}}
+        </a>
+      </div>
+    </div>
+    <div id="item-holder" class="container hide">
+      <div class="row">
+        <a *ngFor="let category of categories">
+          <a *ngFor="let item of category['items']" class="add-item-cont col-lg-2 hide" attr.data-menucategoryid="{{category._id}}" attr.data-itemid="{{item._id}}">
+            {{item.name}}
+          </a>
+        </a>
+      </div>
+    </div>
+    <div id="exit-add-item" class="hide">
+      <img src="" />
+    </div>
+  </div>
 </div>
+

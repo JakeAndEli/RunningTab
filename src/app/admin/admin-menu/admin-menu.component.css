@@ -72,6 +72,16 @@
   cursor: pointer;
   margin: 15px 0 10px 0;
 }
+#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items .remove-category {
+  padding: 10px 30px;
+  background: #ffccbc;
+  color: white;
+  display: inline-block;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 15px 0 10px 0;
+  float: right;
+}
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items .add-item-dialogue {
   margin: 15px 0 10px 0;
   padding: 10px 10px 60px 10px;

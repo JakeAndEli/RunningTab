@@ -9,6 +9,7 @@ import { MenuService } from '../../services/menu.service';
 })
 export class AdminMenuComponent implements OnInit {
 
+  private menuId;
   private menuCategories;
 
   constructor(private menuService : MenuService) {}
@@ -17,12 +18,16 @@ export class AdminMenuComponent implements OnInit {
 
     this.menuService.getFullMenu().subscribe(
       (data: any) => {
+        this.menuId = data.venue[0].menuId._id;
         this.menuCategories = data.venue[0].menuId.menuCategoryId;
       }
     );
 
-    var thisClass = this;
+    this.setClickHandlers();
+  }
 
+  setClickHandlers() : void {
+    var thisClass = this;
     $(document).ready(function(){
       $("#add-category").click(function(){
         thisClass.showCategoryForm();
@@ -50,6 +55,9 @@ export class AdminMenuComponent implements OnInit {
       });
       $(".remove-all").click(function(){
         thisClass.removeAll(this);
+      });
+      $(".remove-category").click(function(){
+        thisClass.removeCategory(this);
       });
     });
   }
@@ -161,6 +169,21 @@ export class AdminMenuComponent implements OnInit {
     var categoryCont = $(menuContent).find(".category-cont");
 
     $(categoryCont).remove(".clone");
+  }
+
+  removeCategory(clickedElement) : void {
+    var menuCategoryCont = $(clickedElement).closest(".category-cont");
+    var menuCategoryId = $(menuCategoryCont).attr("data-menucategoryid");
+    var data = {
+      menuId: this.menuId,
+      menuCategoryId: menuCategoryId
+    };
+
+    this.menuService.removeCategory(data).subscribe(
+      (data: any) => {
+        $(menuCategoryCont).remove();
+      }
+    );
   }
 
 }
