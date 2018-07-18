@@ -120,22 +120,19 @@ router.post('/changePassword', function (req, res) {
   User.updatePassword(user);
 });
 
+// Check for duplicate user
 router.get('/checkForUserName/:username', function (req,res) {
-
-  var userName = req.params.username;
-  User.getUserByUsername(userName,function (err,user) {
-    if(err)
-      throw err;
+  var username = req.params.username;
+  User.getUserByUsername(username, function (err,user) {
+    if(err) throw err;
     if(user != null) {
       res.json({exists: true})
-
     }
-    else
+    else {
       res.json({exists: false})
+    }
   })
-
 });
-
 
 // Get all Venues
 router.get('/getVenues', function (req, res) {

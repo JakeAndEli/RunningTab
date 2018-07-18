@@ -41,10 +41,10 @@
 }
 .container #admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-footer .add-item {
   padding: 10px 30px;
-  background: green;
+  background: #1cb94e;
   color: white;
   display: inline-block;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
 }
 .container #admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-footer .close-tab {
@@ -52,7 +52,7 @@
   background: red;
   color: white;
   display: inline-block;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
   float: right;
 }
@@ -98,24 +98,50 @@
 .container #add-item-pop-up .container #selectors #category-holder {
   padding: 25px;
 }
-.container #add-item-pop-up .container #selectors #category-holder .category-cont {
+.container #add-item-pop-up .container #selectors #category-holder .my-col {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.container #add-item-pop-up .container #selectors #category-holder .my-col .category-cont {
   background: dodgerblue;
   color: white;
   text-align: center;
   line-height: 75px;
   cursor: pointer;
   border-radius: 10px;
+  display: block;
 }
 .container #add-item-pop-up .container #selectors #item-holder {
   padding: 25px;
 }
-.container #add-item-pop-up .container #selectors #item-holder .add-item-cont {
+.container #add-item-pop-up .container #selectors #item-holder .my-col {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.container #add-item-pop-up .container #selectors #item-holder .my-col .add-item-cont {
   background: dodgerblue;
   color: white;
   text-align: center;
   line-height: 75px;
   cursor: pointer;
   border-radius: 10px;
+  display: block;
+}
+.container #add-item-pop-up .container #added-items-cont #added-items .item-on-tab {
+  display: none;
+}
+.container #add-item-pop-up .container #added-items-cont #added-items .item-on-tab .item-name {
+  display: inline-block;
+}
+.container #add-item-pop-up .container #added-items-cont #added-items .item-on-tab .delete-temp-item {
+  display: inline-block;
+  float: right;
+  width: 20px;
+  height: 20px;
+}
+.container #add-item-pop-up .container #added-items-cont #added-items .item-on-tab .delete-temp-item img {
+  height: 100%;
+  width: 100%;
 }
 .container #add-item-pop-up #pop-up-footer {
   display: block;

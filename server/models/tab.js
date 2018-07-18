@@ -52,18 +52,35 @@ module.exports.addItemToTab = function (data, callback) {
       if (err) console.log(err);
     }
   );
+
+  Tab.updateTabTotal(data.tabId, (err, data) => {
+    if (err) throw err;
+  });
 };
 
 //Remove an item to item array on tab
-module.exports.removeItemFromTab = function (tab, callback) {
-  Tab.findByIdAndUpdate(tab.id,
-    {$pull: {items: tab.item}},
+module.exports.removeItemFromTab = function (data, callback) {
+  Tab.findByIdAndUpdate(data.tabId,
+    {$pull: {items: data.itemId}},
     {safe: true, upsert: false},
     function (err, data) {
       if (err) console.log(err);
       //console.log(data);
     }
   );
+
+  Tab.updateTabTotal(data.tabId, (err, data) => {
+    if (err) throw err;
+  });
+};
+
+module.exports.updateTabTotal = function(tabId,  callback) {
+  Tab.findById(tabId, function(err, tab) {
+    if (err) throw err;
+    else {
+      console.log(tab.items);
+    }
+  });
 };
 
 //Set closed at date to current time

@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authenticate.service';
 import { MenuService } from '../../services/menu.service';
 import { AdminService } from '../../services/admin.service';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-open-bills',
@@ -18,7 +19,8 @@ export class AdminOpenBillsComponent implements OnInit {
 
   constructor(private authService : AuthenticationService,
               private adminService : AdminService,
-              private menuService : MenuService) {}
+              private menuService : MenuService,
+              private router: Router) {}
 
   ngOnInit() {
     // Authenticate and then get Tabs
@@ -30,6 +32,7 @@ export class AdminOpenBillsComponent implements OnInit {
             (data: any) => {
               if(data.success) {
                 this.tabs = data.tabs;
+                this.organizeTabs();
               }
             }
           )
@@ -46,6 +49,38 @@ export class AdminOpenBillsComponent implements OnInit {
     );
 
     this.setClickHandlers();
+  }
+
+  organizeTabs() : void {
+
+    var tabObj = {};
+    var currentTabId;
+    var currentItem;
+
+    for(var i = 0; i < this.tabs.length; i++) {
+      currentTabId = this.tabs[i]._id;
+      tabObj[currentTabId] = {};
+
+      for(var j = 0; j < this.tabs[i].items.length; j++) {
+        currentItem = this.tabs[i].items[j];
+
+        if(tabObj[currentTabId][currentItem._id]) {
+          tabObj[currentTabId][currentItem._id]["count"]++;
+        } else {
+          tabObj[currentTabId][currentItem._id] = {};
+          tabObj[currentTabId][currentItem._id]["count"] = 1;
+          tabObj[currentTabId][currentItem._id]["name"] = currentItem.name;
+          tabObj[currentTabId][currentItem._id]["price"] = currentItem.price;
+        }
+
+      }
+    }
+
+
+  }
+
+  calculateTotal() : void {
+
   }
 
   setClickHandlers() : void {
@@ -73,13 +108,36 @@ export class AdminOpenBillsComponent implements OnInit {
     for(var i = 0; i < allItems.length; i++) {
       if($(allItems[i]).attr("data-menucategoryid") == categoryId) {
         $(allItems[i]).removeClass("hide");
+        $(allItems[i]).closest(".my-col").removeClass("hide");
       }
     }
   }
 
   addItem(item) {
-    var newItemToTab = "<div class='itemOnTab' data-itemid='" + item._id + "'>" + item.name + "</div>";
-    $("#added-items").append($(newItemToTab));
+    var newItemToTab = $("<div class='item-on-tab' data-itemid='" + item._id + "'></div>");
+    var newItemName = $("<div class='item-name'>" + item.name + "</div>");
+    var deleteTempItem = $("<div class='delete-temp-item'></div>");
+    var deleteTempItemImg = $("<img src='assets/images/minus.png' />");
+
+    newItemName.css("display", "inline-block");
+    deleteTempItem.css("display", "inline-block");
+    deleteTempItem.css("float", "right");
+    deleteTempItem.css("height", "25px");
+    deleteTempItem.css("width", "25px");
+    deleteTempItem.css("cursor", "pointer");
+    deleteTempItem.css("margin-right", "10px");
+    deleteTempItemImg.css("height", "100%");
+    deleteTempItemImg.css("width", "100%");
+    deleteTempItem.append(deleteTempItemImg);
+    newItemToTab.append(newItemName);
+    newItemToTab.append(deleteTempItem);
+
+    $(".delete-temp-item").click(function() {
+      console.log("Clicked it");
+      $(this).closest(".item-on-tab").remove();
+    });
+
+    $("#added-items").append(newItemToTab);
   }
 
   saveItemsToTab() : void {
@@ -98,6 +156,7 @@ export class AdminOpenBillsComponent implements OnInit {
         if(data.success) {
           alert("These items have been added to this tab!");
           this.exitPopUp();
+          this.ngOnInit();
         }
       }
     );
@@ -120,6 +179,7 @@ export class AdminOpenBillsComponent implements OnInit {
     $("#category-holder").removeClass("hide");
     $("#item-holder").addClass("hide");
     $(".add-item-cont").addClass("hide");
+    $(".add-item-cont").closest(".my-col").addClass("hide");
     $("#pop-up-header-text").html("Categories");
   }
 
@@ -128,6 +188,7 @@ export class AdminOpenBillsComponent implements OnInit {
     $("#category-holder").removeClass("hide");
     $("#item-holder").addClass("hide");
     $(".add-item-cont").addClass("hide");
+    $(".add-item-cont").closest(".my-col").addClass("hide");
     $("#pop-up-header-text").html("Categories");
     $("#added-items").empty();
   }

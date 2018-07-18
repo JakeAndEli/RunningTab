@@ -41,16 +41,20 @@
         <div id="selectors" class="col-lg-9">
           <div id="category-holder">
             <div class="row">
-              <a *ngFor="let category of categories" class="category-cont col-xs-6 col-lg-2" attr.data-menucategoryid="{{category._id}}" (click)="showItemsForCategory(category)">
-                {{category.name}}
-              </a>
+              <div *ngFor="let category of categories" class="my-col col-xs-6 col-lg-2">
+                <a class="category-cont" attr.data-menucategoryid="{{category._id}}" (click)="showItemsForCategory(category)">
+                  {{category.name}}
+                </a>
+              </div>
             </div>
           </div>
           <div id="item-holder" class="hide">
             <div class="row">
               <a *ngFor="let category of categories">
-                <a *ngFor="let item of category['items']" class="add-item-cont col-xs-6 col-lg-2 hide" attr.data-menucategoryid="{{category._id}}" attr.data-itemid="{{item._id}}" (click)="addItem(item)">
-                  {{item.name}}
+                <a *ngFor="let item of category['items']" class="my-col col-xs-6 col-lg-2 hide">
+                  <a class="add-item-cont hide" attr.data-menucategoryid="{{category._id}}" attr.data-itemid="{{item._id}}" (click)="addItem(item)">
+                    {{item.name}}
+                  </a>
                 </a>
               </a>
             </div>
