@@ -119,6 +119,16 @@ router.post('/changepass/:userId/:password', function (req, res) {
   User.updatePassword(user);
 });
 
+router.get('/user/:userId', function (req,res) {
+  var userId = req.params.userId;
+  User.getUserById(userId,function (err,user) {
+    if(err)
+      throw err;
+    else
+      res.send(user);
+  })
+});
+
 router.get('/checkForUserName/:username', function (req,res) {
 
   var userName = req.params.username;
@@ -203,6 +213,19 @@ router.get('/fullMenu/:venueId', function (req,res) {
   });
 });
 
+//get Venue
+router.get('/venue/:venueId',function(req,res){
+  var VenueId = req.params.venueId;
+
+  Venue.getVenueById(VenueId, (err, venue) =>{
+    if (err) throw err;
+    else{
+      res.json({venue: venue});
+
+    }
+  });
+});
+
 // Create Tab
 router.post('/tab', function(req, res) {
   var venueId = req.body.venueId;
@@ -259,7 +282,7 @@ router.get('/tabs/:venueId', function (req, res) {
 // Get all Tabs for userId
 router.get('/tabs/user/:userId', function (req, res) {
   var userId = req.params.userId;
-
+  console.log(userId);
   Tab.getTabsByUserId(userId, (err, tabs) => {
     if (err) throw err;
     else {

@@ -28,6 +28,10 @@ module.exports.getFullMenuByVenueId = function (venueId, callback) {
   }).exec(callback);
 };
 
+module.exports.getVenueById = function(venueId, callback){
+  Venue.findById(venueId,callback);
+}
+
 module.exports.getMenuIdFromVenueId = function (venueId, callback) {
   return Venue.findById(venueId);
 };

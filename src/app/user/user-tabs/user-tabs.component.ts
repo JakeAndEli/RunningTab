@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-user-tabs',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserTabsComponent implements OnInit {
 
-  constructor() { }
+  private tabs;
 
-  ngOnInit() {
+  constructor(private userService: UserService) {
   }
 
+  ngOnInit() {
+
+    this.userService.getTabs().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.tabs = data.tabs;
+
+      }
+    );
+
+  }
 }

@@ -20,6 +20,7 @@ export class AdminScanQRComponent implements OnInit {
   currentDevice:MediaDeviceInfo;
   scannerEnabled:boolean;
   lookingForUser:boolean;
+  fullName:String;
 
   constructor(private adminService : AdminService) {}
 
@@ -48,13 +49,20 @@ export class AdminScanQRComponent implements OnInit {
   handleQrCodeResult(resultString:string) {
     this.scannerEnabled = false;
     this.lookingForUser = true;
-    this.qrResultString = resultString;
 
-    // Start new tab
-    this.adminService.startNewTab(this.qrResultString).subscribe(
+    this.adminService.getUserInfo(resultString).subscribe(
       (data: any) => {
-        // Potential validation for if the userId exists in the db
-        this.lookingForUser = false;
+        console.log(data);
+        this.fullName = data.fullName;
+        this.qrResultString = resultString;
+
+        // Start new tab
+        this.adminService.startNewTab(this.qrResultString).subscribe(
+          (data: any) => {
+            // Potential validation for if the userId exists in the db
+            this.lookingForUser = false;
+          }
+        );
       }
     );
 

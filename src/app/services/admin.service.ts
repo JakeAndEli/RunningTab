@@ -16,4 +16,14 @@ export class AdminService {
     return this.http.post('/api/tab/', data)
   }
 
+  getVenueInfo() {
+    var venueId = JSON.parse(localStorage.getItem('user')).venueId;
+    return this.http.get('api/venue/' + venueId );
+  }
+
+  getUserInfo(userId) {
+    var userId = userId;
+    return this.http.get('api/user/' + userId);
+  }
+
 }
