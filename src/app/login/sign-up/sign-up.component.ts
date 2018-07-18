@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class SignUpComponent implements OnInit {
 
   public username : String;
+  public fullName : String;
   public password : String;
   public confirmPassword : String;
 
@@ -24,10 +25,45 @@ export class SignUpComponent implements OnInit {
 
   routeToPickRole() {
     // Check to make sure password and confirm password are same and other password validation
-    // ie: username isn't taken
-    this.signUpService.setUsername(this.username);
-    this.signUpService.setPassword(this.password);
-    this.router.navigate(['/signup-pick-role']);
+
+    if (this.password !== this.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    if ( this.password.length <= 7 ) {
+      alert('Password must be 8 characters or more');
+      return;
+    }
+    if (this.username === '') {
+      alert('Username is blank');
+    }
+    if (this.fullName === '') {
+      alert('Full Name is blank');
+    }
+    if (this.password === '') {
+      alert('Password is blank');
+    }
+    if (this.confirmPassword === '') {
+      alert('confirm password is blank');
+    }
+
+    this.signUpService.checkUsername(this.username).subscribe(
+      (data: any) => {
+        if (data.exists === true) {
+          alert('This username already exists please try something else');
+          return;
+        } else {
+            this.signUpService.setUsername(this.username);
+            this.signUpService.setFullName(this.fullName);
+            this.signUpService.setPassword(this.password);
+            this.router.navigate(['/signup-pick-role']);
+          }
+      }
+    );
+
+
+
   }
 
 }

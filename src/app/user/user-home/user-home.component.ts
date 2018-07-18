@@ -21,7 +21,7 @@ export class UserHomeComponent implements OnInit {
       (data: any) => {
         var user = JSON.parse(localStorage.getItem("user"));
         this.username = user.username;
-        this.fullName = user.username;
+        this.fullName = user.fullName;
         this.qrCode = user.qrCode;
       }
     )

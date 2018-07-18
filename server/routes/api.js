@@ -19,7 +19,7 @@ router.post('/register', function (req, res) {
   var isAdmin = req.body.isAdmin;
 
   var user = new User();
-  //user.fullName = req.body.fullName;
+  user.fullName = req.body.fullName;
   user.username = req.body.username;
   User.setPassword(user, req.body.password);
   user.admin = isAdmin;
@@ -65,7 +65,7 @@ router.post('/register', function (req, res) {
           token: 'JWT ' + token,
           user: {
             id: user._id,
-            name: user.fullName,
+            fullName: user.fullName,
             username: user.username,
             admin: user.admin,
             venueId: user.venue,
@@ -96,7 +96,7 @@ router.post('/authenticate', function (req, res) {
         token: 'JWT ' + token,
         user: {
           id: user._id,
-          name: user.fullName,
+          fullName: user.fullName,
           username: user.username,
           admin: user.admin,
           venueId: user.venue,
@@ -118,6 +118,23 @@ router.post('/changepass/:userId/:password', function (req, res) {
   };
   User.updatePassword(user);
 });
+
+router.get('/checkForUserName/:username', function (req,res) {
+
+  var userName = req.params.username;
+  User.getUserByUsername(userName,function (err,user) {
+    if(err)
+      throw err;
+    if(user != null) {
+      res.json({exists: true})
+
+    }
+    else
+      res.json({exists: false})
+  })
+
+});
+
 
 // Get all Venues
 router.get('/getVenues', function (req, res) {
