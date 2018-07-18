@@ -32,39 +32,55 @@ module.exports.create = function (tab, callback) {
 module.exports.getTabsByUserId = function (userId, callback) {
   Tab.find({
     userId: userId
-  }).populate('venueId').exec(callback);
+  }).populate('items', 'venueId').exec(callback);
 };
 
-//Get venue tabs
+// Get venue tabs
 module.exports.getTabsByVenueId = function (venueId, callback){
   Tab.find({
     venueId : venueId
-  }).populate().exec(callback);
+  }).populate('items').exec(callback);
 };
 
 //Add item to item array on tab
-module.exports.addItemToTab = function (tab, callback) {
+module.exports.addItemToTab = function (data, callback) {
 
-  Tab.findByIdAndUpdate(tab.id,
-    {$push: {items: tab.item}},
+  Tab.findByIdAndUpdate(data.tabId,
+    {$push: {items: data.itemId}},
     {safe: true, upsert: false},
     function (err, data) {
       if (err) console.log(err);
-      //console.log(data);
     }
   );
+
+  Tab.updateTabTotal(data.tabId, (err, data) => {
+    if (err) throw err;
+  });
 };
 
 //Remove an item to item array on tab
-module.exports.removeItemFromTab = function (tab, callback) {
-  Tab.findByIdAndUpdate(tab.id,
-    {$pull: {items: tab.item}},
+module.exports.removeItemFromTab = function (data, callback) {
+  Tab.findByIdAndUpdate(data.tabId,
+    {$pull: {items: data.itemId}},
     {safe: true, upsert: false},
     function (err, data) {
       if (err) console.log(err);
       //console.log(data);
     }
   );
+
+  Tab.updateTabTotal(data.tabId, (err, data) => {
+    if (err) throw err;
+  });
+};
+
+module.exports.updateTabTotal = function(tabId,  callback) {
+  Tab.findById(tabId, function(err, tab) {
+    if (err) throw err;
+    else {
+      console.log(tab.items);
+    }
+  });
 };
 
 //Set closed at date to current time

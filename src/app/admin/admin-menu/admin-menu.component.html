@@ -6,23 +6,22 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 no-float">
           <div id="menu-cont">
             <div id="menu-header">My Menu</div>
-            <div id="menu-content">
+            <div id="menu-content" attr.data-menuid="{{menuId}}">
               <div class="categories-label">Categories:</div>
-
                 <div *ngFor="let menuCategory of menuCategories" class="category-cont" attr.data-menucategoryid="{{menuCategory._id}}">
-                  <div class="category-header">
+                  <a class="category-header">
                     <div class="category-name">{{menuCategory.name}}</div>
                     <div class="category-arrow">
                       <img class="arrow-icon" src="assets/images/arrow-down.png" />
                     </div>
-                  </div>
+                  </a>
                   <div class="category-items">
                     <div *ngFor="let item of menuCategory['items']">
                       <div class="item-cont" attr.data-itemid="{{item._id}}">
                         <div class="item-name">{{item.name}}</div>
                         <div class="item-right-side">
                           <div class="item-price">{{item.price}}</div>
-                          <div class="remove-item">Remove</div>
+                          <a class="remove-item">Remove</a>
                         </div>
                       </div>
                     </div>
@@ -43,27 +42,27 @@
                         </div>
                       </div>
                       <div class="add-item-buttons">
-                        <div class="cancel-item">Cancel</div>
-                        <div class="save-item">Save</div>
+                        <a class="cancel-item">Cancel</a>
+                        <a class="save-item">Save</a>
                       </div>
                     </div>
-                    <div class="add-item">Add Item</div>
+                    <a class="add-item">Add Item</a>
+                    <a class="remove-category">Remove Category</a>
                   </div>
                 </div>
-
               <div class="category-cont hide">
-                <div class="category-header">
+                <a class="category-header">
                   <div class="category-name"></div>
                   <div class="category-arrow">
                     <img class="arrow-icon" src="assets/images/arrow-down.png" />
                   </div>
-                </div>
+                </a>
                 <div class="category-items">
                   <div class="item-cont hide">
                     <div class="item-name"></div>
                     <div class="item-right-side">
                       <div class="item-price"></div>
-                      <div class="remove-item">Remove</div>
+                      <a class="remove-item">Remove</a>
                     </div>
                   </div>
                   <div class="add-item-dialogue hide">
@@ -76,11 +75,12 @@
                       </div>
                     </div>
                     <div class="add-item-buttons">
-                      <div class="cancel-item">Cancel</div>
-                      <div class="save-item">Save</div>
+                      <a class="cancel-item">Cancel</a>
+                      <a class="save-item">Save</a>
                     </div>
                   </div>
-                  <div class="add-item">Add Item</div>
+                  <a class="add-item">Add Item</a>
+                  <a class="remove-category">Remove Category</a>
                 </div>
               </div>
               <div class="add-category-dialogue hide">
@@ -88,15 +88,15 @@
                   <input type="text" name="category-name" class="add-category-name form-control" placeholder="Name" value="">
                 </div>
                 <div class="add-category-buttons">
-                  <div class="cancel-category">Cancel</div>
-                  <div class="save-category">Save</div>
+                  <a class="cancel-category">Cancel</a>
+                  <a class="save-category">Save</a>
                 </div>
               </div>
-              <div id="add-category">Add Category</div>
+              <a id="add-category">Add Category</a>
             </div>
             <div class="menu-footer">
-              <div class="import-menu">Import Menu</div>
-              <div class="remove-all">Remove All</div>
+              <a class="import-menu">Import Menu</a>
+              <a class="remove-all">Remove All</a>
             </div>
           </div>
         </div>

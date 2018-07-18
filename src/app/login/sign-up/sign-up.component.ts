@@ -26,26 +26,21 @@ export class SignUpComponent implements OnInit {
   routeToPickRole() {
     // Check to make sure password and confirm password are same and other password validation
 
-    if (this.password !== this.confirmPassword) {
-      alert('Passwords do not match');
+    if (!this.username) {
+      alert('Username is blank');
       return;
     }
-
-    if ( this.password.length <= 7 ) {
+    if (!this.fullName) {
+      alert('Full Name is blank');
+      return;
+    }
+    if ( !this.password || this.password.length <= 7 ) {
       alert('Password must be 8 characters or more');
       return;
     }
-    if (this.username === '') {
-      alert('Username is blank');
-    }
-    if (this.fullName === '') {
-      alert('Full Name is blank');
-    }
-    if (this.password === '') {
-      alert('Password is blank');
-    }
-    if (this.confirmPassword === '') {
-      alert('confirm password is blank');
+    if (this.password !== this.confirmPassword) {
+      alert('Passwords do not match');
+      return;
     }
 
     this.signUpService.checkUsername(this.username).subscribe(
@@ -58,12 +53,9 @@ export class SignUpComponent implements OnInit {
             this.signUpService.setFullName(this.fullName);
             this.signUpService.setPassword(this.password);
             this.router.navigate(['/signup-pick-role']);
-          }
+        }
       }
     );
-
-
-
   }
 
 }

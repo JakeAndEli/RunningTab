@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 const Menu = require('./menu.js');
 const Venue = require('./venue.js');
+const Item = require('./item.js');
 
 var menuCategorySchema = mongoose.Schema({
   name: String,
@@ -26,6 +27,19 @@ module.exports.create = function(data, callback){
           menuCategoryId: menuCategory.id
         };
         Menu.addMenuCategory(data, callback);
+      }
+    });
+  });
+};
+
+module.exports.deleteMenuCategory = function(menuCategoryId, callback){
+  MenuCategory.findById(menuCategoryId, function(err, menuCategory){
+    if (err) throw err;
+    var items = menuCategory.items;
+    MenuCategory.remove({_id: menuCategoryId}, function(err){
+      if (err) throw err;
+      else {
+        callback(items);
       }
     });
   });

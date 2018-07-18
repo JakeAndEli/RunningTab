@@ -109,9 +109,10 @@ router.post('/authenticate', function (req, res) {
   });
 });
 
-router.post('/changepass/:userId/:password', function (req, res) {
-  var userId = req.params.userId;
-  var password = req.params.password;
+// Change password based on userId
+router.post('/changePassword', function (req, res) {
+  var userId = req.body.userId;
+  var password = req.body.password;
   var user = {
     _id: userId,
     newPassword: password
@@ -119,6 +120,7 @@ router.post('/changepass/:userId/:password', function (req, res) {
   User.updatePassword(user);
 });
 
+// Get User Info
 router.get('/user/:userId', function (req,res) {
   var userId = req.params.userId;
   User.getUserById(userId,function (err,user) {
@@ -129,22 +131,19 @@ router.get('/user/:userId', function (req,res) {
   })
 });
 
+// Check for duplicate user
 router.get('/checkForUserName/:username', function (req,res) {
-
-  var userName = req.params.username;
-  User.getUserByUsername(userName,function (err,user) {
-    if(err)
-      throw err;
+  var username = req.params.username;
+  User.getUserByUsername(username, function (err,user) {
+    if(err) throw err;
     if(user != null) {
       res.json({exists: true})
-
     }
-    else
+    else {
       res.json({exists: false})
+    }
   })
-
 });
-
 
 // Get all Venues
 router.get('/getVenues', function (req, res) {
@@ -196,10 +195,32 @@ router.post('/removeItem', function(req, res) {
     menuCategoryId: menuCategoryId
   };
   MenuCategory.deleteItem(data, () => {
-    Item.delete(itemId, () => {
+    Item.deleteItem(itemId, () => {
       res.json({success: true});
     });
   });
+});
+
+// Remove Menu Category and all the Items that belong to it
+router.post('/removeMenuCategory', function(req, res) {
+  var menuId = req.body.menuId;
+  var menuCategoryId = req.body.menuCategoryId;
+  MenuCategory.deleteMenuCategory(menuCategoryId, (items) => {
+    for(var i = 0; i < items.length; i++) {
+      Item.deleteItem(items[i], () => {});
+    }
+
+    var data = {
+      menuId: menuId,
+      menuCategoryId: menuCategoryId
+    };
+
+    Menu.removeMenuCategory(data, () => {
+      res.json({
+        success: true
+      })
+    })
+  })
 });
 
 // Get Full Menu from venueId
@@ -208,22 +229,39 @@ router.get('/fullMenu/:venueId', function (req,res) {
   Venue.getFullMenuByVenueId(venueId, (err, venue) => {
     if (err) throw err;
     else {
-      res.json({venue: venue});
+      res.json({
+        success: true,
+        venue: venue
+      });
     }
   });
 });
 
-//get Venue
-router.get('/venue/:venueId',function(req,res){
+// Get Venue Info
+router.get('/venue/:venueId',function(req,res) {
   var VenueId = req.params.venueId;
 
-  Venue.getVenueById(VenueId, (err, venue) =>{
+  Venue.getVenueById(VenueId, (err, venue) => {
     if (err) throw err;
-    else{
+    else {
       res.json({venue: venue});
 
     }
   });
+});
+
+// Get Tabs for a venue
+router.get('/tabs/:venueId', function(req, res) {
+  var venueId = req.params.venueId;
+  Tab.getTabsByVenueId(venueId, (err, tabs) => {
+    if (err) throw err;
+    else {
+      res.json({
+        success: true,
+        tabs: tabs
+      });
+    }
+  })
 });
 
 // Create Tab
@@ -238,6 +276,23 @@ router.post('/tab', function(req, res) {
       res.json({tab: tab})
   });
 });
+
+// Add an item/items to Tab
+router.post('/addItems', function (req, res) {
+  var tabId = req.body.tabId;
+  var items = req.body.items;
+  for(var i = 0; i < items.length; i++) {
+    var data = {
+      itemId: items[i],
+      tabId: tabId
+    };
+    Tab.addItemToTab(data);
+  }
+  res.json({
+    success: true
+  })
+});
+
 
 // Add an item to a tab
 router.post('/addToTab/:tab/:item', function (req, res) {

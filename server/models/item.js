@@ -26,7 +26,7 @@ module.exports.create = function(data, callback){
   });
 };
 
-module.exports.delete = function(itemId, callback){
+module.exports.deleteItem = function(itemId, callback){
   Item.remove({_id: itemId}, function(err){
     if (err) throw err;
     else {

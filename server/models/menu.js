@@ -8,7 +8,7 @@ var menuSchema = mongoose.Schema({
 
 const Menu = module.exports = mongoose.model("Menu", menuSchema);
 
-//Add passed menu category to the passed menu
+// Add Menu Category to the passed menu
 module.exports.addMenuCategory = function (data, callback){
   Menu.findByIdAndUpdate(data.menuId,
     {$push: {menuCategoryId: data.menuCategoryId}},
@@ -17,6 +17,20 @@ module.exports.addMenuCategory = function (data, callback){
       if (err) throw err;
       else {
         callback(data);
+      }
+    }
+  );
+};
+
+//Add passed menu category to the passed menu
+module.exports.removeMenuCategory = function (data, callback){
+  Menu.findByIdAndUpdate(data.menuId,
+    {$pull: {menuCategoryId: data.menuCategoryId}},
+    {safe: true},
+    function (err) {
+      if (err) throw err;
+      else {
+        callback();
       }
     }
   );
