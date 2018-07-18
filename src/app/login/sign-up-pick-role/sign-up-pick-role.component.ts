@@ -37,6 +37,7 @@ export class SignUpPickRoleComponent implements OnInit {
     const user = {
       username: this.signUpService.getUsername(),
       password: this.signUpService.getPassword(),
+      fullName: this.signUpService.getFullName(),
       isAdmin: false
     };
 
