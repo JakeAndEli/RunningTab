@@ -20,6 +20,10 @@ export class AdminService {
     return this.http.post('/api/tab/', data)
   }
 
+  addItemsToTab(data) {
+    return this.http.post('/api/addItems', data)
+  }
+
 
 
 }

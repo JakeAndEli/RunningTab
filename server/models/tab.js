@@ -43,14 +43,13 @@ module.exports.getTabsByVenueId = function (venueId, callback){
 };
 
 //Add item to item array on tab
-module.exports.addItemToTab = function (tab, callback) {
+module.exports.addItemToTab = function (data, callback) {
 
-  Tab.findByIdAndUpdate(tab.id,
-    {$push: {items: tab.item}},
+  Tab.findByIdAndUpdate(data.tabId,
+    {$push: {items: data.itemId}},
     {safe: true, upsert: false},
     function (err, data) {
       if (err) console.log(err);
-      //console.log(data);
     }
   );
 };

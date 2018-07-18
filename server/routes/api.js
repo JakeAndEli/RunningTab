@@ -239,6 +239,23 @@ router.post('/tab', function(req, res) {
   });
 });
 
+// Add an item/items to Tab
+router.post('/addItems', function (req, res) {
+  var tabId = req.body.tabId;
+  var items = req.body.items;
+  for(var i = 0; i < items.length; i++) {
+    var data = {
+      itemId: items[i],
+      tabId: tabId
+    };
+    Tab.addItemToTab(data);
+  }
+  res.json({
+    success: true
+  })
+});
+
+
 // Add an item to a tab
 router.post('/addToTab/:tab/:item', function (req, res) {
   var id = req.params.tab;

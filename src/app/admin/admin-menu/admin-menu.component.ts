@@ -23,12 +23,22 @@ export class AdminMenuComponent implements OnInit {
       }
     );
 
-    this.setClickHandlers();
   }
 
-  setClickHandlers() : void {
-    var thisClass = this;
+  ngAfterViewInit() {
+    this.setClickHandlers(this);
+  }
+
+  ngOnDestroy() {
+    //$(".category-header").unbind();
+  }
+
+  setClickHandlers(thisClass) : void {
+    var thisClass = thisClass;
     $(document).ready(function(){
+      $(document).on("click", function(event) {
+        console.log(event);
+      });
       $("#add-category").click(function(){
         thisClass.showCategoryForm();
       });

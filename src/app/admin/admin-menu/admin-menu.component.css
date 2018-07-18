@@ -21,6 +21,8 @@
   cursor: pointer;
   padding: 10px 0;
   text-indent: 5px;
+  color: black;
+  display: block;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-header .category-name {
   font-size: 22px;
@@ -62,6 +64,7 @@
   border-radius: 5px;
   cursor: pointer;
   margin-left: 25px;
+  color: black;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont #menu-content .category-cont .category-items .add-item {
   padding: 10px 30px;
@@ -168,6 +171,7 @@
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid #333333;
+  color: white;
 }
 #admin-menu-comp #admin-menu-cont #menu-cont .menu-footer .remove-all {
   display: inline-block;
@@ -177,4 +181,5 @@
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid #333333;
+  color: white;
 }

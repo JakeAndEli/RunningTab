@@ -11,7 +11,7 @@
               <div class="time-tab-opened">{{tab.openedAt}}</div>
             </div>
             <div class="items">
-              <div *ngFor="let item of tab['items']" attr.data-menucategoryid="{{category._id}}" class="item-cont">
+              <div *ngFor="let item of tab['items']" class="item-cont">
                 <div class="item-name">{{item.name}}</div>
                 <div class="item-price">{{item.price}}</div>
               </div>
@@ -21,7 +21,7 @@
               <div class="total-cost">$69.00</div>
             </div>
             <div class="tab-footer">
-              <a class="add-item" (click)="addItem()">Add Item</a>
+              <a class="add-item" (click)="showPopUp($event)">Add Item</a>
               <a class="close-tab" (click)="closeTab()">Close Tab</a>
             </div>
           </div>
@@ -30,24 +30,42 @@
     </div>
   </div>
   <div id="add-item-pop-up" class="hide">
-    <div id="category-holder" class="container">
+    <div id="pop-up-header" class="container">
+      <a id="back-button" (click)="handleBackButtonClick()">
+        <img src="assets/images/back.png" />
+      </a>
+      <div id="pop-up-header-text">Categories</div>
+    </div>
+    <div class="container">
       <div class="row">
-        <a *ngFor="let category of categories" class="category-cont col-lg-2" attr.data-menucategoryid="{{category._id}}">
-          {{category.name}}
-        </a>
+        <div id="selectors" class="col-lg-9">
+          <div id="category-holder">
+            <div class="row">
+              <a *ngFor="let category of categories" class="category-cont col-xs-6 col-lg-2" attr.data-menucategoryid="{{category._id}}" (click)="showItemsForCategory(category)">
+                {{category.name}}
+              </a>
+            </div>
+          </div>
+          <div id="item-holder" class="hide">
+            <div class="row">
+              <a *ngFor="let category of categories">
+                <a *ngFor="let item of category['items']" class="add-item-cont col-xs-6 col-lg-2 hide" attr.data-menucategoryid="{{category._id}}" attr.data-itemid="{{item._id}}" (click)="addItem(item)">
+                  {{item.name}}
+                </a>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="added-items-cont" class="col-lg-3">
+          <div id="added-items-header">Items added to Tab:</div>
+          <div id="added-items"></div>
+        </div>
       </div>
     </div>
-    <div id="item-holder" class="container hide">
-      <div class="row">
-        <a *ngFor="let category of categories">
-          <a *ngFor="let item of category['items']" class="add-item-cont col-lg-2 hide" attr.data-menucategoryid="{{category._id}}" attr.data-itemid="{{item._id}}">
-            {{item.name}}
-          </a>
-        </a>
-      </div>
-    </div>
-    <div id="exit-add-item" class="hide">
-      <img src="" />
+    <div id="pop-up-footer" class="container">
+      <a id="save-added-items" (click)="saveItemsToTab()">
+        Add Items
+      </a>
     </div>
   </div>
 </div>

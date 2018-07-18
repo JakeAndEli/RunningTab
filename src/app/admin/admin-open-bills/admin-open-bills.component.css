@@ -58,23 +58,80 @@
 }
 .container #add-item-pop-up {
   position: fixed;
-  top: 100px;
+  top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
+  padding-top: 100px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
-.container #add-item-pop-up #category-holder .category-cont {
-  height: 75px;
+.container #add-item-pop-up #pop-up-header {
+  position: relative;
+  padding: 20px 0 0 0;
+  background: white;
+  border-radius: 10px 10px 0 0;
+  display: block;
+}
+.container #add-item-pop-up #pop-up-header #back-button {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+}
+.container #add-item-pop-up #pop-up-header #back-button img {
+  height: 100%;
+  width: 100%;
+}
+.container #add-item-pop-up #pop-up-header #pop-up-header-text {
+  display: block;
+  text-align: center;
+  font-size: 26px;
+}
+.container #add-item-pop-up .container {
+  background: white;
+}
+.container #add-item-pop-up .container #selectors {
+  padding: 0 !important;
+}
+.container #add-item-pop-up .container #selectors #category-holder {
+  padding: 25px;
+}
+.container #add-item-pop-up .container #selectors #category-holder .category-cont {
   background: dodgerblue;
   color: white;
   text-align: center;
   line-height: 75px;
   cursor: pointer;
+  border-radius: 10px;
 }
-.container #add-item-pop-up #item-holder .add-item-cont {
-  height: 75px;
+.container #add-item-pop-up .container #selectors #item-holder {
+  padding: 25px;
+}
+.container #add-item-pop-up .container #selectors #item-holder .add-item-cont {
   background: dodgerblue;
   color: white;
   text-align: center;
   line-height: 75px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.container #add-item-pop-up #pop-up-footer {
+  display: block;
+  padding: 0 25px 20px 25px;
+  background: white;
+  border-radius: 0 0 10px 10px;
+}
+.container #add-item-pop-up #pop-up-footer #save-added-items {
+  background-color: #1cb94e;
+  color: white;
+  font-size: 14px;
+  height: auto;
+  padding: 15px 30px;
+  text-transform: uppercase;
+  float: right;
+  display: inline-block;
+  border-radius: 10px;
   cursor: pointer;
 }
