@@ -4,72 +4,20 @@
     <div id="user-tabs-cont">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 no-float">
-          <div class="tab-cont">
+          <div *ngFor="let tab of tabs" class="tab-cont" attr.data-tabid="{{tab._id}}">
             <div class="tab-header">
-              <div class="venue-name">Punter's Pub</div>
+              <div class="venue-name">{{tab.venueId.venueName}}</div>
+              <div class="venue-city">{{tab.venueId.venueTownCity}}, {{tab.venueId.venueState}}</div>
+              <div class="open-date">{{tab.openedAt}}</div>
             </div>
-            <div class="items">
+            <div *ngFor="let item of tab['items']" class="items">
               <div class="item-cont">
-                <div class="item-name">Bud Light</div>
-                <div class="item-price">$2.00</div>
-              </div>
-              <div class="item-cont">
-                <div class="item-name">Corona</div>
-                <div class="item-price">$3.00</div>
-              </div>
-              <div class="item-cont">
-                <div class="item-name">Rolling Rock Pitcher</div>
-                <div class="item-price">$9.00</div>
+                <div class="item-name">{{item.name}}</div>
+                <div class="item-price">{{item.price}}</div>
               </div>
             </div>
             <div class="tab-footer">
-              <div class="close-tab">Close Tab</div>
-              <div class="bill-total">$14.00</div>
-            </div>
-          </div>
-          <div class="tab-cont">
-            <div class="tab-header">
-              <div class="venue-name">Punter's Pub</div>
-            </div>
-            <div class="items">
-              <div class="item-cont">
-                <div class="item-name">Bud Light</div>
-                <div class="item-price">$2.00</div>
-              </div>
-              <div class="item-cont">
-                <div class="item-name">Corona</div>
-                <div class="item-price">$3.00</div>
-              </div>
-              <div class="item-cont">
-                <div class="item-name">Rolling Rock Pitcher</div>
-                <div class="item-price">$9.00</div>
-              </div>
-            </div>
-            <div class="tab-footer">
-              <div class="close-tab">Close Tab</div>
-              <div class="bill-total">$14.00</div>
-            </div>
-          </div>
-          <div class="tab-cont">
-            <div class="tab-header">
-              <div class="venue-name">Punter's Pub</div>
-            </div>
-            <div class="items">
-              <div class="item-cont">
-                <div class="item-name">Bud Light</div>
-                <div class="item-price">$2.00</div>
-              </div>
-              <div class="item-cont">
-                <div class="item-name">Corona</div>
-                <div class="item-price">$3.00</div>
-              </div>
-              <div class="item-cont">
-                <div class="item-name">Rolling Rock Pitcher</div>
-                <div class="item-price">$9.00</div>
-              </div>
-            </div>
-            <div class="tab-footer">
-              <div class="close-tab">Close Tab</div>
+              <div (click)="closeTab($event)" class="close-tab">Close Tab</div>
               <div class="bill-total">$14.00</div>
             </div>
           </div>

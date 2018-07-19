@@ -20,11 +20,11 @@ require('./server/config/passport')(passport);
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/user-home', passport.authenticate('jwt', {session: false}), function(req, res) {
-  res.json({msg: "Sent user home back"});
+  res.json({success: true});
 });
 
 app.get('/admin-open-bills', passport.authenticate('jwt', {session: false}), function(req, res) {
-  res.json({msg: "Sent admin home back"});
+  res.json({success: true});
 });
 
 // API location
