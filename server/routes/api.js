@@ -317,8 +317,8 @@ router.post('/removeItemFromTab/:tab/item/:item', function (req, res) {
 });
 
 // Close a Tab
-router.post('/closeTab/:tab', function (req, res) {
-  var id = req.params.tab;
+router.post('/closeTab', function (req, res) {
+  var id = req.body.tabId;
   Tab.closeTab(id, (err) => {
     if(err) throw err;
     else {
