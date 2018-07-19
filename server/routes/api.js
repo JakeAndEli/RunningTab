@@ -319,7 +319,14 @@ router.post('/removeItemFromTab/:tab/item/:item', function (req, res) {
 // Close a Tab
 router.post('/closeTab/:tab', function (req, res) {
   var id = req.params.tab;
-  Tab.closeTab(id);
+  Tab.closeTab(id, (err) => {
+    if(err) throw err;
+    else {
+      res.json({
+        success:true
+      });
+    }
+  });
 });
 
 // Get all Tabs for venueId
@@ -339,6 +346,18 @@ router.get('/tabs/user/:userId', function (req, res) {
   var userId = req.params.userId;
   console.log(userId);
   Tab.getTabsByUserId(userId, (err, tabs) => {
+    if (err) throw err;
+    else {
+      res.json({tabs: tabs});
+    }
+  });
+});
+
+// Get all active Tabs for userId
+router.get('/tabs/active/user/:userId', function (req, res) {
+  var userId = req.params.userId;
+  console.log(userId);
+  Tab.getActiveTabsByUserId(userId, (err, tabs) => {
     if (err) throw err;
     else {
       res.json({tabs: tabs});

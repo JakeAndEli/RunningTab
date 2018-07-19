@@ -142,7 +142,7 @@ export class AdminOpenBillsComponent implements OnInit {
 
   saveItemsToTab() : void {
     var items = [];
-    var itemsInDom = $(".itemOnTab");
+    var itemsInDom = $(".item-on-tab");
     for(var i = 0; i < itemsInDom.length; i++) {
       items.push($(itemsInDom[i]).attr("data-itemid"));
     }

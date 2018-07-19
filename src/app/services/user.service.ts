@@ -8,11 +8,16 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getTabs() : Observable<any>{
+  //get active tabs
+  getActiveTabs() : Observable<any>{
     var userString = localStorage.getItem("user");
     var userJSON = JSON.parse(userString);
-    console.log(userJSON);
-    return this.http.get('/api/tabs/user/' + userJSON.id);
+    return this.http.get('/api/tabs/active/user/' + userJSON.id);
+  }
+
+  closeTab(tabId) {
+    return this.http.post('/api/closeTab/' + tabId);
+
   }
 
 
