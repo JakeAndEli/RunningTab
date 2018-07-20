@@ -4,7 +4,50 @@
     <div id="user-account-management-cont">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 no-float">
-          Whatever is contained in account management
+          <div class="profile-image-cont">
+            <div class="profile-image">
+              <img src="assets/images/default-user.png"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 no-float">
+          <div class="user-info">
+            <div class="username">Username: {{username}}</div>
+            <div class="real-name">Full Name: {{fullName}}</div>
+
+          </div>
+
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12 col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+              <input [(ngModel)]="currentPassword" type="password" name="current-password" class="password form-control"
+                     placeholder="Current Password">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12 col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+              <input [(ngModel)]="newPassword" type="password" name="new-password" class="password form-control"
+                     placeholder="New Password">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12 col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+              <input [(ngModel)]="confirmPassword" type="password" name="confirm-password"
+                     class="confirm-password form-control" placeholder="Confirm Password">
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="col-sm-12 col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+            <input type="submit" name="" class="form-control btn" value="Change Password" (click)="changePassword()">
+        </div>
         </div>
       </div>
     </div>

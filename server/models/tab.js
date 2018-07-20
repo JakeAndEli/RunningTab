@@ -32,7 +32,15 @@ module.exports.create = function (tab, callback) {
 module.exports.getTabsByUserId = function (userId, callback) {
   Tab.find({
     userId: userId
-  }).populate('items', 'venueId').exec(callback);
+  }).populate('venueId').populate('items').exec(callback);
+};
+
+// Get users active tabs
+module.exports.getActiveTabsByUserId = function (userId, callback) {
+  Tab.find({
+    userId: userId,
+    closedAt: null
+  }).populate('venueId').populate('items').exec(callback);
 };
 
 // Get venue tabs
@@ -41,6 +49,15 @@ module.exports.getTabsByVenueId = function (venueId, callback){
     venueId : venueId
   }).populate('items').exec(callback);
 };
+
+// Get venue past tabs
+module.exports.getPassedTabsByVenueId = function (venueId, callback){
+  Tab.find({
+    venueId : venueId,
+    closedAt: { $ne: null }
+  }).populate('userId').populate('items').exec(callback);
+};
+
 
 //Add item to item array on tab
 module.exports.addItemToTab = function (data, callback) {
@@ -90,7 +107,7 @@ module.exports.closeTab = function (id, callback) {
     {safe: true, upsert: false},
     function (err, data) {
       if (err) console.log(err);
-      console.log(data);
+      callback();
     }
   );
 };
