@@ -62,7 +62,16 @@
         </div>
         <div id="added-items-cont" class="col-lg-3">
           <div id="added-items-header">Items added to Tab:</div>
-          <div id="added-items"></div>
+          <div id="added-items">
+            <div *ngFor="let tempItem of tempItems">
+              <div class='item-on-tab' attr.data-itemid="{{tempItem._id}}">
+                <div class='item-name'>{{tempItem.name}}</div>
+                <a class='delete-temp-item' (click)='deleteTempItem($event)'>
+                  <img src='assets/images/minus.png' />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

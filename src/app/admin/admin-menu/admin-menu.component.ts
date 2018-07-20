@@ -12,6 +12,9 @@ export class AdminMenuComponent implements OnInit {
   private menuId;
   private menuCategories;
 
+  private newCategoryDialogues = [];
+  private newItemDialogues = {};
+
   constructor(private menuService : MenuService) {}
 
   ngOnInit() {
@@ -20,26 +23,24 @@ export class AdminMenuComponent implements OnInit {
       (data: any) => {
         this.menuId = data.venue[0].menuId._id;
         this.menuCategories = data.venue[0].menuId.menuCategoryId;
+        this.initializeArraysForHTML();
       }
     );
 
   }
 
-  ngAfterViewInit() {
-    this.setClickHandlers(this);
-  }
-
-  ngOnDestroy() {
-    //$(".category-header").unbind();
+  initializeArraysForHTML() : void {
+    for(var i = 0; i < this.menuCategories.length; i++) {
+      var currentMenuCategory = this.menuCategories[i]._id;
+      this.newItemDialogues[currentMenuCategory] = [];
+    }
+    console.log(this.newItemDialogues);
   }
 
   setClickHandlers(thisClass) : void {
     var thisClass = thisClass;
     $(document).ready(function(){
-      $(document).on("click", function(event) {
-        console.log(event);
-      });
-      $("#add-category").click(function(){
+      /*$("#add-category").click(function(){
         thisClass.showCategoryForm();
       });
       $(".cancel-category").click(function(){
@@ -68,23 +69,22 @@ export class AdminMenuComponent implements OnInit {
       });
       $(".remove-category").click(function(){
         thisClass.removeCategory(this);
-      });
+      });*/
     });
   }
 
   showCategoryForm() : void {
-    var newAddCategoryDialogue = $(".add-category-dialogue").first().clone(true).insertBefore("#add-category");
-    $(newAddCategoryDialogue).removeClass("hide");
+    this.newCategoryDialogues.push("newCategoryDialogue");
+    console.log(this.newCategoryDialogues);
   }
 
-  hideCategoryForm(clickedElement) : void {
-    var dialogueElem = $(clickedElement).parent().parent();
-    $(dialogueElem).css('max-height',$(dialogueElem).height()).slideUp(function(){
-      $(dialogueElem).remove();
-    });
+  hideCategoryForm() : void {
+    this.newCategoryDialogues.pop();
+    console.log(this.newCategoryDialogues);
   }
 
-  addCategory(clickedElement) : void {
+  addCategory(event) : void {
+    var clickedElement = event.target;
     var dialogueElem = $(clickedElement).parent().parent();
     var newCategoryName = $(dialogueElem).find(".add-category-name").val();
     var userObj = JSON.parse(localStorage.getItem('user'));
@@ -97,31 +97,26 @@ export class AdminMenuComponent implements OnInit {
     this.menuService.addCategory(categoryObj).subscribe(
       (data: any) => {
         if(data.success) {
-          var newAddCategoryCont = $(".category-cont.hide").first().clone(true).insertAfter($(".category-cont").last());
-          $(newAddCategoryCont).attr("data-menucategoryid", data.menuCategoryId);
-          $(newAddCategoryCont).find(".category-name").text(newCategoryName);
-          $(newAddCategoryCont).removeClass("hide");
-          $(newAddCategoryCont).addClass("clone");
-          $(dialogueElem).remove();
+          this.newCategoryDialogues = [];
+          this.ngOnInit();
         }
       }
     );
 
   }
 
-  showItemForm(clickedElement) : void {
-    var newAddItemDialogue = $(".add-item-dialogue").first().clone(true).insertBefore($(clickedElement));
-    $(newAddItemDialogue).removeClass("hide");
+  showItemForm(menuCategoryId) : void {
+    this.newItemDialogues[menuCategoryId].push("newItemDialogue");
+    console.log(this.newItemDialogues);
   }
 
-  hideItemForm(clickedElement) : void {
-    var dialogueElem = $(clickedElement).parent().parent();
-    $(dialogueElem).css('max-height',$(dialogueElem).height()).slideUp(function(){
-      $(dialogueElem).remove();
-    });
+  hideItemForm(menuCategoryId) : void {
+    this.newItemDialogues[menuCategoryId].pop();
+    console.log(this.newItemDialogues);
   }
 
-  addItem(clickedElement) : void {
+  addItem(event) : void {
+    var clickedElement = event.target;
     var categoryItems = $(clickedElement).parent().parent().parent();
     var dialogueElem = $(clickedElement).parent().parent();
     var newItemName = $(dialogueElem).find(".add-item-name").val();
@@ -139,19 +134,14 @@ export class AdminMenuComponent implements OnInit {
       (data: any) => {
         console.log(data);
         if(data.success) {
-          var newAddItemCont = $(".item-cont.hide").first().clone(true).insertAfter($(categoryItems).find(".item-cont").last());
-          $(newAddItemCont).attr("data-itemid", data.itemId);
-          $(newAddItemCont).find(".item-name").text(newItemName);
-          $(newAddItemCont).find(".item-price").text(newItemPrice);
-          $(newAddItemCont).removeClass("hide");
-          $(newAddItemCont).addClass("clone");
-          $(dialogueElem).remove();
+          this.ngOnInit();
         }
       }
     );
   }
 
-  removeItem(clickedElement) : void {
+  removeItem(event) : void {
+    var clickedElement = event.target;
     var itemId = $(clickedElement).closest(".item-cont").attr("data-itemid");
     var menuCategoryId = $(clickedElement).closest(".category-cont").attr("data-menucategoryid");
     var data = {
@@ -166,7 +156,8 @@ export class AdminMenuComponent implements OnInit {
     );
   }
 
-  expandItems(clickedElement) : void {
+  expandItems(event) : void {
+    var clickedElement = event.target;
     var categoryCont = $(clickedElement).parent();
     var categoryItems = $(categoryCont).find(".category-items");
 
@@ -174,14 +165,16 @@ export class AdminMenuComponent implements OnInit {
     $(categoryCont).find(".arrow-icon").toggleClass('flip');
   }
 
-  removeAll(clickedElement) : void {
+  removeAll(event) : void {
+    var clickedElement = event.target;
     var menuContent = $(clickedElement).parent().parent();
     var categoryCont = $(menuContent).find(".category-cont");
 
     $(categoryCont).remove(".clone");
   }
 
-  removeCategory(clickedElement) : void {
+  removeCategory(event) : void {
+    var clickedElement = event.target;
     var menuCategoryCont = $(clickedElement).closest(".category-cont");
     var menuCategoryId = $(menuCategoryCont).attr("data-menucategoryid");
     var data = {

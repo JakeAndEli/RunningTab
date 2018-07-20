@@ -17,6 +17,8 @@ export class AdminOpenBillsComponent implements OnInit {
   private categories;
   private currentTabId;
 
+  private tempItems = [];
+
   constructor(private authService : AuthenticationService,
               private adminService : AdminService,
               private menuService : MenuService,
@@ -32,7 +34,7 @@ export class AdminOpenBillsComponent implements OnInit {
             (data: any) => {
               if(data.success) {
                 this.tabs = data.tabs;
-                this.organizeTabs();
+                //this.organizeTabs();
               }
             }
           )
@@ -114,35 +116,16 @@ export class AdminOpenBillsComponent implements OnInit {
   }
 
   addItem(item) {
-    var newItemToTab = $("<div class='item-on-tab' data-itemid='" + item._id + "'></div>");
-    var newItemName = $("<div class='item-name'>" + item.name + "</div>");
-    var deleteTempItem = $("<div class='delete-temp-item'></div>");
-    var deleteTempItemImg = $("<img src='assets/images/minus.png' />");
+    this.tempItems.push(item);
+  }
 
-    newItemName.css("display", "inline-block");
-    deleteTempItem.css("display", "inline-block");
-    deleteTempItem.css("float", "right");
-    deleteTempItem.css("height", "25px");
-    deleteTempItem.css("width", "25px");
-    deleteTempItem.css("cursor", "pointer");
-    deleteTempItem.css("margin-right", "10px");
-    deleteTempItemImg.css("height", "100%");
-    deleteTempItemImg.css("width", "100%");
-    deleteTempItem.append(deleteTempItemImg);
-    newItemToTab.append(newItemName);
-    newItemToTab.append(deleteTempItem);
-
-    $(".delete-temp-item").click(function() {
-      console.log("Clicked it");
-      $(this).closest(".item-on-tab").remove();
-    });
-
-    $("#added-items").append(newItemToTab);
+  deleteTempItem(event) {
+    $(event.target).closest(".item-on-tab").remove();
   }
 
   saveItemsToTab() : void {
     var items = [];
-    var itemsInDom = $(".itemOnTab");
+    var itemsInDom = $(".item-on-tab");
     for(var i = 0; i < itemsInDom.length; i++) {
       items.push($(itemsInDom[i]).attr("data-itemid"));
     }

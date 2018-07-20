@@ -9,7 +9,7 @@
             <div id="menu-content" attr.data-menuid="{{menuId}}">
               <div class="categories-label">Categories:</div>
                 <div *ngFor="let menuCategory of menuCategories" class="category-cont" attr.data-menucategoryid="{{menuCategory._id}}">
-                  <a class="category-header">
+                  <a class="category-header" (click)="expandItems($event)">
                     <div class="category-name">{{menuCategory.name}}</div>
                     <div class="category-arrow">
                       <img class="arrow-icon" src="assets/images/arrow-down.png" />
@@ -21,18 +21,11 @@
                         <div class="item-name">{{item.name}}</div>
                         <div class="item-right-side">
                           <div class="item-price">{{item.price}}</div>
-                          <a class="remove-item">Remove</a>
+                          <a class="remove-item" (click)="removeItem($event)">Remove</a>
                         </div>
                       </div>
                     </div>
-                    <div class="item-cont hide">
-                      <div class="item-name"></div>
-                      <div class="item-right-side">
-                        <div class="item-price"></div>
-                        <div class="remove-item">Remove</div>
-                      </div>
-                    </div>
-                    <div class="add-item-dialogue hide">
+                    <div *ngFor="let newItemDialogue of newItemDialogues[menuCategory._id]" class="add-item-dialogue">
                       <div class="row">
                         <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10 add-item-name-cont">
                           <input type="text" name="item-name" class="add-item-name form-control" placeholder="Name" value="">
@@ -42,64 +35,31 @@
                         </div>
                       </div>
                       <div class="add-item-buttons">
-                        <a class="cancel-item">Cancel</a>
-                        <a class="save-item">Save</a>
+                        <a class="cancel-item" (click)="hideItemForm(menuCategory._id)">Cancel</a>
+                        <a class="save-item" (click)="addItem($event)">Save</a>
                       </div>
                     </div>
-                    <a class="add-item">Add Item</a>
-                    <a class="remove-category">Remove Category</a>
+                    <a class="add-item" (click)="showItemForm(menuCategory._id)">Add Item</a>
+                    <a class="remove-category" (click)="removeCategory($event)">Remove Category</a>
                   </div>
-                </div>
-              <div class="category-cont hide">
-                <a class="category-header">
-                  <div class="category-name"></div>
-                  <div class="category-arrow">
-                    <img class="arrow-icon" src="assets/images/arrow-down.png" />
-                  </div>
-                </a>
-                <div class="category-items">
-                  <div class="item-cont hide">
-                    <div class="item-name"></div>
-                    <div class="item-right-side">
-                      <div class="item-price"></div>
-                      <a class="remove-item">Remove</a>
-                    </div>
-                  </div>
-                  <div class="add-item-dialogue hide">
-                    <div class="row">
-                      <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10 add-item-name-cont">
-                        <input type="text" name="item-name" class="add-item-name form-control" placeholder="Name" value="">
-                      </div>
-                      <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 add-item-price-cont">
-                        <input type="text" name="item-price" class="add-item-price form-control" placeholder="Price" value="">
-                      </div>
-                    </div>
-                    <div class="add-item-buttons">
-                      <a class="cancel-item">Cancel</a>
-                      <a class="save-item">Save</a>
-                    </div>
-                  </div>
-                  <a class="add-item">Add Item</a>
-                  <a class="remove-category">Remove Category</a>
                 </div>
               </div>
-              <div class="add-category-dialogue hide">
+              <div *ngFor="let newCategoryDialogue of newCategoryDialogues" class="add-category-dialogue">
                 <div class="add-category-name-cont">
                   <input type="text" name="category-name" class="add-category-name form-control" placeholder="Name" value="">
                 </div>
                 <div class="add-category-buttons">
-                  <a class="cancel-category">Cancel</a>
-                  <a class="save-category">Save</a>
+                  <a class="cancel-category" (click)="hideCategoryForm($event)">Cancel</a>
+                  <a class="save-category" (click)="addCategory($event)">Save</a>
                 </div>
               </div>
-              <a id="add-category">Add Category</a>
-            </div>
-            <div class="menu-footer">
-              <a class="import-menu">Import Menu</a>
-              <a class="remove-all">Remove All</a>
+              <a id="add-category" (click)="showCategoryForm()">Add Category</a>
+              <div class="menu-footer">
+                <a class="import-menu" >Import Menu</a>
+                <a class="remove-all" (click)="removeAll($event)">Remove All</a>
+              </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>

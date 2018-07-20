@@ -118,7 +118,7 @@
   cursor: pointer;
   margin-left: 20px;
 }
-#admin-menu-comp #admin-menu-cont #menu-cont #menu-content #add-category {
+#admin-menu-comp #admin-menu-cont #menu-cont #add-category {
   padding: 10px 30px;
   background: #00887a;
   color: white;
@@ -128,21 +128,21 @@
   margin-bottom: 15px;
   border: 1px solid #333333;
 }
-#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .add-category-dialogue {
+#admin-menu-comp #admin-menu-cont #menu-cont .add-category-dialogue {
   margin-bottom: 10px;
   padding: 10px 10px 60px 10px;
   background: #f2f2f2;
   border-radius: 10px;
   border: 1px solid #333333;
 }
-#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .add-category-dialogue .add-category-name-cont {
+#admin-menu-comp #admin-menu-cont #menu-cont .add-category-dialogue .add-category-name-cont {
   padding: 0;
 }
-#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .add-category-dialogue .add-category-buttons {
+#admin-menu-comp #admin-menu-cont #menu-cont .add-category-dialogue .add-category-buttons {
   float: right;
   margin-top: 10px;
 }
-#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .add-category-dialogue .add-category-buttons .cancel-category {
+#admin-menu-comp #admin-menu-cont #menu-cont .add-category-dialogue .add-category-buttons .cancel-category {
   display: inline-block;
   padding: 10px 20px;
   background: grey;
@@ -150,7 +150,7 @@
   border-radius: 5px;
   cursor: pointer;
 }
-#admin-menu-comp #admin-menu-cont #menu-cont #menu-content .add-category-dialogue .add-category-buttons .save-category {
+#admin-menu-comp #admin-menu-cont #menu-cont .add-category-dialogue .add-category-buttons .save-category {
   display: inline-block;
   float: right;
   padding: 10px 20px;

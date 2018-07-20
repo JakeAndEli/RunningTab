@@ -127,8 +127,11 @@
   border-radius: 10px;
   display: block;
 }
+.container #add-item-pop-up .container #added-items-cont #added-items {
+  margin: 5px 0 15px 0;
+}
 .container #add-item-pop-up .container #added-items-cont #added-items .item-on-tab {
-  display: none;
+  padding: 7px 0;
 }
 .container #add-item-pop-up .container #added-items-cont #added-items .item-on-tab .item-name {
   display: inline-block;
@@ -136,8 +139,10 @@
 .container #add-item-pop-up .container #added-items-cont #added-items .item-on-tab .delete-temp-item {
   display: inline-block;
   float: right;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  margin-right: 10px;
 }
 .container #add-item-pop-up .container #added-items-cont #added-items .item-on-tab .delete-temp-item img {
   height: 100%;

@@ -26,11 +26,11 @@ export class AdminService {
   }
 
   getUserInfo(userId) {
-    var userId = userId;
     return this.http.get('api/user/' + userId);
   }
 
   addItemsToTab(data) {
+    console.log(data);
     return this.http.post('/api/addItems', data)
   }
 
