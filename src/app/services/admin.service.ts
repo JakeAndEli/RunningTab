@@ -34,4 +34,9 @@ export class AdminService {
     return this.http.post('/api/addItems', data)
   }
 
+  getPastTabs(): Observable<any>{
+    var venueId = JSON.parse(localStorage.getItem('user')).venueId;
+    return this.http.get('/api/tabs/closed/' + venueId);
+  }
+
 }

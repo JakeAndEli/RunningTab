@@ -7,7 +7,7 @@
         <zxing-scanner id="scanner" #scanner start="true" [scannerEnabled]="scannerEnabled" [device]="currentDevice" (scanSuccess)="handleQrCodeResult($event)"></zxing-scanner>
         <div *ngIf="!qrResultString">Waiting for scan...</div>
         <p *ngIf="qrResultString">Created a new tab for user:</p>
-        <img class="profile-picture" *ngIf="qrResultString" src="assets/images/kanye.jpg">
+        <img class="profile-picture" *ngIf="qrResultString" src="assets/images/default-user.png">
         <p class="full-name" *ngIf="qrResultString">{{ fullName }}</p>
       </div>
 

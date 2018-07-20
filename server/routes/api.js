@@ -109,15 +109,41 @@ router.post('/authenticate', function (req, res) {
   });
 });
 
+//check current password
+router.post('/checkCurrentPassword', function (req,res) {
+  var userId = req.body.userId;
+  var currentPassword = req.body.currentPassword;
+
+  var user = {
+    _id : userId,
+    currentPassword : currentPassword
+  };
+  User.checkCurrentPassword(user,function(validPassword){
+    if(validPassword) {
+      res.json({success: true});
+    }
+    else{
+      res.json({success: false});
+    }
+  })
+});
+
+
 // Change password based on userId
 router.post('/changePassword', function (req, res) {
   var userId = req.body.userId;
-  var password = req.body.password;
+  var password = req.body.newPassword;
   var user = {
     _id: userId,
     newPassword: password
   };
-  User.updatePassword(user);
+  User.updatePassword(user,function (err,user) {
+    if(err) throw err;
+    else{
+      res.json({success: true});
+    }
+
+  });
 });
 
 // Get User Info
@@ -341,6 +367,18 @@ router.get('/tabs/:venueId', function (req, res) {
   });
 });
 
+// Get all closed Tabs for venueId
+router.get('/tabs/closed/:venueId', function (req, res) {
+  var venueId = req.params.venueId;
+
+  Tab.getPassedTabsByVenueId(venueId, (err, tabs) => {
+    if (err) throw err;
+    else {
+      res.json({tabs: tabs});
+    }
+  });
+});
+
 // Get all Tabs for userId
 router.get('/tabs/user/:userId', function (req, res) {
   var userId = req.params.userId;
@@ -356,7 +394,6 @@ router.get('/tabs/user/:userId', function (req, res) {
 // Get all active Tabs for userId
 router.get('/tabs/active/user/:userId', function (req, res) {
   var userId = req.params.userId;
-  console.log(userId);
   Tab.getActiveTabsByUserId(userId, (err, tabs) => {
     if (err) throw err;
     else {

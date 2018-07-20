@@ -20,5 +20,12 @@ export class UserService {
 
   }
 
+  changePassword(data) {
+    return this.http.post('/api/changePassword', data);
+  }
+  checkCurrentPassword(data) {
+    return this.http.post('/api/checkCurrentPassword', data);
+  }
+
 
 }

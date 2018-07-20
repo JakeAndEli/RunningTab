@@ -41,9 +41,29 @@ module.exports.updatePassword = function (user, callback) {
     if(err){
       throw(err);
     }
+    console.log(user);
     User.setPassword(user,newPassword);
-    user.save();
+    user.save(callback);
+
+});
+};
+
+module.exports.checkCurrentPassword = function (user, callback) {
+
+  var currentPassword = user.currentPassword;
+
+  User.findById(user._id,function (err,user) {
+    if(err){
+      throw(err);
+    }
+    if(User.validPassword(user,currentPassword)){
+      callback(true);
+    } else {
+      callback(false);
     }
 
-  )
+
+    });
+
+
 };

@@ -10,10 +10,12 @@
               <div class="venue-city">{{tab.venueId.venueTownCity}}, {{tab.venueId.venueState}}</div>
               <div class="open-date">{{tab.openedAt}}</div>
             </div>
-            <div *ngFor="let item of tab['items']" class="items">
-              <div class="item-cont">
-                <div class="item-name">{{item.name}}</div>
-                <div class="item-price">{{item.price}}</div>
+            <div class="all-items">
+              <div *ngFor="let item of tab['items']" class="items">
+                <div class="item-cont">
+                  <div class="item-name">{{item.name}}</div>
+                  <div class="item-price">{{item.price}}</div>
+                </div>
               </div>
             </div>
             <div class="tab-footer">

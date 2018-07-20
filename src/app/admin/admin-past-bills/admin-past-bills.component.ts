@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
 import * as $ from 'jquery';
 
 @Component({
@@ -7,8 +8,9 @@ import * as $ from 'jquery';
   styleUrls: ['./admin-past-bills.component.css']
 })
 export class AdminPastBillsComponent implements OnInit {
+  private tabs;
 
-  constructor() { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
     $(document).ready(function(){
@@ -22,6 +24,64 @@ export class AdminPastBillsComponent implements OnInit {
       });
     });
 
+
+    this.adminService.getPastTabs().subscribe(
+      (data: any) => {
+        this.tabs = data.tabs;
+
+        for (var i = 0; i < this.tabs.length; i++) {
+          var openedAt = this.formatDate(this.tabs[i].openedAt);
+          var closedAt = this.formatDate(this.tabs[i].closedAt);
+          this.tabs[i].openedAt = openedAt;
+          this.tabs[i].closedAt = closedAt;
+        }
+      }
+    );
   }
+
+formatDate(date): String {
+  var newDate = new Date(date);
+
+  var year = newDate.getFullYear().toString();
+  var month = newDate.getMonth() + 1;
+  var day = newDate.getDate();
+  var hours = newDate.getHours();
+  var minutes = newDate.getMinutes();
+  var dd = 'AM';
+
+  if (day < 10) {
+    var dayString = day.toString();
+    dayString = '0' + dayString;
+
+  }
+  if (day > 10) {
+    var dayString = day.toString();
+
+  }
+  if (month < 10) {
+    var monthString = month.toString();
+    monthString = '0' + monthString;
+  }
+  if (month > 10){
+    var monthString = month.toString();
+  }
+  if (hours < 12) {
+    dd = 'AM';
+    var hoursString = hours.toString();
+  }
+  if (hours > 12) {
+    dd = 'PM';
+    var hoursString = (hours - 12).toString();
+  }
+  if (minutes < 10) {
+    var minutesString = minutes.toString();
+    minutesString = '0'+ minutesString;
+  }
+  if (minutes > 10) {
+    var minutesString = minutes.toString();
+  }
+
+  return hoursString + ':' + minutesString + ' ' + dd + '  ' + monthString + '/' + dayString + '/' + year;
+}
 
 }
