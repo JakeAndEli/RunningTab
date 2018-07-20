@@ -16,8 +16,7 @@ export class UserService {
   }
 
   closeTab(data) {
-    return this.http.post('/api/closeTab', data);
-
+    return this.http.post('/api/userCloseTab', data);
   }
 
   changePassword(data) {

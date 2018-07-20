@@ -104,7 +104,7 @@ module.exports.closeTab = function (id, callback) {
 
 //Add total and tip to bill once closed
 module.exports.addTotal = function (data, callback) {
-  tab.findByIdandUpdat(data.tabId,
+  Tab.findByIdAndUpdate(data.tabId,
     {total: data.total},
     {safe: true, upsert: false},
     function (err, data) {
@@ -112,13 +112,11 @@ module.exports.addTotal = function (data, callback) {
       callback();
     }
   );
-
 };
-
 
 //Add total and tip to bill once closed
 module.exports.addTipAndTotal = function (data, callback) {
-  tab.findByIdandUpdat(data.tabId,
+  Tab.findByIdAndUpdate(data.tabId,
     {total: data.total},
     {tip: data.tip},
     {safe: true, upsert: false},
@@ -126,7 +124,5 @@ module.exports.addTipAndTotal = function (data, callback) {
       if (err) console.log(err);
       callback();
     }
-
-    );
-
+  );
 };

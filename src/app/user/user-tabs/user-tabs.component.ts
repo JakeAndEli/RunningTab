@@ -10,24 +10,34 @@ import * as $ from 'jquery';
 export class UserTabsComponent implements OnInit {
 
   private tabs;
+  private currentTabBeingClosed;
 
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
 
     this.userService.getActiveTabs().subscribe(
       (data: any) => {
         this.tabs = data.tabs;
-
         this.formatDate();
       }
     );
+
+    this.setClickHandlers();
+  }
+
+  setClickHandlers() : void {
+    $(window).click(function(event){
+      var tipPopUp = document.getElementById("tip-pop-up-cont");
+      if(event.target == tipPopUp) {
+        $("#tip-pop-up-cont").addClass("hide");
+      }
+    });
   }
 
   formatDate(): void {
     for (var i = 0; i < this.tabs.length; i++) {
-      console.log(this.tabs[i].openedAt);
+
       var openedAt = new Date(this.tabs[i].openedAt);
 
       var year = openedAt.getFullYear().toString();
@@ -35,16 +45,14 @@ export class UserTabsComponent implements OnInit {
       var day = openedAt.getDate();
       var hours = openedAt.getHours();
       var minutes = openedAt.getMinutes();
-      var dd = 'AM';
+      var dd;
 
       if (day < 10) {
          var dayString = day.toString();
          dayString = '0' + dayString;
-
       }
       if (day > 10) {
         var dayString = day.toString();
-
       }
       if (month < 10) {
         var monthString = month.toString();
@@ -75,16 +83,23 @@ export class UserTabsComponent implements OnInit {
     }
   }
 
-  closeTab(event): void {
-    var tabid = $(event.target).closest('.tab-cont').attr('data-tabid');
-    var tab = $(event.target).closest('.tab-cont');
+  showTipPopUp(event) {
+    var tabIdClickedOn = $(event.target).closest(".tab-cont").attr("data-tabid");
+    this.currentTabBeingClosed = this.tabs.find(function(tab) {
+      return tab._id == tabIdClickedOn;
+    });
+    $("#tip-pop-up-cont").removeClass("hide");
+  }
+
+  closeTab(tabId): void {
+
     var data ={
-      tabId : tabid
+      tabId : tabId
     };
     this.userService.closeTab(data).subscribe(
       (data: any) => {
         if (data.success === true) {
-          tab.remove();
+          $(".tab-cont").find(`[data-tabid='${tabId}']`).remove();
         } else {
          return;
         }

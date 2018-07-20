@@ -155,7 +155,10 @@ export class AdminOpenBillsComponent implements OnInit {
 
     this.adminService.closeTab(data).subscribe(
       (data: any) => {
-        console.log(data);
+        if(data.success) {
+          alert("Tab has been closed.");
+          $(tabCont).remove();
+        }
       }
     )
 

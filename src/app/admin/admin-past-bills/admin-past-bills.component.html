@@ -9,9 +9,9 @@
               <div class="customer-name">{{tab.userId.fullName}}</div>
               <div class="time-tab-closed">Closed On:  {{tab.closedAt}}</div>
               <div class="time-tab-opened">Opened On: {{tab.openedAt}}</div>
-              <div class="arrow">
+              <a class="arrow" (click)="toggleArrow($event)">
                 <img class="arrow-icon" src="assets/images/arrow-down.png" />
-              </div>
+              </a>
             </div>
             <div class="all-items">
               <div  *ngFor="let item of tab['items']" class="items">
