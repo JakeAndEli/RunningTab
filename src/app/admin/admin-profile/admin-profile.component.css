@@ -1,18 +1,2 @@
-#admin-profile-comp .venue-info {
-  text-align: center;
-  margin-bottom: 25px;
-}
-#admin-profile-comp .venue-info .intro {
-  font-size: 18px;
-  font-style: italic;
-}
-#admin-profile-comp .venue-info .venue-name {
-  font-size: 34px;
-  font-weight: bold;
-}
-#admin-profile-comp .venue-info .city {
-  font-size: 30px;
-}
-#admin-profile-comp .venue-info .state {
-  font-size: 30px;
-}
+#admin-profile-comp .profile-image-cont .profile-image img{padding-left:10px;width:200px;display:block;margin:auto}#admin-profile-comp .venue-info{text-align:center;margin-bottom:25px}#admin-profile-comp .venue-info .venue-name{font-size:34px;font-weight:700}#admin-profile-comp .venue-info .city{font-size:30px}#admin-profile-comp .venue-info .state{font-size:30px}
+/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */

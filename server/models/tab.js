@@ -12,7 +12,9 @@ var tabSchema = mongoose.Schema({
   },
   closedAt: {
     type: Date
-  }
+  },
+  total: Number,
+  tip: Number
 });
 
 const Tab = module.exports = mongoose.model('Tab', tabSchema);
@@ -70,9 +72,7 @@ module.exports.addItemToTab = function (data, callback) {
     }
   );
 
-  Tab.updateTabTotal(data.tabId, (err, data) => {
-    if (err) throw err;
-  });
+
 };
 
 //Remove an item to item array on tab
@@ -86,19 +86,9 @@ module.exports.removeItemFromTab = function (data, callback) {
     }
   );
 
-  Tab.updateTabTotal(data.tabId, (err, data) => {
-    if (err) throw err;
-  });
+
 };
 
-module.exports.updateTabTotal = function(tabId,  callback) {
-  Tab.findById(tabId, function(err, tab) {
-    if (err) throw err;
-    else {
-      console.log(tab.items);
-    }
-  });
-};
 
 //Set closed at date to current time
 module.exports.closeTab = function (id, callback) {
@@ -110,4 +100,33 @@ module.exports.closeTab = function (id, callback) {
       callback();
     }
   );
+};
+
+//Add total and tip to bill once closed
+module.exports.addTotal = function (data, callback) {
+  tab.findByIdandUpdat(data.tabId,
+    {total: data.total},
+    {safe: true, upsert: false},
+    function (err, data) {
+      if (err) console.log(err);
+      callback();
+    }
+  );
+
+};
+
+
+//Add total and tip to bill once closed
+module.exports.addTipAndTotal = function (data, callback) {
+  tab.findByIdandUpdat(data.tabId,
+    {total: data.total},
+    {tip: data.tip},
+    {safe: true, upsert: false},
+    function (err, data) {
+      if (err) console.log(err);
+      callback();
+    }
+
+    );
+
 };
