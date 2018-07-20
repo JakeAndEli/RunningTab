@@ -52,6 +52,14 @@ module.exports.getTabsByVenueId = function (venueId, callback){
   }).populate('items').exec(callback);
 };
 
+// Get venue active tabs
+module.exports.getActiveTabsByVenueId = function (venueId, callback){
+  Tab.find({
+    venueId : venueId,
+    closedAt: null
+  }).populate('userId').populate('items').exec(callback);
+};
+
 // Get venue past tabs
 module.exports.getPassedTabsByVenueId = function (venueId, callback){
   Tab.find({
@@ -104,7 +112,7 @@ module.exports.closeTab = function (id, callback) {
 
 //Add total and tip to bill once closed
 module.exports.addTotal = function (data, callback) {
-  tab.findByIdandUpdat(data.tabId,
+  Tab.findByIdandUpdat(data.tabId,
     {total: data.total},
     {safe: true, upsert: false},
     function (err, data) {
@@ -115,10 +123,9 @@ module.exports.addTotal = function (data, callback) {
 
 };
 
-
 //Add total and tip to bill once closed
 module.exports.addTipAndTotal = function (data, callback) {
-  tab.findByIdandUpdat(data.tabId,
+  Tab.findByIdandUpdat(data.tabId,
     {total: data.total},
     {tip: data.tip},
     {safe: true, upsert: false},
