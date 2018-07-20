@@ -343,17 +343,56 @@ router.post('/removeItemFromTab/:tab/item/:item', function (req, res) {
 });
 
 // Close a Tab
-router.post('/closeTab', function (req, res) {
+router.post('/adminCloseTab', function (req, res) {
   var id = req.body.tabId;
+  var total = req.body.total;
+  var tab ={
+    tabId : id,
+    total : total
+  };
   Tab.closeTab(id, (err) => {
     if(err) throw err;
     else {
-      res.json({
-        success:true
+      Tab.addTotal(tab, (err) => {
+        if(err) throw err;
+        else {
+          res.json({
+            success:true
+          });
+        }
       });
     }
   });
+
 });
+
+
+//Add tip and total to tab
+router.post('/userCloseTab', function (req,res) {
+  var id = req.body.tabId;
+  var tip = req.body.tip;
+  var total = req.body.total;
+  var tab ={
+    tabId : id,
+    tip : tip,
+    total : total
+  };
+  Tab.closeTab(id,(err) =>{
+    if (err) throw err;
+    else {
+      Tab.addTipAndTotal(tab,(err) =>{
+        if (err) throw err;
+        else {
+          res.json({
+            success:true
+          });
+        }
+      });
+    }
+  });
+
+});
+
 
 // Get all Tabs for venueId
 router.get('/tabs/:venueId', function (req, res) {
@@ -378,6 +417,7 @@ router.get('/tabs/closed/:venueId', function (req, res) {
     }
   });
 });
+
 
 // Get all Tabs for userId
 router.get('/tabs/user/:userId', function (req, res) {
