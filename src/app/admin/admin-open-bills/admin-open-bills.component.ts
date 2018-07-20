@@ -35,6 +35,7 @@ export class AdminOpenBillsComponent implements OnInit {
               if(data.success) {
                 this.tabs = data.tabs;
                 //this.organizeTabs();
+                this.findTotals();
               }
             }
           )
@@ -53,6 +54,7 @@ export class AdminOpenBillsComponent implements OnInit {
     this.setClickHandlers();
   }
 
+  // Might eventually be used to group items so that they could say "x2 or x3"
   organizeTabs() : void {
 
     var tabObj = {};
@@ -77,11 +79,6 @@ export class AdminOpenBillsComponent implements OnInit {
 
       }
     }
-
-
-  }
-
-  calculateTotal() : void {
 
   }
 
@@ -133,7 +130,6 @@ export class AdminOpenBillsComponent implements OnInit {
       tabId: this.currentTabId,
       items: items
     };
-    console.log(data);
     this.adminService.addItemsToTab(data).subscribe(
       (data: any) => {
         if(data.success) {
@@ -145,8 +141,43 @@ export class AdminOpenBillsComponent implements OnInit {
     );
   }
 
-  closeTab() : void {
+  // Should be more secure in future, users could change html to change total
+  closeTab(event) : void {
 
+    var tabCont = $(event.target).closest(".tab-cont");
+    var tabId = $(tabCont).attr("data-tabId");
+    var total = $(tabCont).find(".total-cost").html();
+
+    var data = {
+      tabId: tabId,
+      total: total
+    };
+
+    this.adminService.closeTab(data).subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    )
+
+  }
+
+  findTotals() : void {
+
+    var currentTab, currentItem;
+    var total;
+
+    for(var i = 0; i < this.tabs.length; i++) {
+      currentTab = this.tabs[i];
+      total = 0;
+
+      for(var j = 0; j < currentTab.items.length; j++) {
+        currentItem = currentTab.items[j];
+        total += currentItem.price;
+      }
+
+      this.tabs[i].total = total;
+
+    }
   }
 
   handleBackButtonClick() : void {

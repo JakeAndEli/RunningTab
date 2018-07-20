@@ -39,4 +39,8 @@ export class AdminService {
     return this.http.get('/api/tabs/closed/' + venueId);
   }
 
+  closeTab(data) {
+    return this.http.post('/api/adminCloseTab', data)
+  }
+
 }

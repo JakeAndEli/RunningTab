@@ -1,2 +1,76 @@
-#admin-past-bills-comp #admin-past-bills-cont .tab-cont{background:#fff;border-radius:15px;padding:10px;margin-bottom:25px}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header{margin-bottom:15px;position:relative}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .customer-name{font-size:28px}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .time-tab-opened,#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .time-tab-closed{font-size:16px}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .arrow{position:absolute;top:5px;right:5px}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .arrow img{height:60px;cursor:pointer}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .items{display:none}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .items .item-cont{display:block}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .items .item-cont .item-name{display:inline-block}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .items .item-cont .item-price{float:right;display:inline-block}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .sub-total-cont{display:none;border-top:black 1px solid;margin-top:2px;padding-top:2px}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .sub-total-cont .sub-total-label{display:inline-block}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .sub-total-cont .sub-total-cost{display:inline-block;float:right}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tip-cont{display:none}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tip-cont .tip-label{display:inline-block}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tip-cont .tip-paid{display:inline-block;float:right}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .total-cont{display:none;margin-bottom:15px;border-top:black 1px solid;margin-top:2px;padding-top:2px}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .total-cont .total-label{display:inline-block}#admin-past-bills-comp #admin-past-bills-cont .tab-cont .total-cont .total-paid{float:right;display:inline-block}
-/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont {
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 25px;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header {
+  margin-bottom: 15px;
+  position: relative;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .customer-name {
+  font-size: 28px;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .time-tab-opened,
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .time-tab-closed {
+  font-size: 16px;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .arrow {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tab-header .arrow img {
+  height: 60px;
+  cursor: pointer;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .items {
+  display: none;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .items .item-cont {
+  display: block;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .items .item-cont .item-name {
+  display: inline-block;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .items .item-cont .item-price {
+  float: right;
+  display: inline-block;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .sub-total-cont {
+  display: none;
+  border-top: black 1px solid;
+  margin-top: 2px;
+  padding-top: 2px;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .sub-total-cont .sub-total-label {
+  display: inline-block;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .sub-total-cont .sub-total-cost {
+  display: inline-block;
+  float: right;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tip-cont {
+  display: none;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tip-cont .tip-label {
+  display: inline-block;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .tip-cont .tip-paid {
+  display: inline-block;
+  float: right;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .total-cont {
+  display: none;
+  margin-bottom: 15px;
+  border-top: black 1px solid;
+  margin-top: 2px;
+  padding-top: 2px;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .total-cont .total-label {
+  display: inline-block;
+}
+#admin-past-bills-comp #admin-past-bills-cont .tab-cont .total-cont .total-paid {
+  float: right;
+  display: inline-block;
+}

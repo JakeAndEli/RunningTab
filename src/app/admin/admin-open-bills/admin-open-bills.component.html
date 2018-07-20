@@ -18,11 +18,11 @@
             </div>
             <div class="total-cont">
               <div class="total-label">Total:</div>
-              <div class="total-cost">$69.00</div>
+              <div class="total-cost">{{tab.total}}</div>
             </div>
             <div class="tab-footer">
               <a class="add-item" (click)="showPopUp($event)">Add Item</a>
-              <a class="close-tab" (click)="closeTab()">Close Tab</a>
+              <a class="close-tab" (click)="closeTab($event)">Close Tab</a>
             </div>
           </div>
         </div>
