@@ -52,6 +52,14 @@ module.exports.getTabsByVenueId = function (venueId, callback){
   }).populate('items').exec(callback);
 };
 
+// Get venue active tabs
+module.exports.getActiveTabsByVenueId = function (venueId, callback){
+  Tab.find({
+    venueId : venueId,
+    closedAt: null
+  }).populate('userId').populate('items').exec(callback);
+};
+
 // Get venue past tabs
 module.exports.getPassedTabsByVenueId = function (venueId, callback){
   Tab.find({

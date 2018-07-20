@@ -39,6 +39,11 @@ export class AdminService {
     return this.http.get('/api/tabs/closed/' + venueId);
   }
 
+  getActiveTabs(): Observable<any>{
+    var venueId = JSON.parse(localStorage.getItem('user')).venueId;
+    return this.http.get('/api/tabs/active/' + venueId);
+  }
+
   closeTab(data) {
     return this.http.post('/api/adminCloseTab', data)
   }

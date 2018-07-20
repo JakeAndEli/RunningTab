@@ -51,29 +51,36 @@ export class UserTabsComponent implements OnInit {
          var dayString = day.toString();
          dayString = '0' + dayString;
       }
-      if (day > 10) {
+      else if (day >= 10) {
         var dayString = day.toString();
       }
       if (month < 10) {
         var monthString = month.toString();
         monthString = '0' + monthString;
       }
-      if (month > 10){
+      else if (month >= 10){
         var monthString = month.toString();
       }
       if (hours < 12) {
         dd = 'AM';
         var hoursString = hours.toString();
       }
-      if (hours > 12) {
+      else if (hours > 12) {
         dd = 'PM';
          var hoursString = (hours - 12).toString();
+      }
+      else if (hours == 12){
+        dd = 'PM';
+        var hoursString = hours.toString();
+      }
+      if (hours < 1) {
+        dd = 'AM';
       }
       if (minutes < 10) {
         var minutesString = minutes.toString();
         minutesString = '0'+ minutesString;
       }
-      if (minutes > 10) {
+      else if (minutes >= 10) {
         var minutesString = minutes.toString();
       }
 

@@ -7,6 +7,9 @@
 .container #admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-header {
   margin-bottom: 15px;
 }
+.container #admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-header .customer-name {
+  font-size: 28px;
+}
 .container #admin-open-bills-comp #admin-open-bills-cont .tab-cont .tab-header .table-number {
   font-size: 26px;
 }

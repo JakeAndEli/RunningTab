@@ -419,6 +419,21 @@ router.get('/tabs/closed/:venueId', function (req, res) {
 });
 
 
+// Get all Active Tabs for venueId
+router.get('/tabs/active/:venueId', function (req, res) {
+  var venueId = req.params.venueId;
+
+  Tab.getActiveTabsByVenueId(venueId, (err, tabs) => {
+    if (err) throw err;
+    else {
+      res.json({tabs: tabs});
+    }
+  });
+});
+
+
+
+
 // Get all Tabs for userId
 router.get('/tabs/user/:userId', function (req, res) {
   var userId = req.params.userId;
