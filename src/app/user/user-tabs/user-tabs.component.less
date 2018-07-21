@@ -35,18 +35,26 @@
           }
         }
       }
+      .bill-total-cont {
+        .bill-total-label {
+          display: inline-block;
+        }
+        .bill-total-amount {
+          float: right;
+          display: inline-block;
+        }
+      }
       .tab-footer {
+        height: 40px;
+        margin: 15px 0 0 0;
         .close-tab {
           padding: 10px 30px;
           background: red;
           color: white;
           display: inline-block;
-          border-radius: 15px;
+          border-radius: 10px;
           cursor: pointer;
-        }
-        .bill-total {
           float: right;
-          display: inline-block;
         }
       }
     }
@@ -60,6 +68,7 @@
   height: 100%;
   padding-top: 100px;
   background-color: rgba(0,0,0,0.4);
+  z-index: 99;
 
   #tip-content{
     background: white;

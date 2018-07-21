@@ -11,6 +11,9 @@ export class UserTabsComponent implements OnInit {
 
   private tabs;
   private currentTabBeingClosed;
+  private tipPercent = 20;
+  private tipAmount;
+  private totalAfterTip;
 
   constructor(private userService: UserService) {}
 
@@ -20,6 +23,7 @@ export class UserTabsComponent implements OnInit {
       (data: any) => {
         this.tabs = data.tabs;
         this.formatDate();
+        this.findTotals();
       }
     );
 
@@ -27,10 +31,12 @@ export class UserTabsComponent implements OnInit {
   }
 
   setClickHandlers() : void {
+    var thisClass = this;
     $(window).click(function(event){
       var tipPopUp = document.getElementById("tip-pop-up-cont");
-      if(event.target == tipPopUp) {
-        $("#tip-pop-up-cont").addClass("hide");
+      var tipPopUpRow = tipPopUp.querySelector(".row");
+      if(event.target == tipPopUp || event.target == tipPopUpRow) {
+        thisClass.currentTabBeingClosed = false;
       }
     });
   }
@@ -90,12 +96,32 @@ export class UserTabsComponent implements OnInit {
     }
   }
 
+  findTotals() : void {
+
+    var currentTab, currentItem;
+    var total;
+
+    for(var i = 0; i < this.tabs.length; i++) {
+      currentTab = this.tabs[i];
+      total = 0;
+
+      for(var j = 0; j < currentTab.items.length; j++) {
+        currentItem = currentTab.items[j];
+        total += parseFloat(currentItem.price);
+      }
+
+      this.tabs[i].total = total.toFixed(2);
+
+    }
+  }
+
   showTipPopUp(event) {
     var tabIdClickedOn = $(event.target).closest(".tab-cont").attr("data-tabid");
     this.currentTabBeingClosed = this.tabs.find(function(tab) {
       return tab._id == tabIdClickedOn;
     });
-    $("#tip-pop-up-cont").removeClass("hide");
+    this.tipAmount = (this.currentTabBeingClosed.total * .2).toFixed(2);
+    this.totalAfterTip = ((this.currentTabBeingClosed.total * 1) + (this.tipAmount * 1)).toFixed(2);
   }
 
   closeTab(tabId): void {
@@ -112,6 +138,11 @@ export class UserTabsComponent implements OnInit {
         }
       }
     );
+  }
+
+  tipChanged(event) : void {
+    this.tipAmount = (this.currentTabBeingClosed.total * (this.tipPercent / 100)).toFixed(2);
+    this.totalAfterTip = ((this.currentTabBeingClosed.total * 1) + (this.tipAmount * 1)).toFixed(2);
   }
 }
 

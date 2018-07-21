@@ -18,9 +18,12 @@
                 </div>
               </div>
             </div>
+            <div class="bill-total-cont">
+              <div class="bill-total-label">Total:</div>
+              <div class="bill-total-amount">{{tab.total}}</div>
+            </div>
             <div class="tab-footer">
-              <div (click)="showTipPopUp($event)" class="close-tab">Close Tab</div>
-              <div class="bill-total">$14.00</div>
+              <a (click)="showTipPopUp($event)" class="close-tab">Close Tab</a>
             </div>
           </div>
         </div>
@@ -28,7 +31,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="currentTabBeingClosed" id="tip-pop-up-cont" class="hide">
+<div *ngIf="currentTabBeingClosed" id="tip-pop-up-cont">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
@@ -40,13 +43,13 @@
           </div>
           <div class="add-tip-cont">
             <div class="add-tip-input">
-              Tip: <input #tipPercentage type="" value="20" /> %
+              Tip: <input [(ngModel)]="tipPercent" type="number" min="0" (change)="tipChanged($event)" /> %
             </div>
-            <div #tipAmount class="add-tip-amount">{{currentTabBeingClosed.total}} * (tipPercentage / 100)</div>
+            <div class="add-tip-amount">{{tipAmount}}</div>
           </div>
           <div class="total-after-tip-cont">
             <div class="total-after-tip-label">Total After Tip:</div>
-            <div class="total-after-tip-amount">{{currentTabBeingClosed.total}} + tipAmount</div>
+            <div class="total-after-tip-amount">{{totalAfterTip}}</div>
           </div>
           <div class="tip-and-close-cont">
             <a (click)="closeTab(currentTabBeingClose._id)" class="tip-and-close-tab">Tip and Close Tab</a>

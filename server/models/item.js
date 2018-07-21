@@ -3,7 +3,7 @@ const MenuCategory = require('./menuCategory.js');
 
 var itemSchema = mongoose.Schema({
   name: String,
-  price : Number
+  price : String
 });
 
 const Item = module.exports = mongoose.model('Item', itemSchema);

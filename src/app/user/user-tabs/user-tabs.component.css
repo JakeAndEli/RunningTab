@@ -28,17 +28,25 @@
   float: right;
   display: inline-block;
 }
+#user-tabs-comp #user-tabs-cont .tab-cont .bill-total-cont .bill-total-label {
+  display: inline-block;
+}
+#user-tabs-comp #user-tabs-cont .tab-cont .bill-total-cont .bill-total-amount {
+  float: right;
+  display: inline-block;
+}
+#user-tabs-comp #user-tabs-cont .tab-cont .tab-footer {
+  height: 40px;
+  margin: 15px 0 0 0;
+}
 #user-tabs-comp #user-tabs-cont .tab-cont .tab-footer .close-tab {
   padding: 10px 30px;
   background: red;
   color: white;
   display: inline-block;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
-}
-#user-tabs-comp #user-tabs-cont .tab-cont .tab-footer .bill-total {
   float: right;
-  display: inline-block;
 }
 #tip-pop-up-cont {
   position: fixed;
@@ -48,6 +56,7 @@
   height: 100%;
   padding-top: 100px;
   background-color: rgba(0, 0, 0, 0.4);
+  z-index: 99;
 }
 #tip-pop-up-cont #tip-content {
   background: white;

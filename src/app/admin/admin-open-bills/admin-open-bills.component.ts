@@ -225,10 +225,10 @@ export class AdminOpenBillsComponent implements OnInit {
 
       for(var j = 0; j < currentTab.items.length; j++) {
         currentItem = currentTab.items[j];
-        total += currentItem.price;
+        total += parseFloat(currentItem.price);
       }
 
-      this.tabs[i].total = total;
+      this.tabs[i].total = total.toFixed(2);
 
     }
   }

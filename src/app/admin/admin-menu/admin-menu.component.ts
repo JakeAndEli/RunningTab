@@ -120,7 +120,7 @@ export class AdminMenuComponent implements OnInit {
     var categoryItems = $(clickedElement).parent().parent().parent();
     var dialogueElem = $(clickedElement).parent().parent();
     var newItemName = $(dialogueElem).find(".add-item-name").val();
-    var newItemPrice = $(dialogueElem).find(".add-item-price").val();
+    var newItemPrice = parseFloat($(dialogueElem).find(".add-item-price").val()).toFixed(2);
     var menuCategory = $(categoryItems).parent();
     var menuCategoryId = $(menuCategory).data("menucategoryid");
 

@@ -52,6 +52,7 @@ export class AdminPastBillsComponent implements OnInit {
     var day = newDate.getDate();
     var hours = newDate.getHours();
     var minutes = newDate.getMinutes();
+    var dd;
 
     if (day < 10) {
       var dayString = day.toString();

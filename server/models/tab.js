@@ -61,17 +61,15 @@ module.exports.getActiveTabsByVenueId = function (venueId, callback){
 };
 
 // Get venue past tabs
-module.exports.getPassedTabsByVenueId = function (venueId, callback){
+module.exports.getPastTabsByVenueId = function (venueId, callback){
   Tab.find({
     venueId : venueId,
     closedAt: { $ne: null }
   }).populate('userId').populate('items').exec(callback);
 };
 
-
 //Add item to item array on tab
 module.exports.addItemToTab = function (data, callback) {
-
   Tab.findByIdAndUpdate(data.tabId,
     {$push: {items: data.itemId}},
     {safe: true, upsert: false},
@@ -79,8 +77,6 @@ module.exports.addItemToTab = function (data, callback) {
       if (err) console.log(err);
     }
   );
-
-
 };
 
 //Remove an item to item array on tab
@@ -93,8 +89,6 @@ module.exports.removeItemFromTab = function (data, callback) {
       //console.log(data);
     }
   );
-
-
 };
 
 

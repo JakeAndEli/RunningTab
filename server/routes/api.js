@@ -319,7 +319,6 @@ router.post('/addItems', function (req, res) {
   })
 });
 
-
 // Add an item to a tab
 router.post('/addToTab/:tab/:item', function (req, res) {
   var id = req.params.tab;
@@ -363,11 +362,10 @@ router.post('/adminCloseTab', function (req, res) {
       });
     }
   });
-
 });
 
 
-//Add tip and total to tab
+// Add tip and total to Tab
 router.post('/userCloseTab', function (req,res) {
   var id = req.body.tabId;
   var tip = req.body.tip;
@@ -390,9 +388,7 @@ router.post('/userCloseTab', function (req,res) {
       });
     }
   });
-
 });
-
 
 // Get all Tabs for venueId
 router.get('/tabs/:venueId', function (req, res) {
@@ -410,7 +406,7 @@ router.get('/tabs/:venueId', function (req, res) {
 router.get('/tabs/closed/:venueId', function (req, res) {
   var venueId = req.params.venueId;
 
-  Tab.getPassedTabsByVenueId(venueId, (err, tabs) => {
+  Tab.getPastTabsByVenueId(venueId, (err, tabs) => {
     if (err) throw err;
     else {
       res.json({tabs: tabs});
