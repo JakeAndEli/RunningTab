@@ -30,7 +30,6 @@ export class AdminService {
   }
 
   addItemsToTab(data) {
-    console.log(data);
     return this.http.post('/api/addItems', data)
   }
 

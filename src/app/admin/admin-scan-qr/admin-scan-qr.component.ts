@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { Result } from '@zxing/library';
 import { AdminService } from '../../services/admin.service';
+import {AuthenticationService} from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-admin-scan-qr',
@@ -22,28 +23,33 @@ export class AdminScanQRComponent implements OnInit {
   lookingForUser:boolean;
   fullName:String;
 
-  constructor(private adminService : AdminService) {}
+  constructor(private adminService : AdminService,
+              private authService : AuthenticationService) {}
 
   ngOnInit() {
-    this.scanner.camerasFound.subscribe((devices:MediaDeviceInfo[]) => {
+    this.authService.getAdminScanQR().subscribe(
+      (data: any) => {
+        this.scanner.camerasFound.subscribe((devices:MediaDeviceInfo[]) => {
 
-      // Selects the devices's back camera by default
-      for (const device of devices) {
-        if (/back|rear|environment/gi.test(device.label)) {
-          this.hasDevices = true;
-          this.scanner.changeDevice(device);
-          this.currentDevice = device;
-          this.scannerEnabled = true;
-          break;
-        } else {
-          this.hasDevices = false;
-        }
+          // Selects the devices's back camera by default
+          for (const device of devices) {
+            if (/back|rear|environment/gi.test(device.label)) {
+              this.hasDevices = true;
+              this.scanner.changeDevice(device);
+              this.currentDevice = device;
+              this.scannerEnabled = true;
+              break;
+            } else {
+              this.hasDevices = false;
+            }
+          }
+        });
+
+        this.scanner.camerasNotFound.subscribe(() => this.hasDevices = false);
+        this.scanner.scanComplete.subscribe((result:Result) => this.qrResult = result);
+        this.scanner.permissionResponse.subscribe((perm:boolean) => this.hasPermission = perm);
       }
-    });
-
-    this.scanner.camerasNotFound.subscribe(() => this.hasDevices = false);
-    this.scanner.scanComplete.subscribe((result:Result) => this.qrResult = result);
-    this.scanner.permissionResponse.subscribe((perm:boolean) => this.hasPermission = perm);
+    )
   }
 
   handleQrCodeResult(resultString:string) {

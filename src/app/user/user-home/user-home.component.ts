@@ -16,7 +16,6 @@ export class UserHomeComponent implements OnInit {
   constructor(private authService : AuthenticationService) { }
 
   ngOnInit() {
-    // Authenticate
     this.authService.getUserHome().subscribe(
       (data: any) => {
         var user = JSON.parse(localStorage.getItem("user"));

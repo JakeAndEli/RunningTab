@@ -30,7 +30,7 @@
       </div>
     </div>
   </div>
-  <div id="add-item-pop-up" class="hide">
+  <div *ngIf="showPopUpHTML" id="add-item-pop-up">
     <div id="pop-up-header" class="container">
       <a id="back-button" (click)="handleBackButtonClick()">
         <img src="assets/images/back.png" />

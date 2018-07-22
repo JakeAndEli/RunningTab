@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-user-account-management',
@@ -15,14 +16,19 @@ export class UserAccountManagementComponent implements OnInit {
   public newPassword: String;
   public confirmPassword: String;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService,
+              private router: Router,
+              private authService : AuthenticationService) {
   }
 
   ngOnInit() {
-
-    var user = JSON.parse(localStorage.getItem("user"));
-    this.username = user.username;
-    this.fullName = user.fullName;
+    this.authService.getUserAccountManagement().subscribe(
+      (data: any) => {
+        var user = JSON.parse(localStorage.getItem("user"));
+        this.username = user.username;
+        this.fullName = user.fullName;
+      }
+    )
   }
 
   changePassword() {

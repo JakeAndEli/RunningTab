@@ -3,7 +3,6 @@ import { AuthenticationService } from '../../services/authenticate.service';
 import { MenuService } from '../../services/menu.service';
 import { AdminService } from '../../services/admin.service';
 import * as $ from 'jquery';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-open-bills',
@@ -16,19 +15,22 @@ export class AdminOpenBillsComponent implements OnInit {
   private tabs;
   private categories;
   private currentTabId;
+  private showPopUpHTML;
 
-  private tempItems = [];
+  private tempItems;
 
   constructor(private authService : AuthenticationService,
               private adminService : AdminService,
-              private menuService : MenuService,
-              private router: Router) {}
+              private menuService : MenuService) {}
 
   ngOnInit() {
-    // Authenticate and then get Tabs
-    this.authService.getAdminHome().subscribe(
+
+    this.authService.getAdminOpenBills().subscribe(
       (data: any) => {
         if(data.success) {
+          this.tempItems = [];
+          this.showPopUpHTML = false;
+
           this.adminService.getActiveTabs().subscribe(
             (data:any) => {
               this.tabs = data.tabs;
@@ -36,20 +38,19 @@ export class AdminOpenBillsComponent implements OnInit {
               //this.organizeTabs();
               this.findTotals();
             }
-          )
+          );
+          this.menuService.getFullMenu().subscribe(
+            (data: any) => {
+              if(data.success) {
+                this.categories = data.venue[0].menuId.menuCategoryId;
+              }
+            }
+          );
+
+          this.setClickHandlers();
         }
       }
     );
-
-    this.menuService.getFullMenu().subscribe(
-      (data: any) => {
-        if(data.success) {
-          this.categories = data.venue[0].menuId.menuCategoryId;
-        }
-      }
-    );
-
-    this.setClickHandlers();
   }
 
   // Might eventually be used to group items so that they could say "x2 or x3"
@@ -144,7 +145,7 @@ export class AdminOpenBillsComponent implements OnInit {
 
   showPopUp(event) : void {
     this.currentTabId = $(event.target).closest(".tab-cont").attr("data-tabid");
-    $("#add-item-pop-up").removeClass("hide");
+    this.showPopUpHTML = true;
   }
 
   showItemsForCategory(category) : void{
@@ -251,7 +252,8 @@ export class AdminOpenBillsComponent implements OnInit {
   }
 
   exitPopUp() : void {
-    $("#add-item-pop-up").addClass("hide");
+    this.showPopUpHTML = false;
+    this.tempItems = [];
     $("#category-holder").removeClass("hide");
     $("#item-holder").addClass("hide");
     $(".add-item-cont").addClass("hide");

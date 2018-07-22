@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import * as $ from 'jquery';
+import { AuthenticationService } from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-user-tabs',
@@ -15,15 +16,19 @@ export class UserTabsComponent implements OnInit {
   private tipAmount;
   private totalAfterTip;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private authService : AuthenticationService) {}
 
   ngOnInit() {
-
-    this.userService.getActiveTabs().subscribe(
+    this.authService.getUserTabs().subscribe(
       (data: any) => {
-        this.tabs = data.tabs;
-        this.formatDate();
-        this.findTotals();
+        this.userService.getActiveTabs().subscribe(
+          (data: any) => {
+            this.tabs = data.tabs;
+            this.formatDate();
+            this.findTotals();
+          }
+        );
       }
     );
 
@@ -34,7 +39,9 @@ export class UserTabsComponent implements OnInit {
     var thisClass = this;
     $(window).click(function(event){
       var tipPopUp = document.getElementById("tip-pop-up-cont");
-      var tipPopUpRow = tipPopUp.querySelector(".row");
+      if(tipPopUp) {
+        var tipPopUpRow = tipPopUp.querySelector(".row");
+      }
       if(event.target == tipPopUp || event.target == tipPopUpRow) {
         thisClass.currentTabBeingClosed = false;
       }
@@ -125,14 +132,18 @@ export class UserTabsComponent implements OnInit {
   }
 
   closeTab(tabId): void {
-
+    var totalBeforeTip = $(".total-before-tip-amount").text();
+    var tipAmount = $(".add-tip-amount").text();
     var data ={
-      tabId : tabId
+      tabId : tabId,
+      total: totalBeforeTip,
+      tip: tipAmount
     };
     this.userService.closeTab(data).subscribe(
       (data: any) => {
         if (data.success === true) {
-          $(".tab-cont").find(`[data-tabid='${tabId}']`).remove();
+          $("#user-tabs-cont").find(`[data-tabid='${tabId}']`).remove();
+          this.currentTabBeingClosed = false;
         } else {
          return;
         }

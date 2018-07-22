@@ -349,23 +349,16 @@ router.post('/adminCloseTab', function (req, res) {
     tabId : id,
     total : total
   };
-  Tab.closeTab(id, (err) => {
-    if(err) throw err;
-    else {
-      Tab.addTotal(tab, (err) => {
-        if(err) throw err;
-        else {
-          res.json({
-            success:true
-          });
-        }
+  Tab.closeTab(id, () => {
+    Tab.addTotal(tab, () => {
+      res.json({
+        success:true
       });
-    }
+    });
   });
 });
 
-
-// Add tip and total to Tab
+// Add tip and total to Tab and close it
 router.post('/userCloseTab', function (req,res) {
   var id = req.body.tabId;
   var tip = req.body.tip;
@@ -375,18 +368,12 @@ router.post('/userCloseTab', function (req,res) {
     tip : tip,
     total : total
   };
-  Tab.closeTab(id,(err) =>{
-    if (err) throw err;
-    else {
-      Tab.addTipAndTotal(tab,(err) =>{
-        if (err) throw err;
-        else {
-          res.json({
-            success:true
-          });
-        }
+  Tab.closeTab(id, () => {
+    Tab.addTipAndTotal(tab, () => {
+      res.json({
+        success:true
       });
-    }
+    });
   });
 });
 

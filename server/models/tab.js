@@ -74,29 +74,27 @@ module.exports.addItemToTab = function (data, callback) {
     {$push: {items: data.itemId}},
     {safe: true, upsert: false},
     function (err, data) {
-      if (err) console.log(err);
+      if (err) throw err;
     }
   );
 };
 
-//Remove an item to item array on tab
+// Remove an item from item array on tab
 module.exports.removeItemFromTab = function (data, callback) {
   Tab.findByIdAndUpdate(data.tabId,
     {$pull: {items: data.itemId}},
     {safe: true, upsert: false},
     function (err, data) {
       if (err) console.log(err);
-      //console.log(data);
     }
   );
 };
-
 
 //Set closed at date to current time
 module.exports.closeTab = function (id, callback) {
   Tab.findByIdAndUpdate(id,
     {closedAt: Date.now()},
-    {safe: true, upsert: false},
+    {safe: true},
     function (err, data) {
       if (err) console.log(err);
       callback();
@@ -108,9 +106,9 @@ module.exports.closeTab = function (id, callback) {
 module.exports.addTotal = function (data, callback) {
   Tab.findByIdAndUpdate(data.tabId,
     {total: data.total},
-    {safe: true, upsert: false},
+    {safe: true},
     function (err, data) {
-      if (err) console.log(err);
+      if (err) throw err;
       callback();
     }
   );
@@ -119,11 +117,10 @@ module.exports.addTotal = function (data, callback) {
 //Add total and tip to bill once closed
 module.exports.addTipAndTotal = function (data, callback) {
   Tab.findByIdAndUpdate(data.tabId,
-    {total: data.total},
-    {tip: data.tip},
-    {safe: true, upsert: false},
+    {total: data.total, tip: data.tip},
+    {safe: true},
     function (err, data) {
-      if (err) console.log(err);
+      if (err) throw err;
       callback();
     }
   );

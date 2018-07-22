@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 import * as $ from 'jquery';
+import { AuthenticationService } from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-admin-past-bills',
@@ -10,27 +11,25 @@ import * as $ from 'jquery';
 export class AdminPastBillsComponent implements OnInit {
   private tabs;
 
-  constructor(private adminService:AdminService) {
+  constructor(private adminService:AdminService,
+              private authService : AuthenticationService) {
   }
 
   ngOnInit() {
-    $(document).ready(function () {
-      $(".arrow").click(function () {
+    this.authService.getAdminPastBills().subscribe(
+      (data: any) => {
+        this.adminService.getPastTabs().subscribe(
+          (data:any) => {
+            this.tabs = data.tabs;
 
-      });
-    });
-
-
-    this.adminService.getPastTabs().subscribe(
-      (data:any) => {
-        this.tabs = data.tabs;
-
-        for (var i = 0; i < this.tabs.length; i++) {
-          var openedAt = this.formatDate(this.tabs[i].openedAt);
-          var closedAt = this.formatDate(this.tabs[i].closedAt);
-          this.tabs[i].openedAt = openedAt;
-          this.tabs[i].closedAt = closedAt;
-        }
+            for (var i = 0; i < this.tabs.length; i++) {
+              var openedAt = this.formatDate(this.tabs[i].openedAt);
+              var closedAt = this.formatDate(this.tabs[i].closedAt);
+              this.tabs[i].openedAt = openedAt;
+              this.tabs[i].closedAt = closedAt;
+            }
+          }
+        );
       }
     );
   }

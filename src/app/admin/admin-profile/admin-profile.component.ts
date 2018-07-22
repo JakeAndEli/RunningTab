@@ -14,22 +14,23 @@ export class AdminProfileComponent implements OnInit {
   private venueTownCity: String;
   private venueState: String;
 
-  constructor(private adminService: AdminService) {
-  }
-
-  getVenue() {
-    this.adminService.getVenueInfo().subscribe(
-      (data: any) => {
-        console.log(data);
-        this.venueName = data.venue.venueName;
-        this.venueTownCity = data.venue.venueTownCity;
-        this.venueState = data.venue.venueState;
-      }
-    );
+  constructor(private adminService: AdminService,
+              private authService : AuthenticationService) {
   }
 
   ngOnInit() {
-    this.getVenue();
+    this.authService.getAdminProfile().subscribe(
+      (data: any) => {
+        this.adminService.getVenueInfo().subscribe(
+          (data: any) => {
+            console.log(data);
+            this.venueName = data.venue.venueName;
+            this.venueTownCity = data.venue.venueTownCity;
+            this.venueState = data.venue.venueState;
+          }
+        );
+      }
+    )
   }
 
 }

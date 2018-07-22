@@ -23,7 +23,31 @@ app.get('/user-home', passport.authenticate('jwt', {session: false}), function(r
   res.json({success: true});
 });
 
+app.get('/user-tabs', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.json({success: true});
+});
+
+app.get('/user-account-management', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.json({success: true});
+});
+
 app.get('/admin-open-bills', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.json({success: true});
+});
+
+app.get('/admin-past-bills', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.json({success: true});
+});
+
+app.get('/admin-scan-qr', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.json({success: true});
+});
+
+app.get('/admin-menu', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.json({success: true});
+});
+
+app.get('/admin-profile', passport.authenticate('jwt', {session: false}), function(req, res) {
   res.json({success: true});
 });
 

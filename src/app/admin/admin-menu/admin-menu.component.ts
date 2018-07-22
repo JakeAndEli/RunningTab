@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { MenuService } from '../../services/menu.service';
+import { AuthenticationService } from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-admin-menu',
@@ -15,18 +16,21 @@ export class AdminMenuComponent implements OnInit {
   private newCategoryDialogues = [];
   private newItemDialogues = {};
 
-  constructor(private menuService : MenuService) {}
+  constructor(private menuService : MenuService,
+              private authService : AuthenticationService) {}
 
   ngOnInit() {
-
-    this.menuService.getFullMenu().subscribe(
+    this.authService.getAdminMenu().subscribe(
       (data: any) => {
-        this.menuId = data.venue[0].menuId._id;
-        this.menuCategories = data.venue[0].menuId.menuCategoryId;
-        this.initializeArraysForHTML();
+        this.menuService.getFullMenu().subscribe(
+          (data: any) => {
+            this.menuId = data.venue[0].menuId._id;
+            this.menuCategories = data.venue[0].menuId.menuCategoryId;
+            this.initializeArraysForHTML();
+          }
+        );
       }
-    );
-
+    )
   }
 
   initializeArraysForHTML() : void {
