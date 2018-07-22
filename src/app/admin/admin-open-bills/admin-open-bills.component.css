@@ -104,6 +104,7 @@
 .container #add-item-pop-up .container #selectors #category-holder .my-col {
   padding-right: 5px;
   padding-left: 5px;
+  padding-bottom: 10px;
 }
 .container #add-item-pop-up .container #selectors #category-holder .my-col .category-cont {
   background: dodgerblue;
@@ -120,6 +121,7 @@
 .container #add-item-pop-up .container #selectors #item-holder .my-col {
   padding-right: 5px;
   padding-left: 5px;
+  padding-bottom: 10px;
 }
 .container #add-item-pop-up .container #selectors #item-holder .my-col .add-item-cont {
   background: dodgerblue;
