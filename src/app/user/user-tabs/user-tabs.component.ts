@@ -134,7 +134,7 @@ export class UserTabsComponent implements OnInit {
   closeTab(tabId): void {
     var totalBeforeTip = $(".total-before-tip-amount").text();
     var tipAmount = $(".add-tip-amount").text();
-    var data ={
+    var data = {
       tabId : tabId,
       total: totalBeforeTip,
       tip: tipAmount

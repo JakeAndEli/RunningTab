@@ -345,12 +345,14 @@ router.post('/removeItemFromTab/:tab/item/:item', function (req, res) {
 router.post('/adminCloseTab', function (req, res) {
   var id = req.body.tabId;
   var total = req.body.total;
+  var tip = req.body.tip;
   var tab ={
     tabId : id,
-    total : total
+    total : total,
+    tip: tip
   };
   Tab.closeTab(id, () => {
-    Tab.addTotal(tab, () => {
+    Tab.addTipAndTotal(tab, () => {
       res.json({
         success:true
       });

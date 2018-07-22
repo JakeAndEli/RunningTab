@@ -27,11 +27,14 @@ export class AdminPastBillsComponent implements OnInit {
               var closedAt = this.formatDate(this.tabs[i].closedAt);
               this.tabs[i].openedAt = openedAt;
               this.tabs[i].closedAt = closedAt;
+              this.tabs[i].total = (parseFloat(this.tabs[i].total)).toFixed(2);
+              this.tabs[i].tip = (parseFloat(this.tabs[i].tip)).toFixed(2);
+              this.tabs[i].totalAfterTip = ((this.tabs[i].total * 1) + (this.tabs[i].tip * 1)).toFixed(2);
             }
           }
         );
       }
-    );
+    )
   }
 
   toggleArrow(event) : void{
@@ -45,7 +48,6 @@ export class AdminPastBillsComponent implements OnInit {
 
   formatDate(date):String {
     var newDate = new Date(date);
-
     var year = newDate.getFullYear().toString();
     var month = newDate.getMonth() + 1;
     var day = newDate.getDate();

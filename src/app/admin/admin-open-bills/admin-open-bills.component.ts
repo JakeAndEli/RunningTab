@@ -201,7 +201,8 @@ export class AdminOpenBillsComponent implements OnInit {
 
     var data = {
       tabId: tabId,
-      total: total
+      total: total,
+      tip: 0
     };
 
     this.adminService.closeTab(data).subscribe(
