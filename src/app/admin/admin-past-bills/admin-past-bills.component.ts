@@ -30,6 +30,7 @@ export class AdminPastBillsComponent implements OnInit {
           var closedAt = this.formatDate(this.tabs[i].closedAt);
           this.tabs[i].openedAt = openedAt;
           this.tabs[i].closedAt = closedAt;
+          this.tabs[i].subTotal = this.tabs[i].total = this.tabs[i].tip;
         }
       }
     );
