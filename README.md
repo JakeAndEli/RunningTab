@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Building and Running the application
 
-This application runs using a Node.js server. You will need to download and install Node.js. For instructions on downloading and install Node.js on Windows, visit the following link: https://nodesource.com/blog/installing-nodejs-tutorial-windows/
+This application runs using a Node.js server. You will need to download and install Node.js. For instructions on downloading and installing Node.js on Windows, visit the following link: https://nodesource.com/blog/installing-nodejs-tutorial-windows/
 
 Once Node.js has been downloaded, you will need to run `npm install` from the top level directory of the application to import all of the node modules.
 
